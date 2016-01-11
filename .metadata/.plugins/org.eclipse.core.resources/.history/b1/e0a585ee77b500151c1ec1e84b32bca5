@@ -1,0 +1,97 @@
+/*
+ * VMMemory.cpp
+ *
+ *  Created on: 6 janv. 2016
+ *      Author: jbapt
+ */
+#include "VMMemory.h"
+
+
+
+
+unsigned long *debugFrameMarker = (unsigned long *)0x1001B633;
+unsigned long *MEM_anyCompiledMethodInFromSpace     = (unsigned long *)0x10041710;
+unsigned long *MEM_checkNewNativizedCompiledMethods = (unsigned long *)0x10041714;
+unsigned long *MEM_polymorphicMethodCacheReferesToNewCM = (unsigned long *)0x1003EC48;
+unsigned long **MEM_JIT_globalMethodCache = (unsigned long **)0x1002EC20;
+unsigned long *MEM_JIT_codeCachePointer      = (unsigned long*)0x1002E820;
+unsigned long *MEM_globalFramePointerToWalkStack = (unsigned long*)0x100407C4;
+unsigned long *nil                        = (unsigned long*)0x10026060;
+unsigned long *stTrue                     = (unsigned long*)0x10026070;
+unsigned long *stFalse                    = (unsigned long*)0x10026080;
+
+unsigned long memoryAt(unsigned long pointer){}
+void memoryAtPut(unsigned long * pointer, unsigned long value){}
+
+//SendInliner
+
+ulong * mockHNil(){
+	// nil 00 45 34 61 10 DC 0D 0A
+	//nil_hdr Object <0, 3445h, \             ; DATA XREF: GC_full+E3?o
+	// .data:10026058                                         ; sub_10010E40+33?w
+	// .data:10026058         ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,\
+	// .data:10026058         offset unk_A0DDC10>
+	ulong * nil;
+	nil[0] = 0x00453461;
+	nil[1] = 0x10DC0D0A;
+	return nil;
+}
+
+ulong * mockHTrue(){
+	// true 00 00 00 61 A0 6B 0B 0A
+	//true_hdr Object <0, 0, ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,
+	// offset unk_A0B6BA0>
+	ulong * stTrue;
+	stTrue[0] = 0x00000061;
+	stTrue[1] =  0xA06B0B0A;
+	return stTrue;
+}
+
+ulong * mockHArray(){
+	// Array new: 3
+	// 03 F8 37 01 F0 92 07 0A
+	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
+	// 12:10has 3 slots
+	ulong (* stArray)[2];
+	stArray[0] = (ulong) 0x03F83701;
+	stArray[1] =  (ulong) 0xF092070A;
+	return stArray;
+}
+
+
+ulong _basicAt(ulong * object, int index){
+return object[index-1];
+}
+
+void _basicAtPut(ulong * object, int index, ulong value)
+{
+	object[index-1] = value;
+}
+
+ulong _basicSetSize(ulong *object, ulong size)
+{
+	header_t * h = HEADER_OF(object);
+	h->size = size;
+}
+
+
+bool _isProxy(ulong *object){}
+ulong * _proxee(ulong *object){}
+ulong _size(ulong *object){}
+void _beNotInRememberedSet(ulong *object){}
+ulong * _asObject(ulong * object){}
+ulong * _asPointer(ulong object){}
+ulong _basicSize(ulong *object, ulong size){}
+ulong _beExtended(ulong *object){}
+
+ulong _decommit(ulong limit, ulong delta){}
+ulong _extendedSize(ulong *object, ulong size){}
+ulong _sizeInBytes(ulong *object){}
+ulong _headerSizeInBytes(ulong *object){}
+ulong _framePointer(){}
+bool isArray(ulong *object){}
+ulong size(ulong *object){};
+ulong asOop(ulong *object){};
+ulong oop(ulong *object){};
+
+

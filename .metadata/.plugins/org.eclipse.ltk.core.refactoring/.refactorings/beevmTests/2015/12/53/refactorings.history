@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;beevmTests/src/Test.cpp&apos; to &apos;VMArrayTests.cpp&apos;" description="Rename resource &apos;Test.cpp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Test.cpp" name="VMArrayTests.cpp" stamp="1451482550084" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;beevmTests/src&apos; to &apos;DataStructures&apos;" description="Rename resource &apos;src&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src" name="DataStructures" stamp="1451490142382" updateReferences="true"/>
+</session>

@@ -1,0 +1,41 @@
+/*
+ * GCSpaceInfo.h
+ *
+ *  Created on: 4 janv. 2016
+ *      Author: jbapt
+ */
+
+#ifndef GCSPACEINFO_H_
+#define GCSPACEINFO_H_
+
+namespace Bee {
+class GCSpaceInfo {
+protected:
+	short * contents;
+	ulong at(ulong);
+	void atPut(ulong, ulong);
+
+public:
+	ulong * base();
+	void base(ulong *);
+	ulong * base_3();
+	void base_3(ulong *);
+	ulong * commitedLimit();
+	void commitedLimit(ulong *);
+	void setContents(ulong *);
+	ulong * nextFree();
+	void nextFree(ulong *);
+	ulong * reservedLimit();
+	void reservedLimit(ulong *);
+	ulong * softLimit();
+	void softLimit(ulong *);
+
+	static ulong sizeInBytes = 24;
+	static GCSpaceInfo currentTo();
+	static GCSpaceInfo currentFrom();
+	static GCSpaceInfo old();
+};
+
+}
+
+#endif /* GCSPACEINFO_H_ */

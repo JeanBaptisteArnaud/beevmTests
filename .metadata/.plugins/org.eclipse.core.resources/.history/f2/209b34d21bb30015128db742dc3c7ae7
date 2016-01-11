@@ -1,0 +1,133 @@
+#include "../DataStructures/GCSpaceInfo.h"
+#include "cute.h"
+#include "cute_suite.h"
+extern cute::suite make_suite_GCSpaceInfoTest();
+
+using namespace Bee;
+using namespace std;
+
+// File myclassTest.h
+
+using namespace Bee;
+
+void atTests() {
+	GCSpaceInfo mock = GCSpaceInfo::mockForTest();
+	ASSERTM("size", mock.sizeInBytes == 24);
+	for (unsigned long value = 0; value < 18446744073709551615; value++) {
+		mock.atPut(0, value);
+		ostringstream ostr;
+		ostr << "v:";
+		ostr << value;
+		ostr << " readV:";
+		ostr << mock.at(0);
+		ostr << "SR:";
+		ostr << mock.shortAt(0);
+		ostr << "SRé:";
+		ostr << mock.shortAt(1);
+		ASSERTM(ostr.str(), mock.at(0) == value);
+	}
+	mock.freeMock();
+}
+
+void base_3Tests() {
+	GCSpaceInfo mock = GCSpaceInfo::mockForTest();
+	ASSERTM("size", mock.sizeInBytes == 24);
+	for (unsigned long value = 0; value < 18446744073709551615; value++) {
+		mock.base_3(value);
+		ostringstream ostr;
+		ostr << "commitedLimit v:";
+		ostr << value;
+		ostr << " readV:";
+		ostr << mock.base_3();
+		ASSERTM(ostr.str(), mock.base_3() == value);
+	}
+	mock.freeMock();
+}
+
+void commitedLimitTests() {
+	GCSpaceInfo mock = GCSpaceInfo::mockForTest();
+	ASSERTM("size", mock.sizeInBytes == 24);
+	for (unsigned long value = 0; value < 18446744073709551615; value++) {
+		mock.commitedLimit(value);
+		ostringstream ostr;
+		ostr << "commitedLimit v:";
+		ostr << value;
+		ostr << " readV:";
+		ostr << mock.commitedLimit();
+		ASSERTM(ostr.str(), mock.commitedLimit() == value);
+	}
+	mock.freeMock();
+}
+
+void nextFreeTests() {
+	GCSpaceInfo mock = GCSpaceInfo::mockForTest();
+	ASSERTM("size", mock.sizeInBytes == 24);
+	for (unsigned long value = 0; value < 18446744073709551615; value++) {
+		mock.nextFree(value);
+		ostringstream ostr;
+		ostr << "nextFree v:";
+		ostr << value;
+		ostr << " readV:";
+		ostr << mock.nextFree();
+		ASSERTM(ostr.str(), mock.nextFree() == value);
+	}
+	mock.freeMock();
+}
+
+void reservedLimitTests() {
+	GCSpaceInfo mock = GCSpaceInfo::mockForTest();
+	ASSERTM("size", mock.sizeInBytes == 24);
+	for (unsigned long value = 0; value < 18446744073709551615; value++) {
+		mock.reservedLimit(value);
+		ostringstream ostr;
+		ostr << "reservedLimit v:";
+		ostr << value;
+		ostr << " readV:";
+		ostr << mock.reservedLimit();
+		ASSERTM(ostr.str(), mock.reservedLimit() == value);
+	}
+	mock.freeMock();
+}
+
+void softLimitTests() {
+	GCSpaceInfo mock = GCSpaceInfo::mockForTest();
+	ASSERTM("size", mock.sizeInBytes == 24);
+	for (unsigned long value = 0; value < 18446744073709551615; value++) {
+		mock.softLimit(value);
+		ostringstream ostr;
+		ostr << "softLimit v:";
+		ostr << value;
+		ostr << " readV:";
+		ostr << mock.softLimit();
+		ASSERTM(ostr.str(), mock.softLimit() == value);
+	}
+	mock.freeMock();
+}
+
+void baseTests() {
+	GCSpaceInfo mock = GCSpaceInfo::mockForTest();
+	ASSERTM("size", mock.sizeInBytes == 24);
+	for (unsigned long value = 0; value < 18446744073709551615; value++) {
+		mock.base(value);
+		ostringstream ostr;
+		ostr << "base v:";
+		ostr << value;
+		ostr << " readV:";
+		ostr << mock.base();
+		ASSERTM(ostr.str(), mock.base() == value);
+	}
+	mock.freeMock();
+}
+
+cute::suite make_suite_GCSpaceInfoTest() {
+	cute::suite s;
+	s.push_back(CUTE(atTests));
+	//s.push_back(CUTE(baseTests));
+	//s.push_back(CUTE(softLimitTests));
+	//s.push_back(CUTE(reservedLimitTests));
+	//s.push_back(CUTE(commitedLimitTests));
+	//s.push_back(CUTE(nextFreeTests));
+	//s.push_back(CUTE(base_3Tests));
+	return s;
+}
+

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;boost_unit_test_framework-vc90-1_41.dll&apos; to &apos;test&apos;" description="Move &apos;boost_unit_test_framework-vc90-1_41.dll&apos; to &apos;test&apos;" destination="/test" element1="test_demo/windows/boost_unit_test_framework-vc90-1_41.dll" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1451418096616" updateReferences="true"/>
+</session>

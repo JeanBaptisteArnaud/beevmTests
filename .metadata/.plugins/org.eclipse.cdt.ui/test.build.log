@@ -1,0 +1,88 @@
+16:44:54 **** Incremental Build of configuration Debug for project test ****
+Info: Internal Builder is used for build
+g++ -o test.exe "test_demo\\src\\boost_test_demo\\boost_test_demo.o" 
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `Z14init_unit_testv':
+C:/local/boost_1_60_0/boost/test/unit_test_suite.hpp:346: undefined reference to `_imp___ZN5boost9unit_test9framework17master_test_suiteEv'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `main':
+C:/local/boost_1_60_0/boost/test/unit_test.hpp:63: undefined reference to `_imp___ZN5boost9unit_test14unit_test_mainEPFbvEiPPc'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `testShouldPass_invoker':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:18: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:18: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:18: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN14testShouldPass11test_methodEv':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:22: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:22: undefined reference to `_imp___ZN5boost10test_tools9tt_detail16report_assertionERKNS0_16assertion_resultERKNS_9unit_test12lazy_ostreamENS5_13basic_cstringIKcEEjNS1_10tool_levelENS1_10check_typeEjz'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `testShouldWarnAndFail_invoker':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:25: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:25: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:25: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN21testShouldWarnAndFail11test_methodEv':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:27: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:27: undefined reference to `_imp___ZN5boost10test_tools9tt_detail16report_assertionERKNS0_16assertion_resultERKNS_9unit_test12lazy_ostreamENS5_13basic_cstringIKcEEjNS1_10tool_levelENS1_10check_typeEjz'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:28: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:28: undefined reference to `_imp___ZN5boost10test_tools9tt_detail16report_assertionERKNS0_16assertion_resultERKNS_9unit_test12lazy_ostreamENS5_13basic_cstringIKcEEjNS1_10tool_levelENS1_10check_typeEjz'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `testInTestSuiteShouldWarnAndFail_invoker':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:33: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:33: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:33: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN13MainTestSuite32testInTestSuiteShouldWarnAndFail11test_methodEv':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:39: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:39: undefined reference to `_imp___ZN5boost10test_tools9tt_detail16report_assertionERKNS0_16assertion_resultERKNS_9unit_test12lazy_ostreamENS5_13basic_cstringIKcEEjNS1_10tool_levelENS1_10check_typeEjz'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:40: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:40: undefined reference to `_imp___ZN5boost10test_tools9tt_detail16report_assertionERKNS0_16assertion_resultERKNS_9unit_test12lazy_ostreamENS5_13basic_cstringIKcEEjNS1_10tool_levelENS1_10check_typeEjz'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `testInTestSuiteShouldFail_invoker':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:43: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:43: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:43: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN13MainTestSuite25testInTestSuiteShouldFail11test_methodEv':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:45: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:45: undefined reference to `_imp___ZN5boost10test_tools9tt_detail16report_assertionERKNS0_16assertion_resultERKNS_9unit_test12lazy_ostreamENS5_13basic_cstringIKcEEjNS1_10tool_levelENS1_10check_typeEjz'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `testInTestSuiteShouldPass_invoker':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:48: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:48: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:48: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN13MainTestSuite25testInTestSuiteShouldPass11test_methodEv':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:52: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:52: undefined reference to `_imp___ZN5boost10test_tools9tt_detail16report_assertionERKNS0_16assertion_resultERKNS_9unit_test12lazy_ostreamENS5_13basic_cstringIKcEEjNS1_10tool_levelENS1_10check_typeEjz'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `testWithoutCheckAssertions_invoker':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:59: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:59: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:59: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `test_againWithoutAssertions_invoker':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:63: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:63: undefined reference to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_'
+test_demo\src\boost_test_demo\boost_test_demo.o:D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:63: more undefined references to `_imp___ZN5boost9unit_test15unit_test_log_t14set_checkpointENS0_13basic_cstringIKcEEjS4_' follow
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN19AdditionalTestSuite16AnotherTestSuite26testCaseInAnotherTestSuite11test_methodEv':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:73: undefined reference to `_imp___ZN5boost10test_tools9tt_detail16report_assertionERKNS0_16assertion_resultERKNS_9unit_test12lazy_ostreamENS5_13basic_cstringIKcEEjNS1_10tool_levelENS1_10check_typeEjz'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `_static_initialization_and_destruction_0':
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:18: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1EPNS0_9test_caseERNS0_9decorator9collectorEm'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:25: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1EPNS0_9test_caseERNS0_9decorator9collectorEm'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:31: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1ENS0_13basic_cstringIKcEES5_jRNS0_9decorator9collectorE'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:33: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1EPNS0_9test_caseERNS0_9decorator9collectorEm'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:43: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1EPNS0_9test_caseERNS0_9decorator9collectorEm'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:48: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1EPNS0_9test_caseERNS0_9decorator9collectorEm'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:55: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1Ei'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:57: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1ENS0_13basic_cstringIKcEES5_jRNS0_9decorator9collectorE'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:59: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1EPNS0_9test_caseERNS0_9decorator9collectorEm'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:63: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1EPNS0_9test_caseERNS0_9decorator9collectorEm'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:69: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1ENS0_13basic_cstringIKcEES5_jRNS0_9decorator9collectorE'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:71: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1EPNS0_9test_caseERNS0_9decorator9collectorEm'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:76: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1Ei'
+D:\CPPEnv\Workspace\test\Debug/../test_demo/src/boost_test_demo/boost_test_demo.cpp:78: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24auto_test_unit_registrarC1Ei'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN5boost9unit_test13test_observerD2Ev':
+C:/local/boost_1_60_0/boost/test/tree/observer.hpp:61: undefined reference to `_imp___ZTVN5boost9unit_test13test_observerE'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN5boost9unit_test13test_observerD1Ev':
+C:/local/boost_1_60_0/boost/test/tree/observer.hpp:61: undefined reference to `_imp___ZTVN5boost9unit_test13test_observerE'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN5boost9unit_test13test_observerC2Ev':
+C:/local/boost_1_60_0/boost/test/tree/observer.hpp:31: undefined reference to `_imp___ZTVN5boost9unit_test13test_observerE'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN5boost9unit_test15unit_test_log_tC1Ev':
+C:/local/boost_1_60_0/boost/test/unit_test_log.hpp:127: undefined reference to `_imp___ZTVN5boost9unit_test15unit_test_log_tE'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN5boost9unit_test14make_test_caseERKNS_8functionIFvvEEENS0_13basic_cstringIKcEES8_j':
+C:/local/boost_1_60_0/boost/test/tree/test_unit.hpp:249: undefined reference to `_imp___ZN5boost9unit_test9ut_detail24normalize_test_case_nameENS0_13basic_cstringIKcEE'
+C:/local/boost_1_60_0/boost/test/tree/test_unit.hpp:249: undefined reference to `_imp___ZN5boost9unit_test9test_caseC1ENS0_13basic_cstringIKcEES4_jRKNS_8functionIFvvEEE'
+test_demo\src\boost_test_demo\boost_test_demo.o: In function `ZN5boost9unit_test15unit_test_log_tD1Ev':
+C:/local/boost_1_60_0/boost/test/unit_test_log.hpp:88: undefined reference to `_imp___ZTVN5boost9unit_test15unit_test_log_tE'
+collect2.exe: error: ld returned 1 exit status
+
+16:44:55 Build Finished (took 290ms)
+

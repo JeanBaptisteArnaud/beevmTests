@@ -1,0 +1,49 @@
+/*
+ * GCSpace.h
+ *
+ *  Created on: 18 déc. 2015
+ *      Author: Arnaud Jean-Baptiste
+ */
+
+#ifndef GCSPACE_H_
+#define GCSPACE_H_
+#include "GCSpaceInfo.h"
+#include "VMMemory.h"
+
+namespace Bee {
+class GCSpace {
+protected:
+	GCSpaceInfo *info;
+	ulong base;
+	ulong nextFree;
+	ulong commitedLimit;
+	ulong reservedLimit;
+	ulong softLimit;
+public:
+	// accessor
+	ulong getBase();
+	ulong getNextFree();
+	ulong getCommitedLimit();
+	ulong getReservedLimit();
+	ulong getSoftLimit();
+
+
+	GCSpace();
+	void load(void);
+	bool includes(ulong * pointer);
+	void loadFrom(GCSpace from);
+	void reset();
+	ulong * allocate(ulong size);
+	void setInfo(GCSpaceInfo * pointer);
+	ulong* shallowCopy(ulong *pointer);
+	ulong getBase();
+	ulong * shallowCopyGrowing(ulong * array , ulong grow);
+	static GCSpace currentFrom();
+	static GCSpace currentTo();
+	static GCSpace old();
+	static GCSpace dynamicNew(ulong size);
+};
+
+}
+
+#endif /* GCSPACE_H_ */

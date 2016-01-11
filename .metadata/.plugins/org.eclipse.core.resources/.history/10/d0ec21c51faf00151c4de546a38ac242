@@ -1,0 +1,39 @@
+/*
+ * GCSpace.cpp
+ *
+ *  Created on: 18 déc. 2015
+ *      Author: Arnaud Jean-Baptiste
+ */
+
+#include "GCSpace.h"
+
+using namespace Bee;
+
+GCSpace::GCSpace() {
+}
+
+GCSpace GCSpace::dynamicNew(unsigned long size) {
+	GCSpace space = GCSpace();
+	space.info((unsigned long *) malloc(size));
+	return space;
+}
+
+unsigned long * shallowCopyGrowing(unsigned long * array, unsigned long initialSize, unsigned long newSize) {
+//	| headerSize total buffer copy |
+		unsigned long headerSize = 4;
+		unsigned long total = headerSize + newSize * 4;
+		unsigned long * buffer = this.allocate(total);
+		unsigned long * copy = buffer + 16; //_asPointer); // _asObject.
+		for(int index = -1; index <= initialSize; index++){
+			_basicAtPut(copy, index, (_basicAt(array, index)));
+		}
+
+		//copy
+		//	_beExtended;
+		//	_basicSize: 4;
+		//	_extendedSize: newSize;
+		//	_basicAt: -3 put: (copy _basicAt: -1).
+		//array _size + 1 to: newSize do: [:i | copy _basicAt: i put: nil].
+		//copy _beNotInRememberSet.
+		//^copy
+}

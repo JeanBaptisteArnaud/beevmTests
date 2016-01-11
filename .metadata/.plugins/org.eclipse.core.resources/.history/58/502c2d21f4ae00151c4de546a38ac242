@@ -1,0 +1,26 @@
+#include "cute.h"
+#include "ide_listener.h"
+#include "cute_runner.h"
+#include "VMMArray.h"
+
+// TODO #include the headers for the code you want to test
+
+// TODO Add your test functions
+
+void thisIsATest() {
+    ASSERTM("start writing tests", false);
+}
+
+void runSuite(){
+    cute::suite s;
+
+    // TODO push your tests onto s
+
+    s.push_back(CUTE(thisIsATest));
+    cute::ide_listener lis;
+    cute::makeRunner(lis)(s, "The Suite");
+}
+
+int main(){
+    runSuite();
+}

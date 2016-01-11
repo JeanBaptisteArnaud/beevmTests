@@ -1,0 +1,189 @@
+16:12:43 **** Incremental Build of configuration Debug for project hello!2 ****
+Info: Internal Builder is used for build
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -o "sr\\GenerationalGC.o" "..\\sr\\GenerationalGC.cpp" 
+..\sr\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeLiteralsReference()':
+..\sr\GenerationalGC.cpp:42:57: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < literalsReferences->size(); index = index + 2) {
+                                                         ^
+..\sr\GenerationalGC.cpp:43:11: error: cannot convert 'Bee::ReferencedVMArray' to 'long unsigned int*' in assignment
+   literal = literalsReferences[index];
+           ^
+..\sr\GenerationalGC.cpp:46:56: error: invalid cast from type 'Bee::ReferencedVMArray' to type 'long unsigned int'
+    offset = (unsigned long)literalsReferences[index + 1];
+                                                        ^
+..\sr\GenerationalGC.cpp:47:33: error: no match for 'operator=' (operand types are 'Bee::ReferencedVMArray' and 'long unsigned int*')
+    literalsReferences[kept - 1] = literal;
+                                 ^
+..\sr\GenerationalGC.cpp:47:33: note: candidate is:
+In file included from ..\sr\GenerationalGC.cpp:11:0:
+..\sr\ReferencedVMArray.h:15:7: note: Bee::ReferencedVMArray& Bee::ReferencedVMArray::operator=(const Bee::ReferencedVMArray&)
+ class ReferencedVMArray: public VMArray {
+       ^
+..\sr\ReferencedVMArray.h:15:7: note:   no known conversion for argument 1 from 'long unsigned int*' to 'const Bee::ReferencedVMArray&'
+..\sr\GenerationalGC.cpp:48:29: error: no match for 'operator=' (operand types are 'Bee::ReferencedVMArray' and 'long unsigned int*')
+    literalsReferences[kept] = (unsigned long *)offset;
+                             ^
+..\sr\GenerationalGC.cpp:48:29: note: candidate is:
+In file included from ..\sr\GenerationalGC.cpp:11:0:
+..\sr\ReferencedVMArray.h:15:7: note: Bee::ReferencedVMArray& Bee::ReferencedVMArray::operator=(const Bee::ReferencedVMArray&)
+ class ReferencedVMArray: public VMArray {
+       ^
+..\sr\ReferencedVMArray.h:15:7: note:   no known conversion for argument 1 from 'long unsigned int*' to 'const Bee::ReferencedVMArray&'
+..\sr\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeRememberSet()':
+..\sr\GenerationalGC.cpp:71:51: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rememberSet->size(); index++) {
+                                                   ^
+..\sr\GenerationalGC.cpp:72:36: error: cannot convert 'Bee::ReferencedVMArray' to 'Bee::ulong* {aka long unsigned int*}' in initialization
+   ulong *object = rememberSet[index];
+                                    ^
+..\sr\GenerationalGC.cpp:73:22: error: no match for 'operator=' (operand types are 'Bee::ReferencedVMArray' and 'Bee::ulong* {aka long unsigned int*}')
+   rememberSet[index] = nil;
+                      ^
+..\sr\GenerationalGC.cpp:73:22: note: candidate is:
+In file included from ..\sr\GenerationalGC.cpp:11:0:
+..\sr\ReferencedVMArray.h:15:7: note: Bee::ReferencedVMArray& Bee::ReferencedVMArray::operator=(const Bee::ReferencedVMArray&)
+ class ReferencedVMArray: public VMArray {
+       ^
+..\sr\ReferencedVMArray.h:15:7: note:   no known conversion for argument 1 from 'Bee::ulong* {aka long unsigned int*}' to 'const Bee::ReferencedVMArray&'
+..\sr\GenerationalGC.cpp:77:26: error: no match for 'operator=' (operand types are 'Bee::ReferencedVMArray' and 'Bee::ulong* {aka long unsigned int*}')
+    rememberSet[kept + 1] = object;
+                          ^
+..\sr\GenerationalGC.cpp:77:26: note: candidate is:
+In file included from ..\sr\GenerationalGC.cpp:11:0:
+..\sr\ReferencedVMArray.h:15:7: note: Bee::ReferencedVMArray& Bee::ReferencedVMArray::operator=(const Bee::ReferencedVMArray&)
+ class ReferencedVMArray: public VMArray {
+       ^
+..\sr\ReferencedVMArray.h:15:7: note:   no known conversion for argument 1 from 'Bee::ulong* {aka long unsigned int*}' to 'const Bee::ReferencedVMArray&'
+..\sr\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::followRememberSet()':
+..\sr\GenerationalGC.cpp:89:50: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < rememberSet->size(); index++) {
+                                                  ^
+..\sr\GenerationalGC.cpp:90:44: error: invalid cast from type 'Bee::ReferencedVMArray' to type 'Bee::ulong* {aka long unsigned int*}'
+   this->follow( (ulong *) rememberSet[index]);
+                                            ^
+..\sr\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveClassCheckReferences()':
+..\sr\GenerationalGC.cpp:105:59: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < classCheckReferences->size(); index++) {
+                                                           ^
+..\sr\GenerationalGC.cpp:106:59: error: invalid cast from type 'Bee::ReferencedVMArray' to type 'Bee::ulong {aka long unsigned int}'
+   unsigned long offset = (ulong)classCheckReferences[index];
+                                                           ^
+..\sr\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveToOldAll(Bee::ReferencedVMArray*)':
+..\sr\GenerationalGC.cpp:124:47: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= objects->size(); index++) {
+                                               ^
+..\sr\GenerationalGC.cpp:125:32: error: cannot convert 'Bee::ReferencedVMArray' to 'Bee::ulong* {aka long unsigned int*}' in initialization
+   ulong *object = objects[index];
+                                ^
+..\sr\GenerationalGC.cpp:133:19: error: no match for 'operator=' (operand types are 'Bee::ReferencedVMArray' and 'long unsigned int*')
+    objects[index] = moved;
+                   ^
+..\sr\GenerationalGC.cpp:133:19: note: candidate is:
+In file included from ..\sr\GenerationalGC.cpp:11:0:
+..\sr\ReferencedVMArray.h:15:7: note: Bee::ReferencedVMArray& Bee::ReferencedVMArray::operator=(const Bee::ReferencedVMArray&)
+ class ReferencedVMArray: public VMArray {
+       ^
+..\sr\ReferencedVMArray.h:15:7: note:   no known conversion for argument 1 from 'long unsigned int*' to 'const Bee::ReferencedVMArray&'
+..\sr\GenerationalGC.cpp: In member function 'long unsigned int Bee::GenerationalGC::holdReferenceTo(long unsigned int*)':
+..\sr\GenerationalGC.cpp:150:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+..\sr\GenerationalGC.cpp: In member function 'long unsigned int* Bee::GenerationalGC::copyTo(long unsigned int*, Bee::GCSpace*)':
+..\sr\GenerationalGC.cpp:154:11: error: invalid use of incomplete type 'class Bee::GCSpace'
+  copy = to->shallowCopy(object);
+           ^
+In file included from ..\sr\GenerationalGC.h:14:0,
+                 from ..\sr\GenerationalGC.cpp:8:
+..\sr\GarbageCollector.h:16:7: error: forward declaration of 'class Bee::GCSpace'
+ class GCSpace;
+       ^
+..\sr\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::flipSpaces()':
+..\sr\GenerationalGC.cpp:178:10: error: invalid use of incomplete type 'class Bee::GCSpace'
+  auxSpace->loadFrom(toSpace);
+          ^
+In file included from ..\sr\GenerationalGC.h:14:0,
+                 from ..\sr\GenerationalGC.cpp:8:
+..\sr\GarbageCollector.h:16:7: error: forward declaration of 'class Bee::GCSpace'
+ class GCSpace;
+       ^
+..\sr\GenerationalGC.cpp:179:9: error: invalid use of incomplete type 'class Bee::GCSpace'
+  toSpace->loadFrom(fromSpace);
+         ^
+In file included from ..\sr\GenerationalGC.h:14:0,
+                 from ..\sr\GenerationalGC.cpp:8:
+..\sr\GarbageCollector.h:16:7: error: forward declaration of 'class Bee::GCSpace'
+ class GCSpace;
+       ^
+..\sr\GenerationalGC.cpp:180:11: error: invalid use of incomplete type 'class Bee::GCSpace'
+  fromSpace->loadFrom(auxSpace);
+           ^
+In file included from ..\sr\GenerationalGC.h:14:0,
+                 from ..\sr\GenerationalGC.cpp:8:
+..\sr\GarbageCollector.h:16:7: error: forward declaration of 'class Bee::GCSpace'
+ class GCSpace;
+       ^
+..\sr\GenerationalGC.cpp:181:9: error: invalid use of incomplete type 'class Bee::GCSpace'
+  toSpace->reset();
+         ^
+In file included from ..\sr\GenerationalGC.h:14:0,
+                 from ..\sr\GenerationalGC.cpp:8:
+..\sr\GarbageCollector.h:16:7: error: forward declaration of 'class Bee::GCSpace'
+ class GCSpace;
+       ^
+..\sr\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::updateSpacesDelta()':
+..\sr\GenerationalGC.cpp:188:18: error: invalid use of incomplete type 'class Bee::GCSpace'
+   delta = toSpace->base() - fromSpace->base();
+                  ^
+In file included from ..\sr\GenerationalGC.h:14:0,
+                 from ..\sr\GenerationalGC.cpp:8:
+..\sr\GarbageCollector.h:16:7: error: forward declaration of 'class Bee::GCSpace'
+ class GCSpace;
+       ^
+..\sr\GenerationalGC.cpp:188:38: error: invalid use of incomplete type 'class Bee::GCSpace'
+   delta = toSpace->base() - fromSpace->base();
+                                      ^
+In file included from ..\sr\GenerationalGC.h:14:0,
+                 from ..\sr\GenerationalGC.cpp:8:
+..\sr\GarbageCollector.h:16:7: error: forward declaration of 'class Bee::GCSpace'
+ class GCSpace;
+       ^
+..\sr\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::fixReferencesFromNativeMethods()':
+..\sr\GenerationalGC.cpp:206:52: error: invalid cast from type 'Bee::ReferencedVMArray' to type 'long unsigned int'
+   literal = (unsigned long)literalsReferences[index];
+                                                    ^
+..\sr\GenerationalGC.cpp:207:55: error: invalid cast from type 'Bee::ReferencedVMArray' to type 'long unsigned int'
+   offset = (unsigned long)literalsReferences[index + 1];
+                                                       ^
+..\sr\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::cleanRememberSet()':
+..\sr\GenerationalGC.cpp:217:10: error: cannot convert 'Bee::ReferencedVMArray' to 'long unsigned int*' in assignment
+   object = rememberSet[index];
+          ^
+..\sr\GenerationalGC.cpp:218:22: error: no match for 'operator=' (operand types are 'Bee::ReferencedVMArray' and 'Bee::ulong* {aka long unsigned int*}')
+   rememberSet[index] = nil;
+                      ^
+..\sr\GenerationalGC.cpp:218:22: note: candidate is:
+In file included from ..\sr\GenerationalGC.cpp:11:0:
+..\sr\ReferencedVMArray.h:15:7: note: Bee::ReferencedVMArray& Bee::ReferencedVMArray::operator=(const Bee::ReferencedVMArray&)
+ class ReferencedVMArray: public VMArray {
+       ^
+..\sr\ReferencedVMArray.h:15:7: note:   no known conversion for argument 1 from 'Bee::ulong* {aka long unsigned int*}' to 'const Bee::ReferencedVMArray&'
+..\sr\GenerationalGC.cpp:219:15: error: invalid use of incomplete type 'class Bee::GCSpace'
+   if (!toSpace->includes(object)) {
+               ^
+In file included from ..\sr\GenerationalGC.h:14:0,
+                 from ..\sr\GenerationalGC.cpp:8:
+..\sr\GarbageCollector.h:16:7: error: forward declaration of 'class Bee::GCSpace'
+ class GCSpace;
+       ^
+..\sr\GenerationalGC.cpp:221:22: error: no match for 'operator=' (operand types are 'Bee::ReferencedVMArray' and 'long unsigned int*')
+    rememberSet[kept] = object;
+                      ^
+..\sr\GenerationalGC.cpp:221:22: note: candidate is:
+In file included from ..\sr\GenerationalGC.cpp:11:0:
+..\sr\ReferencedVMArray.h:15:7: note: Bee::ReferencedVMArray& Bee::ReferencedVMArray::operator=(const Bee::ReferencedVMArray&)
+ class ReferencedVMArray: public VMArray {
+       ^
+..\sr\ReferencedVMArray.h:15:7: note:   no known conversion for argument 1 from 'long unsigned int*' to 'const Bee::ReferencedVMArray&'
+
+16:12:43 Build Finished (took 185ms)
+

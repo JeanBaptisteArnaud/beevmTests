@@ -1,0 +1,7 @@
+<testsuites>
+	<testsuite name="VMMemoryTest" tests="3">
+		<testcase classname="VMMemoryTest" name="headerOf"/>
+		<testcase classname="VMMemoryTest" name="basicSize"/>
+		<testcase classname="VMMemoryTest" name="beeExtended"/>
+	</testsuite>
+</testsuites>
