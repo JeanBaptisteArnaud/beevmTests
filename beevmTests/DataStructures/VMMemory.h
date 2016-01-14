@@ -20,10 +20,23 @@ typedef struct header_t {
 	unsigned short hash;
 	unsigned char flags;
 	unsigned long * behavior;
-}header_t;
+} header_t;
+
+typedef struct big_header_t {
+	unsigned char sizeInWordBis; 	// 1
+	unsigned short hashBis; 	// 2
+	unsigned char flagsBis;		// 1
+	unsigned long size;			// 4
+	unsigned char sizeInWord;	// 1
+	unsigned short hash;		// 2
+	unsigned char flags;		// 1
+	unsigned long * behavior; 	// 4
+} big_header_t;
+
 #pragma pack (pop)
 
 #define HEADER_OF(object) (header_t*)(((ulong)&object)-8)
+#define BIG_HEADER_OF(object) (big_header_t*)(((ulong)&object)-16)
 
 typedef unsigned long ulong;
 
@@ -38,28 +51,42 @@ extern unsigned long *nil;
 extern unsigned long *stTrue;
 extern unsigned long *stFalse;
 
-extern unsigned long ObjectFlag_reserved1;
-extern unsigned long ObjectFlag_generation;
-extern unsigned long ObjectFlag_isEphemeron;
-extern unsigned long ObjectFlag_isInRememberSet;
-extern unsigned long ObjectFlag_isBytes;
-extern unsigned long ObjectFlag_zeroTermOrNamed;
-extern unsigned long ObjectFlag_notIndexed;
-extern unsigned long ObjectFlag_isExtended;
+extern unsigned char ObjectFlag_reserved1;
+extern unsigned char ObjectFlag_generation;
+extern unsigned char ObjectFlag_isEphemeron;
+extern unsigned char ObjectFlag_isInRememberSet;
+extern unsigned char ObjectFlag_isBytes;
+extern unsigned char ObjectFlag_zeroTermOrNamed;
+extern unsigned char ObjectFlag_notIndexed;
+extern unsigned char ObjectFlag_isExtended;
 
+extern unsigned long ObjectExtendedShortSize;
+extern unsigned long ObjectSize;
+extern unsigned long ObjectExtendedFlags;
+extern unsigned long ObjectExtendedHash;
+extern unsigned long ObjectExtendedSize;
+extern unsigned long ObjectHash;
+extern unsigned long ObjectFlags;
+extern unsigned long ObjectHeaderBits;
 
 unsigned char * mockNil(unsigned char *);
-unsigned char * mockTrue(unsigned char *);
+unsigned char * mockTrue();
 unsigned char * mockArray(unsigned char *);
 unsigned char * mockArray2(unsigned char *);
-
+unsigned char * mockArray1024();
 
 //done
 ulong _basicAt(ulong *object, int index);
-void  _basicAtPut(ulong *object, int index, unsigned long value);
+void _basicAtPut(ulong *object, int index, unsigned long value);
 void _basicSetSize(ulong *object, ulong size);
 ulong _basicGetSize(ulong *object);
 
+unsigned long rotateLeft(unsigned long n, unsigned int c);
+
+//unsigned long rotateLeft (unsigned long  n, unsigned int c);
+
+void _setExtendedSize(ulong *object, ulong size);
+ulong _getExtendedSize(ulong *object);
 
 unsigned long memoryAt(unsigned long pointer);
 void memoryAtPut(unsigned long * pointer, unsigned long value);
@@ -67,20 +94,36 @@ void memoryAtPut(unsigned long * pointer, unsigned long value);
 bool _isProxy(ulong *object);
 bool isArray(ulong *object);
 ulong size(ulong *object);
-ulong asOop(ulong *object);
-ulong oop(ulong *object);
+ulong _asOop(ulong *object);
+ulong _oop(ulong *object);
 
 ulong * _proxee(ulong *object);
 ulong _size(ulong *object);
 void _beNotInRememberedSet(ulong *object);
-ulong _decommit(ulong limit, ulong delta);
+void _decommit(ulong limit, ulong delta);
+void _commit(ulong limit, ulong delta);
+
 ulong _asObject(ulong * object);
 ulong * _asPointer(ulong object);
 ulong _sizeInBytes(ulong * object);
 ulong _headerSizeInBytes(ulong * object);
 
+bool testFlags(ulong *object, unsigned char flag);
+
+void setFlags(ulong *object, unsigned char flag);
+
+void unsetFlags(ulong *object, unsigned char flag);
+
+bool _isBytes(ulong *object);
+
+bool _isExtended(ulong *object);
+
+bool _isZeroTerminated(ulong *object);
+
+bool _isInRememberedSet(ulong *object);
+void _beNotInRememberedSet(ulong *object);
+
 void _beExtended(ulong *object);
-ulong _extendedSize(ulong *object, ulong size);
 ulong _framePointer();
 void _beNotInRememberSet(ulong *object);
 ulong _size(ulong *object);

@@ -22,20 +22,20 @@ public:
 	ulong * at(ulong);
 	void atPut(ulong,ulong *);
 	GCSpaceInfo();
-	const ulong sizeInBytes = 24;
-	ulong * base();
-	void base( ulong * );
-	ulong * base_3();
-	void base_3(ulong * );
-	ulong * commitedLimit();
-	void commitedLimit(ulong * );
+	ulong sizeInBytes;
+	ulong * getBase();
+	void setBase( ulong * );
+	ulong * getBase_3();
+	void setBase_3(ulong * );
+	ulong * getCommitedLimit();
+	void setCommitedLimit(ulong * );
 	void setContents(ulong *);
-	ulong * nextFree();
-	void nextFree(ulong *);
-	ulong * reservedLimit();
-	void reservedLimit(ulong * );
-	ulong * softLimit();
-	void softLimit(ulong *);
+	ulong * getNextFree();
+	void setNextFree(ulong *);
+	ulong * getReservedLimit();
+	void setReservedLimit(ulong * );
+	ulong * getSoftLimit();
+	void setSoftLimit(ulong *);
 	void freeMock();
 
 

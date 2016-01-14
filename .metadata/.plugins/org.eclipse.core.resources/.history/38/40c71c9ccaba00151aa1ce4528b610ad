@@ -1,0 +1,66 @@
+/*
+ * GCSpace.h
+ *
+ *  Created on: 18 déc. 2015
+ *      Author: Arnaud Jean-Baptiste
+ */
+
+#ifndef GCSPACE_H_
+#define GCSPACE_H_
+#include "GCSpaceInfo.h"
+#include "VMMemory.h"
+
+namespace Bee {
+class GCSpace {
+protected:
+	GCSpaceInfo *info;
+	ulong * base;
+	ulong * nextFree;
+	ulong * commitedLimit;
+	ulong * reservedLimit;
+	ulong * softLimit;
+	ulong * base_3;
+	ulong * regionBase;
+
+
+public:
+	// accessor
+	ulong * getBase();
+	ulong * getNextFree();
+	ulong * getCommitedLimit();
+	ulong * getReservedLimit();
+	ulong * getSoftLimit();
+	void setBase(ulong * localBase);
+	void setNextFree(ulong * localNextFree);
+	void setCommitedLimit(ulong * localCommitedLimit);
+	void setReservedLimit(ulong * localReservedLimit);
+	void setSoftLimit(ulong * localSoftLimit);
+	void setRegionBase(ulong  * localRegionBase);
+
+	GCSpace();
+	void load();
+	void save();
+	bool includes(ulong * pointer);
+	void loadFrom(GCSpace from);
+	void reset();
+	void grow();
+	void decommitSlack();
+
+
+	void dispenseReservedSpace();
+	void garbageCollect();
+	GCSpace * *growIfNeeded(ulong size);
+	ulong * obtainFreeSpaceAndAllocate(ulong size);
+	ulong * allocate(ulong size);
+	void setInfo(GCSpaceInfo * pointer);
+	ulong* shallowCopy(ulong *pointer);
+	ulong * shallowCopyGrowingTo(ulong * array , ulong grow);
+	static GCSpace currentFrom();
+	static GCSpace currentTo();
+	static GCSpace old();
+	static GCSpace dynamicNew(ulong size);
+};
+
+}
+
+#endif /* GCSPACE_H_ */

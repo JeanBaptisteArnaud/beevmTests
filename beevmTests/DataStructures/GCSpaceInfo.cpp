@@ -14,6 +14,7 @@ GCSpaceInfo::GCSpaceInfo(){
 }
 
 
+ulong sizeInBytes = 24;
 
 unsigned short GCSpaceInfo::shortAt(ulong offset) {
 	return (contents[offset]);
@@ -41,43 +42,43 @@ void GCSpaceInfo::atPut(ulong offset, ulong * value) {
 //	contents[offset + 1] = (unsigned short)(vPointer >> 15);
 //}
 
-ulong * GCSpaceInfo::base() {
+ulong * GCSpaceInfo::getBase() {
 	return this->at(4);
 }
-ulong * GCSpaceInfo::base_3() {
+ulong * GCSpaceInfo::getBase_3() {
 	return this->at(16);
 }
-ulong * GCSpaceInfo::commitedLimit() {
+ulong * GCSpaceInfo::getCommitedLimit() {
 	return this->at(12);
 }
-ulong * GCSpaceInfo::nextFree() {
+ulong * GCSpaceInfo::getNextFree() {
 	return this->at(4);
 }
-ulong * GCSpaceInfo::reservedLimit() {
+ulong * GCSpaceInfo::getReservedLimit() {
 	return this->at(20);
 }
-ulong * GCSpaceInfo::softLimit() {
+ulong * GCSpaceInfo::getSoftLimit() {
 	return this->at(0);
 }
 
-void GCSpaceInfo::base(ulong * value) {
+void GCSpaceInfo::setBase(ulong * value) {
 	this->atPut(4, value);
 }
 
-void GCSpaceInfo::base_3(ulong * value) {
+void GCSpaceInfo::setBase_3(ulong * value) {
 	this->atPut(16, value);
 }
-void GCSpaceInfo::commitedLimit(ulong * value) {
+void GCSpaceInfo::setCommitedLimit(ulong * value) {
 	this->atPut(12, value);
 }
-void GCSpaceInfo::nextFree(ulong * value) {
+void GCSpaceInfo::setNextFree(ulong * value) {
 	this->atPut(8, value);
 }
 
-void GCSpaceInfo::reservedLimit(ulong * value) {
+void GCSpaceInfo::setReservedLimit(ulong * value) {
 	this->atPut(20, value);
 }
-void GCSpaceInfo::softLimit(ulong * value) {
+void GCSpaceInfo::setSoftLimit(ulong* value) {
 	this->atPut(0, value);
 }
 

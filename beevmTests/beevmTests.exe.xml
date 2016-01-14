@@ -1,7 +1,18 @@
 <testsuites>
-	<testsuite name="VMMemoryTest" tests="3">
-		<testcase classname="VMMemoryTest" name="headerOf"/>
-		<testcase classname="VMMemoryTest" name="basicSize"/>
-		<testcase classname="VMMemoryTest" name="beeExtended"/>
+	<testsuite name="MemoryTest" tests="6">
+		<testcase classname="MemoryTest" name="headerOf">
+			<failure message="..\Tests\VMMemoryTest.cpp:47 headerOf: Array 2 : behavior">
+headerOf: Array 2 : behavior
+			</failure>
+		</testcase>
+		<testcase classname="MemoryTest" name="basicSize">
+			<failure message="..\Tests\VMMemoryTest.cpp:86 basicSize: size ">
+basicSize: size 
+			</failure>
+		</testcase>
+		<testcase classname="MemoryTest" name="beeExtended"/>
+		<testcase classname="MemoryTest" name="rotateLeftTest"/>
+		<testcase classname="MemoryTest" name="objectFlagManipulation"/>
+		<testcase classname="MemoryTest" name="virtualBehavior"/>
 	</testsuite>
 </testsuites>

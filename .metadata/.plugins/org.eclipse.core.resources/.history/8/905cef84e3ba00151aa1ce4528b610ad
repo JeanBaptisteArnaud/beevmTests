@@ -1,0 +1,51 @@
+/*
+ * GCSpaceInfo.h
+ *
+ *  Created on: 4 janv. 2016
+ *      Author: jbapt
+ */
+
+#ifndef GCSPACEINFO_H_
+#define GCSPACEINFO_H_
+
+typedef unsigned long ulong;
+
+namespace Bee {
+class GCSpaceInfo {
+
+protected:
+	unsigned char * contents;
+
+public:
+
+	unsigned short shortAt(ulong);
+	ulong * at(ulong);
+	void atPut(ulong,ulong *);
+	GCSpaceInfo();
+	const ulong sizeInBytes = 24;
+	ulong * getBase();
+	void base( ulong * );
+	ulong * getBase_3();
+	void base_3(ulong * );
+	ulong * getCommitedLimit();
+	void commitedLimit(ulong * );
+	void setContents(ulong *);
+	ulong * getNextFree();
+	void nextFree(ulong *);
+	ulong * getReservedLimit();
+	void reservedLimit(ulong * );
+	ulong * getSoftLimit();
+	void softLimit(ulong *);
+	void freeMock();
+
+
+	static GCSpaceInfo newSize(ulong);
+	static GCSpaceInfo currentTo();
+	static GCSpaceInfo currentFrom();
+	static GCSpaceInfo old();
+	static GCSpaceInfo mockForTest();
+};
+
+}
+
+#endif /* GCSPACEINFO_H_ */

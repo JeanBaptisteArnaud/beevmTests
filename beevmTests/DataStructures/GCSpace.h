@@ -13,7 +13,8 @@
 namespace Bee {
 class GCSpace {
 protected:
-	GCSpaceInfo *info;
+	GCSpaceInfo info;
+	GCSpaceInfo * pinfo;
 	ulong * base;
 	ulong * nextFree;
 	ulong * commitedLimit;
@@ -25,6 +26,8 @@ protected:
 
 public:
 	// accessor
+	ulong size();
+	ulong used();
 	ulong * getBase();
 	ulong * getNextFree();
 	ulong * getCommitedLimit();
@@ -45,8 +48,12 @@ public:
 	void reset();
 	void grow();
 	void decommitSlack();
-	ulong * allocate(ulong size);
-	void setInfo(GCSpaceInfo * pointer);
+
+	ulong * obtainFreeSpaceAndAllocate(ulong size);
+	void dispenseReservedSpace();
+	void garbageCollect();
+ulong * allocate(ulong size);
+	void setInfo(GCSpaceInfo gcspaceinfo);
 	ulong* shallowCopy(ulong *pointer);
 	ulong * shallowCopyGrowingTo(ulong * array , ulong grow);
 	static GCSpace currentFrom();

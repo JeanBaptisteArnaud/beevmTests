@@ -1,0 +1,47 @@
+/*
+ * Memory.h
+ *
+ *  Created on: 14 janv. 2016
+ *      Author: jbapt
+ */
+
+#ifndef MEMORY_H_
+#define MEMORY_H_
+
+#include "GCSpace.h"
+
+namespace Bee {
+
+class Memory {
+protected:
+	GCSpace currentSpace;
+	unsigned long * spaces;
+	GCSpace * collectedSpaces;
+	GCSpace nextSpace;
+	GCSpaceInfo allocateWithoutFinalization(ulong);
+
+	GCSpace * acquireMoreSpace();
+	GCSpace * createNextSpace();
+	void addSpace(GCSpace *);
+	void addCollectedSpace(GCSpace *);
+	//Collector
+
+public:
+	static Memory * singleton;
+	Memory();
+	GCSpace * growIfNeeded(ulong size);
+	ulong 	* obtainFreeSpaceAndAllocate(ulong size);
+	static Memory * current() {
+		if(!singleton){
+			singleton = new Memory;
+			return this->singleton;
+		}}
+
+};
+
+
+}
+
+
+
+#endif /* MEMORY_H_ */
