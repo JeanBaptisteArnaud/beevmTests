@@ -55,8 +55,8 @@ void Memory::createPinnedSpace() {
 void Memory::startUp() {
 	this->initializeCollector();
 	this->createNextSpace();
-	//this->acquireMoreSpace();
-	//this->createPinnedSpace();
+	this->acquireMoreSpace();
+	this->createPinnedSpace();
 }
 
 GCSpace * Memory::acquireMoreSpace() {

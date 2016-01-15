@@ -1,1 +1,41 @@
-Info: Nothing to build for beevmTests
+16:38:08 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\Memory.o" "..\\DataStructures\\Memory.cpp" 
+In file included from ..\DataStructures\GCSpace.h:11:0,
+                 from ..\DataStructures\Memory.h:11,
+                 from ..\DataStructures\Memory.cpp:14:
+..\DataStructures\VMMemory.h:13:0: warning: "NULL" redefined [enabled by default]
+ #define NULL 0
+ ^
+In file included from c:\mingw\include\string.h:24:0,
+                 from c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\cstring:42,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/function/function_base.hpp:62,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/function/detail/prologue.hpp:17,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/function.hpp:24,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:38,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\DataStructures\Memory.cpp:9:
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h:399:0: note: this is the location of the previous definition
+ #define NULL __null
+ ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\DataStructures\Memory.cpp:9:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\DataStructures\Memory.cpp: In member function 'Bee::GCSpace* Bee::Memory::growIfNeeded(ulong)':
+..\DataStructures\Memory.cpp:34:38: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  if ((used / total) > 0.9 || (free < size))
+                                      ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+
+16:38:12 Build Finished (took 3s.86ms)
+
