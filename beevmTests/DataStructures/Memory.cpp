@@ -67,13 +67,12 @@ GCSpace * Memory::acquireMoreSpace() {
 	return &currentSpace;
 }
 
-
 GCSpaceInfo Memory::allocateWithoutFinalization(ulong size){
 	ulong * address = (ulong *) VirtualAlloc((void *) nil, size, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 	GCSpaceInfo info = GCSpaceInfo();
 	info.setBase((ulong *)((ulong)address / 2));
-	info.setNextFree(info.getBase());
-	info.setCommitedLimit(info.getBase() + (size / 2));
+	info.setNextFree((ulong *) ((ulong)address / 2));
+	info.setCommitedLimit((ulong *)(((ulong)address + size) / 2));
 	return info;
 }
 

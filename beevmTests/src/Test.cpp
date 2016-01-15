@@ -17,9 +17,9 @@ void runSuite(int argc, char const *argv[]){
 
 	//cute::makeRunner(lis,argc,argv)(make_suite_GCSpaceInfoTest(), "GCSpaceInfoTest");
 	//cute::makeRunner(lis,argc,argv)(make_suite_VMArrayTest(), "VMArrayTest");
-	//cute::makeRunner(lis,argc,argv)(make_suite_GCSpaceTest(), "GCSpaceTest");
+	cute::makeRunner(lis,argc,argv)(make_suite_GCSpaceTest(), "GCSpaceTest");
 	//cute::makeRunner(lis,argc,argv)(make_suite_VMMemoryTest(), "VMMemoryTest");
-	cute::makeRunner(lis,argc,argv)(make_suite_MemoryTest(), "MemoryTest");
+	//cute::makeRunner(lis,argc,argv)(make_suite_MemoryTest(), "MemoryTest");
 }
 
 int main(int argc, char const *argv[]){

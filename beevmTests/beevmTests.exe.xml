@@ -1,5 +1,10 @@
 <testsuites>
-	<testsuite name="MemoryTest" tests="1">
-		<testcase classname="MemoryTest" name="singleton"/>
+	<testsuite name="GCSpaceTest" tests="2">
+		<testcase classname="GCSpaceTest" name="extendedGrowingTo"/>
+		<testcase classname="GCSpaceTest" name="grow">
+			<failure message="..\Tests\GCSpaceTest.cpp:86 grow: softLimit v:0x3141001 readV:0xc50000">
+grow: softLimit v:0x3141001 readV:0xc50000
+			</failure>
+		</testcase>
 	</testsuite>
 </testsuites>

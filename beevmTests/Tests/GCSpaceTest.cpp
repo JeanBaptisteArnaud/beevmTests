@@ -65,6 +65,8 @@ void grow() {
 	unsigned long * base = (unsigned long *) VirtualAlloc((void *) 0,
 			reservedSize, MEM_RESERVE, PAGE_READWRITE);
 	ASSERTM("Virtual Alloc Fail", base != 0);
+	// TODO change small Pointer
+
 	local.setBase(base);
 	local.setRegionBase(base);
 	local.setReservedLimit(((ulong) base) + _asPointer(reservedSize));
@@ -73,10 +75,21 @@ void grow() {
 	VirtualQuery((void *) _asOop(base), queryAnswer, maxValueQuery);
 	ASSERTM("memory not reserve",
 			queryAnswer->State && MEM_RESERVE == MEM_RESERVE);
-	//local.grow();
+	local.grow();
 	VirtualQuery((void *) _asOop(base), queryAnswer, maxValueQuery);
 	ASSERTM("Memory not commit",
 			queryAnswer->State && MEM_COMMIT == MEM_COMMIT);
+	if(!(local.getNextFree() <= local.getCommitedLimit())) {
+		ostringstream ostr;
+			ostr << "softLimit v:";
+			ostr << local.getNextFree();
+			ostr << " readV:";
+			ostr << local.getCommitedLimit();
+			FAILM(ostr.str());
+	}
+
+
+
 	ASSERTM("next free <= commited limit",
 			local.getNextFree() <= local.getCommitedLimit());
 	local.setNextFree((ulong) local.getNextFree() + _asPointer(4 * 100 + 1024));
