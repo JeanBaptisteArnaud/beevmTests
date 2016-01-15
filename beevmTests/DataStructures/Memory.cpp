@@ -71,16 +71,9 @@ GCSpace * Memory::acquireMoreSpace() {
 GCSpaceInfo Memory::allocateWithoutFinalization(ulong size){
 	ulong * address = (ulong *) VirtualAlloc((void *) nil, size, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
 	GCSpaceInfo info = GCSpaceInfo();
-	ostringstream ostr;
-			ostr << "base v:";
-			ostr << (ulong)address / 2;
-	FAILM(ostr.str());
-
-
-
 	info.setBase((ulong *)((ulong)address / 2));
-//	info.setNextFree(info.getBase());
-//	info.setCommitedLimit(info.getBase() + (size / 2));
+	info.setNextFree(info.getBase());
+	info.setCommitedLimit(info.getBase() + (size / 2));
 	return info;
 }
 

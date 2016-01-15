@@ -1,9 +1,5 @@
 <testsuites>
 	<testsuite name="MemoryTest" tests="1">
-		<testcase classname="MemoryTest" name="singleton">
-			<failure message="..\DataStructures\Memory.cpp:77 allocateWithoutFinalization: base v:134283264">
-allocateWithoutFinalization: base v:134283264
-			</failure>
-		</testcase>
+		<testcase classname="MemoryTest" name="singleton"/>
 	</testsuite>
 </testsuites>

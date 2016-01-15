@@ -11,6 +11,7 @@
 using namespace Bee;
 
 GCSpaceInfo::GCSpaceInfo(){
+	contents = (unsigned char *) malloc(24);
 }
 
 

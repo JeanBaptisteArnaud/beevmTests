@@ -231,7 +231,7 @@ void _decommit(ulong limit, ulong delta) {
 }
 
 void _commit(ulong limit, ulong delta) {
-	(ulong *) VirtualAlloc((void *) limit, delta, MEM_COMMIT, PAGE_READWRITE,);
+	(ulong *) VirtualAlloc((void *) limit, delta, MEM_COMMIT, PAGE_READWRITE);
 }
 
 // flags Tests
