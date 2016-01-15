@@ -1,52 +1,25 @@
-16:50:04 **** Incremental Build of configuration Debug for project beevmTests ****
+16:21:13 **** Incremental Build of configuration Debug for project beevmTests ****
 Info: Internal Builder is used for build
-g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\MemoryTest.o" "..\\Tests\\MemoryTest.cpp" 
-..\Tests\MemoryTest.cpp:17:66: warning: character constant too long for its type [enabled by default]
-  ASSERTM('not a singleton', (unsigned long)m == (unsigned long)m2);
-                                                                  ^
-In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
-                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
-                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
-                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
-                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
-                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
-                 from ..\Tests\MemoryTest.cpp:2:
-D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
-D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
-         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
-                      ^
-In file included from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:24:0,
-                 from ..\Tests\MemoryTest.cpp:2:
-..\Tests\MemoryTest.cpp: In function 'void singleton()':
-D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:141: error: invalid user-defined conversion from 'int' to 'const string& {aka const std::basic_string<char>&}' [-fpermissive]
- #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
-                                                                                                                                             ^
-..\Tests\MemoryTest.cpp:17:2: note: in expansion of macro 'ASSERTM'
-  ASSERTM('not a singleton', (unsigned long)m == (unsigned long)m2);
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\VMMemory.o" "..\\DataStructures\\VMMemory.cpp" 
+..\DataStructures\VMMemory.cpp:50:2: warning: multi-line comment [-Wcomment]
+  // .data:10026058         ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,\
   ^
-In file included from c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\string:53:0,
-                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:23,
-                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:24,
-                 from ..\Tests\MemoryTest.cpp:2:
-c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\bits\basic_string.tcc:212:5: note: candidate is: std::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>] <near match>
-     basic_string<_CharT, _Traits, _Alloc>::
-     ^
-c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\bits\basic_string.tcc:212:5: note:   no known conversion for argument 1 from 'int' to 'const char*'
-In file included from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:24:0,
-                 from ..\Tests\MemoryTest.cpp:2:
-D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:141: error: invalid conversion from 'int' to 'const char*' [-fpermissive]
- #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
-                                                                                                                                             ^
-..\Tests\MemoryTest.cpp:17:2: note: in expansion of macro 'ASSERTM'
-  ASSERTM('not a singleton', (unsigned long)m == (unsigned long)m2);
-  ^
-In file included from c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\string:53:0,
-                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:23,
-                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:24,
-                 from ..\Tests\MemoryTest.cpp:2:
-c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\bits\basic_string.tcc:212:5: error:   initializing argument 1 of 'std::basic_string<_CharT, _Traits, _Alloc>::basic_string(const _CharT*, const _Alloc&) [with _CharT = char; _Traits = std::char_traits<char>; _Alloc = std::allocator<char>]' [-fpermissive]
-     basic_string<_CharT, _Traits, _Alloc>::
-     ^
+..\DataStructures\VMMemory.cpp: In function 'void _commit(ulong, ulong)':
+..\DataStructures\VMMemory.cpp:234:75: error: expected primary-expression before ')' token
+  (ulong *) VirtualAlloc((void *) limit, delta, MEM_COMMIT, PAGE_READWRITE,);
+                                                                           ^
+..\DataStructures\VMMemory.cpp: In function 'ulong _asOop(ulong*)':
+..\DataStructures\VMMemory.cpp:324:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+..\DataStructures\VMMemory.cpp: In function 'ulong _oop(ulong*)':
+..\DataStructures\VMMemory.cpp:327:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+..\DataStructures\VMMemory.cpp: In function 'long unsigned int memoryAt(long unsigned int)':
+..\DataStructures\VMMemory.cpp:347:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
 
-16:50:05 Build Finished (took 988ms)
+16:21:13 Build Finished (took 584ms)
 

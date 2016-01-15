@@ -14,7 +14,8 @@ using namespace Bee;
 void singleton() {
 	Memory * m = Memory::current();
 	Memory * m2 = Memory::current();
-
+	m->createNextSpace();
+	ASSERTM("Not a singleton", (ulong) m2->nextSpace.getBase() == (ulong) m->nextSpace.getBase());
 }
 
 cute::suite make_suite_MemoryTest() {

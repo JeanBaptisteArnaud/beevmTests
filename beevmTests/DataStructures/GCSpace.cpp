@@ -102,7 +102,7 @@ GCSpace GCSpace::currentFrom() {
 
 GCSpace GCSpace::dynamicNew(unsigned long size) {
 	GCSpace space = GCSpace();
-	GCSpaceInfo info = GCSpaceInfo::newSize(size);
+	GCSpaceInfo info = Memory::current()->allocateWithoutFinalization(size);
 	space.setInfo(info);
 	return space;
 }
@@ -177,20 +177,6 @@ ulong * GCSpace::shallowCopyGrowingTo(ulong * array, ulong newSize) {
 }
 
 void GCSpace::grow() {
-//	hostVMGrow
-//		| newLimit padding |
-//		nextFree := self nextFree.
-//		nextFree <= self softLimit ifTrue: [^self].
-//		nextFree >= self reservedLimit ifTrue: [self _halt].
-//		padding := false
-//			ifTrue: [self somethingWithPadding + 16rFFF _asPointer
-//				bitAnd: -16r1000 _asPointer]
-//			ifFalse: [16r8000 _asPointer].
-//		newLimit := nextFree + padding bitAnd: -16r1000 _asPointer.
-//		regionBase := self regionBase.
-//		(regionBase _commit: newLimit - regionBase)
-//			== (regionBase bitAnd: -16r1000 _asPointer)
-//			ifFalse: [self assert: false]
-//			ifTrue: [self commitedLimit: newLimit]
+	Memory::current()->acquireMoreSpace();
 }
 

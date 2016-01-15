@@ -19,20 +19,24 @@ protected:
 	GCSpace currentSpace;
 	unsigned long * spaces;
 	GCSpace * collectedSpaces;
-	GCSpace nextSpace;
-	GCSpaceInfo allocateWithoutFinalization(ulong);
 
-	GCSpace * acquireMoreSpace();
-	GCSpace * createNextSpace();
-	void addSpace(GCSpace *);
-	void addCollectedSpace(GCSpace *);
 	//Collector
 
 public:
+
+	GCSpace nextSpace;
 	static Memory * current();
 	Memory();
 	GCSpace * growIfNeeded(ulong size);
 	ulong * obtainFreeSpaceAndAllocate(ulong size);
+	GCSpaceInfo allocateWithoutFinalization(ulong);
+	void initializeCollector();
+	void startUp();
+	void createPinnedSpace();
+	GCSpace * acquireMoreSpace();
+	GCSpace * createNextSpace();
+	void addSpace(GCSpace *);
+	void addCollectedSpace(GCSpace *);
 };
 
 }
