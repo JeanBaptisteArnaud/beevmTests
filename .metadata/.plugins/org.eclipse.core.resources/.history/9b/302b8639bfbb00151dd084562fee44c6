@@ -84,7 +84,7 @@ Memory * Memory::current() {
 	return singleton;
 }
 
-void Memory::createNextSpace() {
+GCSpace * Memory::createNextSpace() {
 	nextSpace = GCSpace();
 	nextSpace.setInfo(this->allocateWithoutFinalization(64 * 1024 * 1024));
 	nextSpace.load();

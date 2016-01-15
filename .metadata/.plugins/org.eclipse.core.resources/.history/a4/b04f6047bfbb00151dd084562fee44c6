@@ -34,7 +34,7 @@ public:
 	void startUp();
 	void createPinnedSpace();
 	GCSpace * acquireMoreSpace();
-	void createNextSpace();
+	GCSpace * createNextSpace();
 	void addSpace(GCSpace *);
 	void addCollectedSpace(GCSpace *);
 };
