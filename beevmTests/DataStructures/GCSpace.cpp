@@ -61,6 +61,10 @@ void GCSpace::setSoftLimit(ulong * localSoftLimit) {
 	softLimit = localSoftLimit;
 }
 
+void GCSpace::release(){
+	_decommit((ulong) base,(ulong) commitedLimit);
+}
+
 void GCSpace::setInfo(GCSpaceInfo localInfo) {
 	info = localInfo;
 	pinfo = &info;
@@ -93,6 +97,18 @@ void GCSpace::save() {
 	info.setSoftLimit(softLimit);
 }
 
+void GCSpace::debug(){
+	cerr << "regionBase:" << regionBase << endl;
+	cerr << "Base:" << base << endl;
+	cerr << "Base_3:" << base_3 << endl;
+	cerr << "commitedLimit:" << commitedLimit << endl;
+	cerr << "nextFree:" << nextFree << endl;
+	cerr << "reservedLimit:" << reservedLimit << endl;
+	cerr << "softLimit:" << softLimit  << endl;
+}
+
+
+
 GCSpace GCSpace::currentFrom() {
 	GCSpace space = GCSpace();
 	GCSpaceInfo info = GCSpaceInfo::currentFrom();
@@ -104,6 +120,7 @@ GCSpace GCSpace::dynamicNew(unsigned long size) {
 	GCSpace space = GCSpace();
 	GCSpaceInfo info = Memory::current()->allocateWithoutFinalization(size);
 	space.setInfo(info);
+	space.load();
 	return space;
 }
 
@@ -123,8 +140,7 @@ void GCSpace::decommitSlack() {
 ulong * GCSpace::obtainFreeSpaceAndAllocate(ulong size) {
 	this->dispenseReservedSpace();
 	this->garbageCollect();
-	Memory * current = Memory::current();
-	GCSpace * space = current->growIfNeeded(size);
+	GCSpace * space = Memory::current()->growIfNeeded(size);
 	return space->allocate(size);
 }
 
@@ -136,6 +152,7 @@ ulong * GCSpace::allocate(ulong size) {
 // lockedAllocate probably do not need the mutex
 	ulong answer = (ulong) this->nextFree;
 	ulong next = answer + size;
+
 	if (next > (ulong) softLimit)
 		return this->obtainFreeSpaceAndAllocate(size);
 	this->setNextFree((ulong *) next);
@@ -148,13 +165,14 @@ ulong * GCSpace::shallowCopy(ulong * object) {
 	ulong total = headerSize + _sizeInBytes(object);
 	ulong * buffer = this->allocate(total);
 	ulong * copy = (ulong *) ((ulong) buffer + 16);
-	for (int index = -1; index <= (int) _size(object); index++) {
+	for (int index =  (1 - (headerSize / 4)); index <= (int) _size(object); index++) {
 		ulong inter = _basicAt(object, index);
 		_basicAtPut(copy, index, inter);
 	}
 	_beNotInRememberedSet(copy);
 	return copy;
 }
+
 
 ulong * GCSpace::shallowCopyGrowingTo(ulong * array, ulong newSize) {
 	ulong headerSize = 4;
@@ -176,7 +194,7 @@ ulong * GCSpace::shallowCopyGrowingTo(ulong * array, ulong newSize) {
 	return copy;
 }
 
-void GCSpace::grow() {
-	Memory::current()->acquireMoreSpace();
+GCSpace * GCSpace::grow() {
+	return Memory::current()->acquireMoreSpace();
 }
 

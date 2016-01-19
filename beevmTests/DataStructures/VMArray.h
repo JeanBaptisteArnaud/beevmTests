@@ -11,7 +11,13 @@
 namespace Bee {
 
 class VMArray {
+
+
 public:
+	int maxSize = 10;
+	unsigned long * init();
+	void grow();
+	void grow(unsigned long);
 	VMArray();
 	long nextFree();
 	long nextFree(unsigned long newSize);

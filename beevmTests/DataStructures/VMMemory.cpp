@@ -91,7 +91,7 @@ unsigned char * mockTrue() {
 	return &localTrue[8];
 }
 
-unsigned char * mockArray(unsigned char * localArray) {
+unsigned char * mockArray() {
 
 	// 03 00 00 01  D8 71 85 02
 
@@ -99,6 +99,8 @@ unsigned char * mockArray(unsigned char * localArray) {
 	// 03 F8 37 01 F0 92 07 0A
 	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
 	// 12:10has 3 slots
+
+	unsigned char * localArray = (unsigned char *) malloc(8 + 4);
 	localArray[0] = (unsigned char) 0x03;
 	localArray[1] = (unsigned char) 0xF8;
 	localArray[2] = (unsigned char) 0x37;
@@ -114,15 +116,16 @@ unsigned char * mockArray(unsigned char * localArray) {
 	localArray[10] = (unsigned char) 0xFF;
 	localArray[11] = (unsigned char) 0xFF;
 
-	return localArray;
+	return &localArray[8];
 }
 
-unsigned char * mockArray2(unsigned char * stArray) {
+unsigned char * mockArray2() {
 
 	// 03 00 00 01  D8 71 85 02
 	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
 	// 12:10has 3 slots
 	//
+	unsigned char * stArray = (unsigned char *) malloc(8 + 4);
 	stArray[0] = (unsigned char) 0x03;
 	stArray[1] = (unsigned char) 0x00;
 	stArray[2] = (unsigned char) 0x00;
@@ -136,7 +139,7 @@ unsigned char * mockArray2(unsigned char * stArray) {
 	stArray[10] = (unsigned char) 0xFF;
 	stArray[11] = (unsigned char) 0xFF;
 
-	return stArray;
+	return &stArray[8];
 }
 
 unsigned char * mockArray1024() {
@@ -176,6 +179,15 @@ unsigned char * mockArray1024() {
 	}
 
 	return &localArray[16];
+}
+
+
+void freeSimpleObject(unsigned char * object) {
+	free(&object[-8]);
+}
+
+void freeComplexObject(unsigned char * object) {
+	free(&object[-16]);
 }
 
 ulong _basicAt(ulong * object, int index) {

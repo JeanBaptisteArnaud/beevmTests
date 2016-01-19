@@ -71,9 +71,12 @@ extern unsigned long ObjectHeaderBits;
 
 unsigned char * mockNil(unsigned char *);
 unsigned char * mockTrue();
-unsigned char * mockArray(unsigned char *);
-unsigned char * mockArray2(unsigned char *);
+unsigned char * mockArray();
+unsigned char * mockArray2();
 unsigned char * mockArray1024();
+void freeSimpleObject(unsigned char * object);
+void freeComplexObject(unsigned char * object);
+
 
 //done
 ulong _basicAt(ulong *object, int index);

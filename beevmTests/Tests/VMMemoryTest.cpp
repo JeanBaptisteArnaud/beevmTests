@@ -29,7 +29,7 @@ void headerOf() {
 	unsigned char * header;
 	header_t * h;
 	header = (unsigned char *) malloc(12);
-	mockArray(header);
+	header = mockArray();
 
 	h = HEADER_OF(header[8]);
 	ASSERTM("Array 1 : Size", (unsigned short ) h->size == 3);
@@ -38,7 +38,7 @@ void headerOf() {
 			(unsigned short ) (h->flags) == ObjectFlag_reserved1);
 	ASSERTM("Array 1 : behavior", ((ulong )h->behavior) == 0x0A0792F0);
 
-	mockArray2(header);
+	header = mockArray2();
 	h = HEADER_OF(header[8]);
 	ASSERTM("Array 2 : Size", ((unsigned short ) h->size) == 3);
 	ASSERTM("Array 2 : Hash", h->hash == (unsigned short ) 0x0000);
@@ -73,9 +73,7 @@ void headerOf() {
 }
 
 void basicSize() {
-	unsigned char * header;
-	header = (unsigned char *) malloc(12);
-	mockArray(header);
+	unsigned char * header = mockArray();
 	ulong * object = (ulong *) &header[8];
 	ASSERTM("size ", (_basicGetSize(object) == 3));
 	_basicSetSize(object, 122);
@@ -185,7 +183,7 @@ void objectFlagManipulation() {
 
 	unsigned char * header;
 	header = (unsigned char *) malloc(12);
-	mockArray(header);
+	header = mockArray();
 
 	ulong * object = (ulong *) &header[8];
 	ASSERTM("check reserved1", !testFlags(object, ObjectFlag_isEphemeron));

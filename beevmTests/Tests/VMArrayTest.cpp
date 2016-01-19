@@ -7,9 +7,8 @@ using namespace Bee;
 
 // File myclassTest.h
 
-
 void add() {
-	unsigned long emptyArray [1024];
+	unsigned long emptyArray[1024];
 	VMArray array; // = VMArray new;
 	array.emptyWith(emptyArray);
 	array.reset();
@@ -22,9 +21,42 @@ void add() {
 	ASSERTM("Should not be empty", !array.isEmpty());
 }
 
+void arrayGrow() {
+	VMArray array; // = VMArray new;
+	array.reset();
+	array.add(1);
+	array.add(2);
+	array.add(3);
+	ASSERTM("Size is wrong", array.size() == 3);
+	ASSERTM("NextFree is wrong", array.nextFree() == 4);
+	ASSERTM("Should not be empty", !array.isEmpty());
+	array.add(1);
+	array.add(2);
+	array.add(3);
+	array.add(1);
+	array.add(2);
+	array.add(3);
+	array.add(3);
+	array.add(3);
+	array.add(1);
+	array.add(2);
+	ASSERTM("Size is wrong", array.size() == 13);
+	ASSERTM("raw size is wrong", array.maxSize == 20);
+	array.add(1);
+	array.add(2);
+	array.add(3);
+	array.add(1);
+	array.add(2);
+	array.add(3);
+	array.add(3);
+	array.add(3);
+	array.add(1);
+	array.add(2);
+	ASSERTM("raw size is wrong", array.maxSize == 30);
+}
 
 void addAll() {
-	unsigned long emptyArray [1024];
+	unsigned long emptyArray[1024];
 	unsigned long anotherArray[3];
 	anotherArray[0] = 5;
 	anotherArray[1] = 6;
@@ -36,12 +68,12 @@ void addAll() {
 	array.add(2);
 	array.add(3);
 	array.add(4);
-	array.addAll(anotherArray,3);
+	array.addAll(anotherArray, 3);
 	ASSERTM("Size is wrong", array.size() == 6);
 	ASSERTM("NextFree is wrong", array.nextFree() == 7);
 	ASSERTM("Should not be empty", !array.isEmpty());
 	unsigned long answer = 1;
-	for(int index = 1; index <= array.size(); index++ ) {
+	for (int index = 1; index <= array.size(); index++) {
 		answer = answer * (unsigned long) array[index];
 	}
 	ASSERTM("loop result should be 5040 ", answer == 5040);
@@ -51,9 +83,8 @@ void addAll() {
 	ASSERTM("Should not be empty", !array.isEmpty());
 }
 
-
 void letDo() {
-	unsigned long emptyArray [1024];
+	unsigned long emptyArray[1024];
 	VMArray array; // = VMArray new;
 	array.emptyWith(emptyArray);
 	array.reset();
@@ -65,7 +96,7 @@ void letDo() {
 	ASSERTM("NextFree is wrong", array.nextFree() == 4);
 	ASSERTM("Should not be empty", !array.isEmpty());
 	unsigned long answer = 1;
-	for(int index = 1; index <= array.size(); index++ ) {
+	for (int index = 1; index <= array.size(); index++) {
 		answer = answer * (unsigned long) array[index];
 	}
 	ASSERTM("loop result should be 2"
@@ -95,9 +126,8 @@ void vmArrayGrow() {
 //		proxying: array
 }
 
-
 void pop() {
-	unsigned long emptyArray [1024];
+	unsigned long emptyArray[1024];
 	VMArray array; // = VMArray new;
 	array.emptyWith(emptyArray);
 	array.reset();
@@ -115,37 +145,36 @@ void pop() {
 }
 
 void reset() {
-	unsigned long emptyArray [1024];
-		unsigned long anotherArray[3];
-		anotherArray[0] = 5;
-		anotherArray[1] = 6;
-		anotherArray[2] = 7;
-		VMArray array; // = VMArray new;
-		array.emptyWith(emptyArray);
-		array.reset();
-		ASSERTM("Initial Size is wrong", array.size() == 0);
-		array.add(2);
-		array.add(3);
-		array.add(4);
-		array.addAll(anotherArray,3);
-		ASSERTM("Size is wrong", array.size() == 6);
-		ASSERTM("NextFree is wrong", array.nextFree() == 7);
-		ASSERTM("Should not be empty here", !array.isEmpty());
-		unsigned long answer = 1;
-		for(int index = 1; index <= array.size(); index++ ) {
-			answer = answer * (unsigned long) array[index];
-		}
-		ASSERTM("loop result should be 5040 ", answer == 5040);
-		ASSERTM("First pop should be 7", array.pop() == 7);
-		ASSERTM("First pop should be 6", array.pop() == 6);
-		ASSERTM("First pop should be 5", array.pop() == 5);
-		ASSERTM("Should not be empty", !array.isEmpty());
-		array.reset();
-		ASSERTM("Should be empty after reset", array.isEmpty());
+	unsigned long emptyArray[1024];
+	unsigned long anotherArray[3];
+	anotherArray[0] = 5;
+	anotherArray[1] = 6;
+	anotherArray[2] = 7;
+	VMArray array; // = VMArray new;
+	array.emptyWith(emptyArray);
+	array.reset();
+	ASSERTM("Initial Size is wrong", array.size() == 0);
+	array.add(2);
+	array.add(3);
+	array.add(4);
+	array.addAll(anotherArray, 3);
+	ASSERTM("Size is wrong", array.size() == 6);
+	ASSERTM("NextFree is wrong", array.nextFree() == 7);
+	ASSERTM("Should not be empty here", !array.isEmpty());
+	unsigned long answer = 1;
+	for (int index = 1; index <= array.size(); index++) {
+		answer = answer * (unsigned long) array[index];
+	}
+	ASSERTM("loop result should be 5040 ", answer == 5040);
+	ASSERTM("First pop should be 7", array.pop() == 7);
+	ASSERTM("First pop should be 6", array.pop() == 6);
+	ASSERTM("First pop should be 5", array.pop() == 5);
+	ASSERTM("Should not be empty", !array.isEmpty());
+	array.reset();
+	ASSERTM("Should be empty after reset", array.isEmpty());
 }
 
-void updateReference()
-{
+void updateReference() {
 //	testUpdateReference
 //		| space array referer size |
 //		space := GCSpace dynamicNew: 1024 * 4 * 10.
@@ -165,17 +194,16 @@ void updateReference()
 //			assert: array contents == referer first
 }
 
-cute::suite make_suite_VMArrayTest(){
+cute::suite make_suite_VMArrayTest() {
 	cute::suite s;
+	s.push_back(CUTE(arrayGrow));
 	s.push_back(CUTE(add));
-		s.push_back(CUTE(addAll));
-		s.push_back(CUTE(letDo));
-		s.push_back(CUTE(pop));
-		s.push_back(CUTE(reset));
-		s.push_back(CUTE(vmArrayGrow));
-		s.push_back(CUTE(updateReference));
+	s.push_back(CUTE(addAll));
+	s.push_back(CUTE(letDo));
+	s.push_back(CUTE(pop));
+	s.push_back(CUTE(reset));
+	s.push_back(CUTE(vmArrayGrow));
+	s.push_back(CUTE(updateReference));
 	return s;
 }
-
-
 

@@ -6,10 +6,12 @@
  */
 
 #include "VMArray.h"
+#include "Windows.h"
 
 using namespace Bee;
 
 VMArray::VMArray() {
+	contents = this->init();
 }
 
 void VMArray::emptyWith(unsigned long * array)
@@ -17,6 +19,32 @@ void VMArray::emptyWith(unsigned long * array)
 	contents = array;
 }
 
+unsigned long * VMArray::init(){
+	return (unsigned long *) malloc (4 * maxSize);
+}
+
+
+void VMArray::grow(){
+	unsigned long * oldContents;
+	oldContents = contents;
+	maxSize += 10;
+	contents = this->init();
+	for(int index = 0; index < maxSize ; index ++){
+		contents[index] = oldContents[index];
+	}
+	free(oldContents);
+}
+
+void VMArray::grow(unsigned long value){
+	unsigned long * oldContents;
+	oldContents = contents;
+	maxSize += 10 + value;
+	contents = this->init();
+	for(int index = 0; index < maxSize ; index ++){
+		contents[index] = oldContents[index];
+	}
+	free(oldContents);
+}
 
 long VMArray::nextFree()
 {
@@ -60,12 +88,14 @@ unsigned long VMArray::pop()
 
 void VMArray::add(unsigned long value)
 {
+	if((this->size() + 1) >= maxSize) this->grow();
 	this->size(this->size() + 1);
 	contents[this->size()] = value;
 }
 
 void VMArray::addAll(unsigned long * array, unsigned long value)
 {
+	if((this->size() + value) >= maxSize) this->grow(value);
 	for (unsigned long index = 0 ;index < value; index++) {
 		this->add(array[index]);
 	}

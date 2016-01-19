@@ -9,6 +9,7 @@
 #define MEMORY_H_
 
 #include "GCSpace.h"
+#include "VMArray.h"
 
 namespace Bee {
 
@@ -16,14 +17,14 @@ class Memory {
 
 	static Memory * singleton;
 protected:
-	GCSpace currentSpace;
-	unsigned long * spaces;
-	GCSpace * collectedSpaces;
+
 
 	//Collector
 
 public:
-
+	GCSpace currentSpace;
+	VMArray * spaces;
+	VMArray * collectedSpaces;
 	GCSpace nextSpace;
 	static Memory * current();
 	Memory();
@@ -33,6 +34,7 @@ public:
 	void initializeCollector();
 	void startUp();
 	void createPinnedSpace();
+	void releaseEverything();
 	GCSpace * acquireMoreSpace();
 	void createNextSpace();
 	void addSpace(GCSpace *);

@@ -10,19 +10,46 @@ extern cute::suite make_suite_MemoryTest();
 using namespace std;
 using namespace Bee;
 
-
 void singleton() {
 	Memory * m = Memory::current();
 	Memory * m2 = Memory::current();
 	m->createNextSpace();
-	ASSERTM("Not a singleton", (ulong) m2->nextSpace.getBase() == (ulong) m->nextSpace.getBase());
+	ASSERTM("Not a singleton",
+			(ulong ) m2->nextSpace.getBase()
+					== (ulong ) m->nextSpace.getBase());
 }
+
+void mooooooooore() {
+	Memory * m = Memory::current();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->acquireMoreSpace();
+	m->releaseEverything();
+
+	Memory::current()->releaseEverything();
+}
+
+void release() {
+	Memory * m = Memory::current();
+	GCSpace space = m->currentSpace;
+	Memory::current()->releaseEverything();
+}
+
 
 cute::suite make_suite_MemoryTest() {
 	cute::suite s;
 	s.push_back(CUTE(singleton));
-	//s.push_back(CUTE(basicSize));
-	//s.push_back(CUTE(beeExtended));
+	s.push_back(CUTE(mooooooooore));
+	s.push_back(CUTE(release));
 	//s.push_back(CUTE(rotateLeftTest));
 	//s.push_back(CUTE(objectFlagManipulation));
 	//s.push_back(CUTE(virtualBehavior));
