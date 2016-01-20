@@ -5,8 +5,13 @@
  *      Author: jbapt
  */
 #include "VMMemory.h"
+#include "Memory.h"
 #include "Windows.h"
 #include <limits.h>
+#include <iostream>
+
+using namespace std;
+using namespace Bee;
 
 unsigned long *debugFrameMarker = (unsigned long *) 0x1001B633;
 unsigned long *MEM_anyCompiledMethodInFromSpace = (unsigned long *) 0x10041710;
@@ -42,145 +47,99 @@ unsigned long ObjectHeaderBits = -1;
 
 //SendInliner
 
-unsigned char * mockNil(unsigned char * localNil) {
+void mockVMValue() {
+	ulong * address = (ulong *) VirtualAlloc((void *) 0x10000000, 0x42000,
+			MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+	if (address) {
+		*debugFrameMarker = 0;//54654
+		*MEM_anyCompiledMethodInFromSpace = 0;
+		*MEM_checkNewNativizedCompiledMethods = 1;
+		*MEM_polymorphicMethodCacheReferesToNewCM = 1;
+
+		*MEM_JIT_globalMethodCache; // array compiled method!behavior 2 by 2
+		*MEM_JIT_codeCachePointer = 0; // 6546849684654 data memory executable.
+		*MEM_globalFramePointerToWalkStack = 0; // top stack
+
+		nil[-2] = (unsigned long) 0x61344500;
+		nil[-1] = (unsigned long) 0x0a0ddc10;
+		nil[0] = (unsigned long) nil; // need it ? or not need it?
+
+		stTrue[-2] = (unsigned long) 0x61000000;
+		stTrue[-1] = (unsigned long) 0x0A0B6BA0;
+		stTrue[0] = (unsigned long) stTrue;
+
+		stFalse[-2] = (unsigned long) 0x61000000;
+		stFalse[-1] = (unsigned long) 0x0A0B6BA0;//0xA06B0B0A;
+		stFalse[0] = (unsigned long) stFalse;
+
+	} else
+		cerr << GetLastError() << endl;
+}
+
+unsigned long * mockNil() {
 	// 00 E3 63 61 94 DF 91 02
 	// nil 00 45 34 61 10 DC 0D 0A
 	//nil_hdr Object <0, 3445h, \             ; DATA XREF: GC_full+E3?o
 	// .data:10026058                                         ; sub_10010E40+33?w
 	// .data:10026058         ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,\
 	// .data:10026058         offset unk_A0DDC10>
-	localNil[0] = (unsigned char) 0x00;
-	localNil[1] = (unsigned char) 0x45;
-	localNil[2] = (unsigned char) 0x34;
-	localNil[3] = (unsigned char) 0x61;
-
-	localNil[4] = (unsigned char) 0x10;
-	localNil[5] = (unsigned char) 0xdc;
-	localNil[6] = (unsigned char) 0x0d;
-	localNil[7] = (unsigned char) 0x0a;
-
-	localNil[8] = (unsigned char) 0xFF;
-	localNil[9] = (unsigned char) 0xFF;
-	localNil[10] = (unsigned char) 0xFF;
-	localNil[11] = (unsigned char) 0xFF;
-
-	return localNil;
+	return nil;
 }
 
-unsigned char * mockTrue() {
+unsigned long * mockTrue() {
 	// true 00 00 00 61 A0 6B 0B 0A
 	//true_hdr Object <0, 0, ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,
 	// offset unk_A0B6BA0>
-	unsigned char * localTrue = (unsigned char *) malloc(11);
-
-	localTrue[0] = (unsigned char) 0x00;
-	localTrue[1] = (unsigned char) 0x00;
-	localTrue[2] = (unsigned char) 0x00;
-	localTrue[3] = (unsigned char) 0x61;
-
-	localTrue[4] = (unsigned char) 0xA0;
-	localTrue[5] = (unsigned char) 0x6B;
-	localTrue[6] = (unsigned char) 0x0B;
-	localTrue[7] = (unsigned char) 0x0A;
-
-	localTrue[8] = (unsigned char) 0xFF;
-	localTrue[9] = (unsigned char) 0xFF;
-	localTrue[10] = (unsigned char) 0xFF;
-	localTrue[11] = (unsigned char) 0xFF;
-
-	return &localTrue[8];
+	return stTrue;
 }
 
-unsigned char * mockArray() {
-
+unsigned long * mockArray() {
 	// 03 00 00 01  D8 71 85 02
-
 	// Array new: 3
 	// 03 F8 37 01 F0 92 07 0A
 	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
 	// 12:10has 3 slots
 
-	unsigned char * localArray = (unsigned char *) malloc(8 + 4);
-	localArray[0] = (unsigned char) 0x03;
-	localArray[1] = (unsigned char) 0xF8;
-	localArray[2] = (unsigned char) 0x37;
-	localArray[3] = (unsigned char) 0x01;
-
-	localArray[4] = (unsigned char) 0xF0;
-	localArray[5] = (unsigned char) 0x92;
-	localArray[6] = (unsigned char) 0x07;
-	localArray[7] = (unsigned char) 0x0A;
-
-	localArray[8] = (unsigned char) 0xFF;
-	localArray[9] = (unsigned char) 0xFF;
-	localArray[10] = (unsigned char) 0xFF;
-	localArray[11] = (unsigned char) 0xFF;
-
-	return &localArray[8];
+	unsigned long * localArray = (unsigned long *) (Memory::current())->currentSpace.allocate(4 * 8);
+	localArray[0] = (unsigned long) 0x0137F803;
+	localArray[1] = (unsigned long) 0x0A0792F0;
+	localArray[2] = (unsigned long) 0xFFFFFFFF;
+	return &localArray[2];
 }
 
-unsigned char * mockArray2() {
+unsigned long * mockArray2() {
 
 	// 03 00 00 01  D8 71 85 02
 	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
 	// 12:10has 3 slots
 	//
-	unsigned char * stArray = (unsigned char *) malloc(8 + 4);
-	stArray[0] = (unsigned char) 0x03;
-	stArray[1] = (unsigned char) 0x00;
-	stArray[2] = (unsigned char) 0x00;
-	stArray[3] = (unsigned char) 0x01;
-	stArray[4] = (unsigned char) 0xF0;
-	stArray[5] = (unsigned char) 0x92;
-	stArray[6] = (unsigned char) 0x07;
-	stArray[7] = (unsigned char) 0x0A;
-	stArray[8] = (unsigned char) 0xFF;
-	stArray[9] = (unsigned char) 0xFF;
-	stArray[10] = (unsigned char) 0xFF;
-	stArray[11] = (unsigned char) 0xFF;
 
-	return &stArray[8];
+	unsigned long * stArray = (unsigned long *) (Memory::current())->currentSpace.allocate(4 * 8);
+	stArray[0] = (unsigned long) 0x01000003;
+	stArray[1] = (unsigned long) 0x0A0792F0;
+	stArray[2] = (unsigned long) 0xFFFFFFFF;
+	return &stArray[2];
 }
 
-unsigned char * mockArray1024() {
+unsigned long * mockArray1024() {
 
 	// 03 00 00 01  D8 71 85 02
-	unsigned char * localArray = (unsigned char *) malloc(16 + (4 * 1024));
+	unsigned long * localArray = (unsigned long *) (Memory::current())->currentSpace.allocate(16 + (4 * 1024));
+
 	// Array new: 3
 	// 03 F8 37 01 F0 92 07 0A
 	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
 	// 12:10has 3 slots
-	localArray[0] = (unsigned char) 0x04;
-	localArray[1] = (unsigned char) 0xF8;
-	localArray[2] = (unsigned char) 0x37;
-	localArray[3] = (unsigned char) 0x81;
-
-	localArray[4] = (unsigned char) 0x00;
-	localArray[5] = (unsigned char) 0x04;
-	localArray[6] = (unsigned char) 0x00;
-	localArray[7] = (unsigned char) 0x00;
-
-	localArray[8] = (unsigned char) 0x04;
-	localArray[9] = (unsigned char) 0xF8;
-	localArray[10] = (unsigned char) 0x37;
-	localArray[11] = (unsigned char) 0x81;
-
-	localArray[12] = (unsigned char) 0xF0;
-	localArray[13] = (unsigned char) 0x92;
-	localArray[14] = (unsigned char) 0x07;
-	localArray[15] = (unsigned char) 0x0A;
-
+	localArray[0] = (unsigned long) 0x8137f804;
+	localArray[1] = (unsigned long) 0x00000400;
+	localArray[2] = (unsigned long) 0x8137f804;
+	localArray[3] = (unsigned long) 0x0A0792F0;
 
 	for (int index = 4; index <= 1024; index++) {
-		localArray[index * 4] = (unsigned char) (index << 1);
-		localArray[(index * 4) + 1] = (unsigned char) 0x00;
-		localArray[(index * 4) + 2] = (unsigned char) 0x00;
-		localArray[(index * 4) + 3] = (unsigned char) 0x00;
+		localArray[index] = (unsigned long)(index << 1);
 	}
-
-	return &localArray[16];
+	return &localArray[4];
 }
-
 
 void freeSimpleObject(unsigned char * object) {
 	free(&object[-8]);
@@ -287,6 +246,10 @@ void _beNotInRememberedSet(ulong *object) {
 	unsetFlags(object, ObjectFlag_isInRememberSet);
 }
 
+ulong * _proxee(ulong * object) {
+
+}
+
 ulong _sizeInBytes(ulong *object) {
 	if (_isBytes(object)) {
 		int zero;
@@ -352,7 +315,7 @@ ulong _getProxee(ulong *object) {
 
 bool isArray(ulong *object) {
 
-	return (_basicAt(object,0) == 0x0A0792F0);
+	return (_basicAt(object, 0) == 0x0A0792F0);
 }
 
 unsigned long memoryAt(unsigned long pointer) {

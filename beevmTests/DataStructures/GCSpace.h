@@ -44,9 +44,10 @@ public:
 	GCSpace();
 	void load();
 	void save();
-	bool includes(ulong * pointer);
 	void loadFrom(GCSpace from);
 	void reset();
+
+
 	GCSpace * grow();
 	void decommitSlack();
 	void release();
@@ -54,7 +55,7 @@ public:
 	ulong * obtainFreeSpaceAndAllocate(ulong size);
 	void dispenseReservedSpace();
 	void garbageCollect();
-ulong * allocate(ulong size);
+	ulong * allocate(ulong size);
 	void setInfo(GCSpaceInfo gcspaceinfo);
 	ulong* shallowCopy(ulong *pointer);
 	ulong * shallowCopyGrowingTo(ulong * array , ulong grow);
@@ -62,6 +63,10 @@ ulong * allocate(ulong size);
 	static GCSpace currentTo();
 	static GCSpace old();
 	static GCSpace dynamicNew(ulong size);
+
+	//Todo
+
+	bool includes(ulong * pointer);
 };
 
 }

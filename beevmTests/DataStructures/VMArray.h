@@ -5,6 +5,8 @@
  *      Author: Arnaud Jean-Baptiste
  */
 
+#include "GCSpace.h"
+
 #ifndef DATASTRUCTURES_VMARRAY_H_
 #define DATASTRUCTURES_VMARRAY_H_
 
@@ -14,7 +16,10 @@ class VMArray {
 
 
 public:
+	GCSpace * space;
 	int maxSize = 10;
+
+	void setSpace(GCSpace * argSpace);
 	unsigned long * init();
 	void grow();
 	void grow(unsigned long);

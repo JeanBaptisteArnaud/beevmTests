@@ -108,6 +108,7 @@ GCSpaceInfo GCSpaceInfo::currentFrom() {
 	returnValue.setContents((ulong *) 0x100416B0);
 	return returnValue;
 }
+
 GCSpaceInfo GCSpaceInfo::old() {
 	GCSpaceInfo returnValue = GCSpaceInfo();
 	returnValue.setContents((ulong *) 0x100406B0);

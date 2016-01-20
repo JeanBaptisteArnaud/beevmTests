@@ -69,11 +69,14 @@ extern unsigned long ObjectHash;
 extern unsigned long ObjectFlags;
 extern unsigned long ObjectHeaderBits;
 
-unsigned char * mockNil(unsigned char *);
-unsigned char * mockTrue();
-unsigned char * mockArray();
-unsigned char * mockArray2();
-unsigned char * mockArray1024();
+unsigned long * mockNil();
+unsigned long * mockTrue();
+unsigned long * mockArray();
+unsigned long * mockArray2();
+unsigned long * mockArray1024();
+
+
+void mockVMValue();
 void freeSimpleObject(unsigned char * object);
 void freeComplexObject(unsigned char * object);
 
@@ -94,6 +97,7 @@ ulong _getExtendedSize(ulong *object);
 unsigned long memoryAt(unsigned long pointer);
 void memoryAtPut(unsigned long * pointer, unsigned long value);
 //SendInliner
+
 bool _isProxy(ulong *object);
 bool isArray(ulong *object);
 ulong size(ulong *object);

@@ -10,6 +10,7 @@
 
 #include "GCSpace.h"
 #include "VMArray.h"
+#include <vector>
 
 namespace Bee {
 
@@ -23,8 +24,8 @@ protected:
 
 public:
 	GCSpace currentSpace;
-	VMArray * spaces;
-	VMArray * collectedSpaces;
+	std::vector<GCSpace * > spaces;
+	std::vector<GCSpace * > collectedSpaces;
 	GCSpace nextSpace;
 	static Memory * current();
 	Memory();

@@ -1,13 +1,17 @@
 #include "../DataStructures/VMMemory.h"
+#include "../DataStructures/Memory.h"
+
 #include "cute.h"
 #include "cute_suite.h"
 
 #include "Windows.h"
 #include "stdlib.h"
+#include <iostream>
 
 extern cute::suite make_suite_VMMemoryTest();
 
 using namespace std;
+using namespace Bee;
 // File myclassTest.h
 
 // nil 00 45 34 61 10 DC 0D 0A
@@ -26,28 +30,29 @@ using namespace std;
 // 12:10has 3 slots
 
 void headerOf() {
-	unsigned char * header;
+	mockVMValue();
+	unsigned long * object;
 	header_t * h;
-	header = (unsigned char *) malloc(12);
-	header = mockArray();
+	object = mockArray();
 
-	h = HEADER_OF(header[8]);
+	h = HEADER_OF(*object);
+
 	ASSERTM("Array 1 : Size", (unsigned short ) h->size == 3);
 	ASSERTM("Array 1 : Hash", h->hash == (unsigned short ) 0x37F8);
 	ASSERTM("Array 1 : Flags",
 			(unsigned short ) (h->flags) == ObjectFlag_reserved1);
 	ASSERTM("Array 1 : behavior", ((ulong )h->behavior) == 0x0A0792F0);
 
-	header = mockArray2();
-	h = HEADER_OF(header[8]);
+	object = mockArray2();
+	h = HEADER_OF(*object);
 	ASSERTM("Array 2 : Size", ((unsigned short ) h->size) == 3);
 	ASSERTM("Array 2 : Hash", h->hash == (unsigned short ) 0x0000);
 	ASSERTM("Array 2 : Flags",
 			((unsigned short ) h->flags == ObjectFlag_reserved1));
-	ASSERTM("Array 2 : behavior", ((ulong )h->behavior) == 0x028571D8);
+	ASSERTM("Array 2 : behavior", ((ulong )h->behavior) == 0x0A0792F0);
 
-	header = mockTrue();
-	h = HEADER_OF(header[8]);
+	object = mockTrue();
+	h = HEADER_OF(*object);
 	//00000061 A06B0B0A
 
 	ASSERTM("True : Size", ((unsigned short ) h->size) == 0);
@@ -59,8 +64,8 @@ void headerOf() {
 	ASSERTM("True : behavior", ((ulong )h->behavior) == 0x0A0B6BA0);
 
 	//00 45 34 61 10 DC 0D 0A
-	mockNil(header);
-	h = HEADER_OF(header[8]);
+	object = mockNil();
+	h = HEADER_OF(*object);
 	ASSERTM("Nil : Size", ((unsigned short ) h->size) == 0);
 	ASSERTM("Nil : Hash", h->hash == (unsigned short ) 0x3445);
 	ASSERTM("Nil : Flags",
@@ -68,43 +73,41 @@ void headerOf() {
 					== (ObjectFlag_reserved1 | ObjectFlag_notIndexed
 							| ObjectFlag_zeroTermOrNamed));
 	ASSERTM("Nil : behavior", ((ulong )h->behavior) == 0x0A0DDC10);
-	free(header);
+
+	Memory::current()->releaseEverything();
 
 }
 
 void basicSize() {
-	unsigned char * header = mockArray();
-	ulong * object = (ulong *) &header[8];
+	mockVMValue();
+	unsigned long * object = mockArray();
 	ASSERTM("size ", (_basicGetSize(object) == 3));
 	_basicSetSize(object, 122);
 	ASSERTM("size ", (_basicGetSize(object) == 122));
-	free(header);
 
-	header = mockArray1024();
+	object = mockArray1024();
 	ASSERTM("size ", (_size(object) == 1024));
 	_setExtendedSize(object, 122);
 	ASSERTM("size ", (_size(object) == 122));
 
+	Memory::current()->releaseEverything();
 }
 
 void beeExtended() {
-	unsigned char * object = mockArray1024();
+	mockVMValue();
+	unsigned long * object = mockArray1024();
 	_beExtended((ulong *) object);
 	big_header_t * h = BIG_HEADER_OF(*object);
-
-
 	ASSERTM("sizeInWordBis", ((unsigned short )h->sizeInWordBis == 4));
 	ASSERTM("sizeInWord", ((unsigned short )h->sizeInWord == 4));
-
 	ASSERTM("flags",
 			((unsigned short )h->flags
 					== (ObjectFlag_reserved1 | ObjectFlag_isExtended)));
-
 	ASSERTM("flagsBis",
 			((unsigned short )h->flagsBis
 					== (ObjectFlag_reserved1 | ObjectFlag_isExtended)));
 	ASSERTM("real size", (h->size == 1024));
-
+	Memory::current()->releaseEverything();
 }
 
 void rotateLeftTest() {
@@ -180,12 +183,10 @@ void rotateLeftTest() {
 }
 
 void objectFlagManipulation() {
+	mockVMValue();
+	unsigned long * object;
+	object = mockArray();
 
-	unsigned char * header;
-	header = (unsigned char *) malloc(12);
-	header = mockArray();
-
-	ulong * object = (ulong *) &header[8];
 	ASSERTM("check reserved1", !testFlags(object, ObjectFlag_isEphemeron));
 	setFlags(object, ObjectFlag_isEphemeron);
 	ASSERTM("set reserved1", testFlags(object, ObjectFlag_isEphemeron));
@@ -202,7 +203,8 @@ void objectFlagManipulation() {
 
 	setFlags(object, ObjectFlag_zeroTermOrNamed);
 	ASSERTM("_isZeroTerminated", _isZeroTerminated(object));
-	free(header);
+
+	Memory::current()->releaseEverything();
 }
 
 void virtualBehavior() {
@@ -223,7 +225,6 @@ void virtualBehavior() {
 	free(queryAnswer);
 }
 
-
 cute::suite make_suite_VMMemoryTest() {
 	cute::suite s;
 	s.push_back(CUTE(headerOf));
@@ -232,14 +233,6 @@ cute::suite make_suite_VMMemoryTest() {
 	s.push_back(CUTE(rotateLeftTest));
 	s.push_back(CUTE(objectFlagManipulation));
 	s.push_back(CUTE(virtualBehavior));
-	//s.push_back(CUTE(newGCSpaceShallowCopy));
-	//s.push_back(CUTE(basicAt));
-	//s.push_back(CUTE(shallowCopyBytes));
-	//s.push_back(CUTE(shallowCopyBytes2));
-	//s.push_back(CUTE(shallowCopyBytes3));
-	//s.push_back(CUTE(shallowCopyBytesExtended));
-	//s.push_back(CUTE(shallowCopyExtended));
-	//s.push_back(CUTE(synchronousGCSpace));
 	return s;
 }
 

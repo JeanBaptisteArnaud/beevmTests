@@ -1,0 +1,45 @@
+#include "../DataStructures/GCSpaceInfo.h"
+#include "cute.h"
+#include "cute_suite.h"
+extern cute::suite make_suite_GCTest();
+
+using namespace Bee;
+using namespace std;
+
+// File myclassTest.h
+
+using namespace Bee;
+
+
+void atTests() {
+	GCSpaceInfo mock = GCSpaceInfo::mockForTest();
+	ASSERTM("size", mock.sizeInBytes == 24);
+	for (unsigned long value = 0; value < smallPointerMaxValue; value++) {
+		mock.atPut(0, (unsigned long *) value);
+		if (mock.at(0) != (unsigned long *) value) {
+			ostringstream ostr;
+			ostr << "v:";
+			ostr << value;
+			ostr << " readV:";
+			ostr << mock.at(0);
+			FAILM(ostr.str());
+		}
+
+		//ASSERTM("at", mock.at(0) == value);
+	}
+	mock.freeMock();
+}
+
+cute::suite make_suite_GCTest() {
+	cute::suite s;
+	//Long time so just test it one by one
+	//s.push_back(CUTE(atTests));
+	//s.push_back(CUTE(baseTests));
+	//s.push_back(CUTE(softLimitTests));
+	//s.push_back(CUTE(reservedLimitTests));
+	//s.push_back(CUTE(commitedLimitTests));
+	//s.push_back(CUTE(nextFreeTests));
+	//s.push_back(CUTE(base_3Tests));
+	return s;
+}
+

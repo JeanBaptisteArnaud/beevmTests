@@ -31,11 +31,11 @@ void allocate() {
 }
 
 void extendedGrowingTo() {
-	unsigned char * array = mockArray1024();
-	unsigned char * stTrue = mockTrue();
+	unsigned long * array = mockArray1024();
+	unsigned long * stTrue = mockTrue();
 	GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
-	ulong * copy = localSpace.shallowCopyGrowingTo((ulong *) array, 2048);
-	ulong * object = localSpace.shallowCopy((ulong *) stTrue);
+	ulong * copy = localSpace.shallowCopyGrowingTo( array, 2048);
+	ulong * object = localSpace.shallowCopy(stTrue);
 	ASSERTM("copy is not a Array", isArray(copy));
 	ASSERTM("size of copy is wrong", _size(copy) == 2048);
 	ASSERTM("copy is not consistent (first element diverge)",
@@ -50,7 +50,6 @@ void extendedGrowingTo() {
 //			_oop(object) + 8 == (_oop(copy) + (size(copy) * 4) + 16));
 	//free(array);
 
-	freeComplexObject(array);
 	Memory::current()->releaseEverything();
 }
 
@@ -124,7 +123,7 @@ void grow() {
 }
 
 void growingTo() {
-	unsigned char * array = mockArray();
+	unsigned long * array = mockArray();
 	GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
 	ulong * copy = localSpace.shallowCopyGrowingTo((unsigned long *) array,
 			2048);
@@ -140,7 +139,6 @@ void growingTo() {
 //	ASSERTM("I feel a perturbation in the force",
 //			_oop(object) + 8 == (_oop(copy) + (size(copy) * 4) + 16));
 	//free(array);
-	freeSimpleObject(array);
 	Memory::current()->releaseEverything();
 }
 

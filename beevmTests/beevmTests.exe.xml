@@ -1,10 +1,5 @@
 <testsuites>
-	<testsuite name="GCSpaceTest" tests="6">
-		<testcase classname="GCSpaceTest" name="allocate"/>
-		<testcase classname="GCSpaceTest" name="extendedGrowingTo"/>
-		<testcase classname="GCSpaceTest" name="grow"/>
-		<testcase classname="GCSpaceTest" name="growingTo"/>
-		<testcase classname="GCSpaceTest" name="newGCSpaceShallowCopy"/>
-		<testcase classname="GCSpaceTest" name="shallowCopy"/>
+	<testsuite name="GCTest" tests="1">
+		<testcase classname="GCTest" name="gcCollect"/>
 	</testsuite>
 </testsuites>
