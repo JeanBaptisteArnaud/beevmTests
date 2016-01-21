@@ -34,7 +34,6 @@ void mooooooooore() {
 	m->acquireMoreSpace();
 	m->acquireMoreSpace();
 	m->releaseEverything();
-	Memory::current()->releaseEverything();
 }
 
 void release() {

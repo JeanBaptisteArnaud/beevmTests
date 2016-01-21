@@ -19,6 +19,9 @@ public:
 	GenerationalGC();
 	~GenerationalGC();
 	void collect();
+	unsigned long * moveToOldOrTo(unsigned long * object);
+	void initLocals();
+	void initNonLocals();
 
 protected:
 	bool hasToPurge(unsigned long *pointer);
@@ -29,8 +32,6 @@ protected:
 	void purgeLiteralsReference();
 	void purgeRememberSet();
 	void followCodeCacheReferences();
-	void initLocals();
-	void initNonLocals();
 	GenerationalGC * gcForTesting();
 	void moveClassCheckReferences();
 	void followRoots();
@@ -39,8 +40,9 @@ protected:
 	void fixReferencesFromNativeMethods();
 	void flipSpaces();
 	void updateSpacesDelta();
-	unsigned long* copyTo(unsigned long *object, GCSpace &to);
-	unsigned long* moveToOldSpace(unsigned long *object);
+	unsigned long * copyTo(unsigned long *object, GCSpace &to);
+	unsigned long * moveToOldSpace(unsigned long * object);
+	unsigned long * moveToToSpace(unsigned long * object);
 	unsigned long holdReferenceTo(unsigned long *object);
 	void spacesDelta(unsigned long delta);
 	unsigned long spacesDelta();

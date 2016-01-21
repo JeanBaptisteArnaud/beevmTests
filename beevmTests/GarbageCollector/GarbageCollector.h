@@ -22,16 +22,17 @@ public:
 	static GarbageCollector* currentFlipper();
 	void collect();
 	GCSpace localSpace;
-
-protected:
 	GCSpace fromSpace;
 	GCSpace toSpace;
+	ReferencedVMArray rememberSet;
+
+protected:
+
 	GCSpace oldSpace;
 	GCSpace auxSpace;
 	VMArray ephemerons;
 	VMArray weakContainers;
 	ReferencedVMArray rescuedEphemerons;
-	ReferencedVMArray rememberSet;
 	ReferencedVMArray literalsReferences;
 	ReferencedVMArray nativizedMethods;
 	ReferencedVMArray classCheckReferences;

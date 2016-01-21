@@ -28,7 +28,7 @@ public:
 	long nextFree(unsigned long newSize);
 	void add(unsigned long);
 	void addAll(unsigned long * array , unsigned long size);
-
+	bool includes(unsigned long *);
 	long size();
 	long size(unsigned long newSize);
 	unsigned long pop();

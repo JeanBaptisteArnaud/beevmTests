@@ -30,7 +30,9 @@ public:
 	static Memory * current();
 	Memory();
 	GCSpace * growIfNeeded(ulong size);
+	GCSpace dynamicNew(ulong size);
 	ulong * obtainFreeSpaceAndAllocate(ulong size);
+	ulong * VM();
 	GCSpaceInfo allocateWithoutFinalization(ulong);
 	void initializeCollector();
 	void startUp();

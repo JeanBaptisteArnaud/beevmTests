@@ -48,8 +48,8 @@ unsigned long ObjectHeaderBits = -1;
 //SendInliner
 
 void mockVMValue() {
-	ulong * address = (ulong *) VirtualAlloc((void *) 0x10000000, 0x42000,
-			MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+	ulong * address =
+			Memory::current()->VM();
 	if (address) {
 		*debugFrameMarker = 0;//54654
 		*MEM_anyCompiledMethodInFromSpace = 0;
@@ -177,6 +177,8 @@ ulong _getExtendedSize(ulong *object) {
 	return (ulong) h->size;
 }
 
+
+
 ulong _size(ulong *object) {
 	if (_isExtended(object))
 		return _getExtendedSize(object);
@@ -201,10 +203,15 @@ void _decommit(ulong limit, ulong delta) {
 	VirtualFree((void *) limit, delta, MEM_DECOMMIT);
 }
 
-void _commit(ulong limit, ulong delta) {
-	(ulong *) VirtualAlloc((void *) limit, delta, MEM_COMMIT, PAGE_READWRITE);
+ulong * _commit(ulong limit, ulong delta) {
+	return (ulong *) VirtualAlloc((void *) limit, delta, MEM_COMMIT, PAGE_READWRITE);
 }
 
+
+
+void _halt() {
+
+}
 // flags Tests
 
 bool testFlags(ulong *object, unsigned char flag) {
@@ -226,6 +233,15 @@ void _beExtended(ulong *object) {
 	setFlags(object, ObjectFlag_isExtended);
 }
 
+void _beSecondGeneration(ulong *object) {
+	setFlags(object, ObjectFlag_generation);
+}
+
+bool _isSecondGeneration(ulong *object) {
+	return testFlags(object, ObjectFlag_generation);
+}
+
+
 bool _isBytes(ulong *object) {
 	return testFlags(object, ObjectFlag_isBytes);
 }
@@ -245,6 +261,12 @@ bool _isInRememberedSet(ulong *object) {
 void _beNotInRememberedSet(ulong *object) {
 	unsetFlags(object, ObjectFlag_isInRememberSet);
 }
+
+
+void _beInRememberedSet(ulong *object) {
+	setFlags(object, ObjectFlag_isInRememberSet);
+}
+
 
 ulong * _proxee(ulong * object) {
 

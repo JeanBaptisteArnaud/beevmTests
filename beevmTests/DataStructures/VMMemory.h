@@ -106,10 +106,8 @@ ulong _oop(ulong *object);
 
 ulong * _proxee(ulong *object);
 ulong _size(ulong *object);
-void _beNotInRememberedSet(ulong *object);
 void _decommit(ulong limit, ulong delta);
-void _commit(ulong limit, ulong delta);
-
+ulong * _commit(ulong limit, ulong delta);
 ulong _asObject(ulong * object);
 ulong * _asPointer(ulong object);
 ulong _sizeInBytes(ulong * object);
@@ -119,6 +117,7 @@ bool testFlags(ulong *object, unsigned char flag);
 
 void setFlags(ulong *object, unsigned char flag);
 
+void _halt();
 void unsetFlags(ulong *object, unsigned char flag);
 
 bool _isBytes(ulong *object);
@@ -128,11 +127,14 @@ bool _isExtended(ulong *object);
 bool _isZeroTerminated(ulong *object);
 
 bool _isInRememberedSet(ulong *object);
-void _beNotInRememberedSet(ulong *object);
+void _beInRememberedSet(ulong *object);
 
+void _beSecondGeneration(ulong *object);
+bool _isSecondGeneration(ulong *object);
 void _beExtended(ulong *object);
 ulong _framePointer();
 void _beNotInRememberSet(ulong *object);
+void _beNotInRememberedSet(ulong *object);
 ulong _size(ulong *object);
 
 #endif /* DATASTRUCTURES_VMMEMORY_H_ */

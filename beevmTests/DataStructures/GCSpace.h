@@ -51,7 +51,7 @@ public:
 	GCSpace * grow();
 	void decommitSlack();
 	void release();
-
+	GCSpace * hostVMGrow();
 	ulong * obtainFreeSpaceAndAllocate(ulong size);
 	void dispenseReservedSpace();
 	void garbageCollect();

@@ -1,5 +1,0 @@
-<testsuites>
-	<testsuite name="GCTest" tests="1">
-		<testcase classname="GCTest" name="gcCollect"/>
-	</testsuite>
-</testsuites>

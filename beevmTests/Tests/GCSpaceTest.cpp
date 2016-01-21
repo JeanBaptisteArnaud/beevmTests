@@ -15,7 +15,6 @@ using namespace std;
 void allocate() {
 
 	GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
-	//GCSpace localSpace = Memory::current()->currentSpace;
 	ASSERTM("init wrong", localSpace.getNextFree() == localSpace.getBase());
 	ulong * address = localSpace.allocate(1024);
 	address = localSpace.allocate(1024);
@@ -26,11 +25,13 @@ void allocate() {
 	ASSERTM("nextFree limit",
 			((ulong )localSpace.getNextFree())
 					== ((ulong )localSpace.getBase() + (1024 * 40)));
-	address = localSpace.allocate(1024);
+	address = localSpace.allocate(1024 * 30);
 	Memory::current()->releaseEverything();
 }
 
 void extendedGrowingTo() {
+
+	mockVMValue();
 	unsigned long * array = mockArray1024();
 	unsigned long * stTrue = mockTrue();
 	GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
@@ -253,11 +254,11 @@ void synchronousGCSpace() {
 cute::suite make_suite_GCSpaceTest() {
 	cute::suite s;
 	s.push_back(CUTE(allocate));
-	s.push_back(CUTE(extendedGrowingTo));
-	s.push_back(CUTE(grow));
-	s.push_back(CUTE(growingTo));
-	s.push_back(CUTE(newGCSpaceShallowCopy));
-	s.push_back(CUTE(shallowCopy));
+	//s.push_back(CUTE(extendedGrowingTo));
+//	s.push_back(CUTE(grow));
+//	s.push_back(CUTE(growingTo));
+//	s.push_back(CUTE(newGCSpaceShallowCopy));
+//	s.push_back(CUTE(shallowCopy));
 	//s.push_back(CUTE(shallowCopyBytes));
 	//s.push_back(CUTE(shallowCopyBytes2));
 	//s.push_back(CUTE(shallowCopyBytes3));
