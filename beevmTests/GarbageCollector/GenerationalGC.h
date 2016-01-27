@@ -22,19 +22,20 @@ public:
 	unsigned long * moveToOldOrTo(unsigned long * object);
 	void initLocals();
 	void initNonLocals();
+	void addRoot(unsigned long * object);
+	void followRoots();
+	bool arenaIncludes(unsigned long *pointer);
 
 protected:
 	bool hasToPurge(unsigned long *pointer);
-	bool arenaIncludes(unsigned long *pointer);
 	unsigned long* codeCacheAtOffset(unsigned long offset);
 	void moveToOldAll(ReferencedVMArray &objects);
 	void followRememberSet();
 	void purgeLiteralsReference();
 	void purgeRememberSet();
+	bool checkReachablePropertyOf(unsigned long *ephemeron);
 	void followCodeCacheReferences();
-	GenerationalGC * gcForTesting();
 	void moveClassCheckReferences();
-	void followRoots();
 	void cleanRememberSet();
 	void addInterrupt();
 	void fixReferencesFromNativeMethods();
@@ -48,6 +49,7 @@ protected:
 	unsigned long spacesDelta();
 	unsigned long* framePointerToStartWalkingTheStack();
 	void fixReferencesOrSetTombstone(unsigned long *weakContainer);
+	void followCountStartingAt(unsigned long * pointer, int count, long start);
 };
 
 extern "C" {

@@ -11,6 +11,7 @@
 #include "VMMemory.h"
 
 namespace Bee {
+
 class GCSpace {
 protected:
 	GCSpaceInfo info;
@@ -33,6 +34,7 @@ public:
 	ulong * getNextFree();
 	ulong * getCommitedLimit();
 	ulong * getReservedLimit();
+	ulong * getRegionBase();
 	ulong * getSoftLimit();
 	void setBase(ulong * localBase);
 	void setNextFree(ulong * localNextFree);
@@ -43,6 +45,7 @@ public:
 
 	GCSpace();
 	void load();
+	void load2();
 	void save();
 	void loadFrom(GCSpace from);
 	void reset();

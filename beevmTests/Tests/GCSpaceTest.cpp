@@ -253,9 +253,9 @@ void synchronousGCSpace() {
 
 cute::suite make_suite_GCSpaceTest() {
 	cute::suite s;
-	s.push_back(CUTE(allocate));
-	//s.push_back(CUTE(extendedGrowingTo));
-//	s.push_back(CUTE(grow));
+	//s.push_back(CUTE(allocate));
+	s.push_back(CUTE(extendedGrowingTo));
+	s.push_back(CUTE(grow));
 //	s.push_back(CUTE(growingTo));
 //	s.push_back(CUTE(newGCSpaceShallowCopy));
 //	s.push_back(CUTE(shallowCopy));

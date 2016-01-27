@@ -11,7 +11,6 @@
 // this should manage all the raw access memory
 
 #define NULL 0
-#define  _strongPointersSize(pointer) 0
 
 //#pragma pack (1)
 #pragma pack (push,1)
@@ -74,12 +73,15 @@ unsigned long * mockTrue();
 unsigned long * mockArray();
 unsigned long * mockArray2();
 unsigned long * mockArray1024();
+unsigned long * mockWeakArray();
 
 
 void mockVMValue();
 void freeSimpleObject(unsigned char * object);
 void freeComplexObject(unsigned char * object);
 
+unsigned long * mockEphemeronFrom(unsigned long * key, unsigned long * value);
+unsigned long * mockObjectFrom();
 
 //done
 ulong _basicAt(ulong *object, int index);
@@ -102,10 +104,13 @@ bool _isProxy(ulong *object);
 bool isArray(ulong *object);
 ulong size(ulong *object);
 ulong _asOop(ulong *object);
+ulong _strongPointersSize(ulong *object);
 ulong _oop(ulong *object);
 
-ulong * _proxee(ulong *object);
+void _setProxee(ulong * object, ulong copy);
+ulong _getProxee(ulong * object);
 ulong _size(ulong *object);
+
 void _decommit(ulong limit, ulong delta);
 ulong * _commit(ulong limit, ulong delta);
 ulong _asObject(ulong * object);
@@ -121,6 +126,9 @@ void _halt();
 void unsetFlags(ulong *object, unsigned char flag);
 
 bool _isBytes(ulong *object);
+bool _hasWeaks(ulong *object);
+bool _isActiveEphemeron(ulong *object);
+bool _isEphemeron(ulong *object);
 
 bool _isExtended(ulong *object);
 
@@ -132,6 +140,8 @@ void _beInRememberedSet(ulong *object);
 void _beSecondGeneration(ulong *object);
 bool _isSecondGeneration(ulong *object);
 void _beExtended(ulong *object);
+bool _haveNoWeaks(ulong *object);
+
 ulong _framePointer();
 void _beNotInRememberSet(ulong *object);
 void _beNotInRememberedSet(ulong *object);

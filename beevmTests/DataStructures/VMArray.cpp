@@ -17,6 +17,7 @@ using namespace std;
 
 
 VMArray::VMArray() {
+	maxSize = 10;
 }
 
 
@@ -34,7 +35,7 @@ void VMArray::emptyWith(unsigned long * array)
 }
 
 unsigned long * VMArray::init(){
-	return (unsigned long *) space->allocate(4 * maxSize);
+	return space->allocate(4 * maxSize);
 }
 
 
@@ -98,6 +99,13 @@ unsigned long VMArray::pop()
 	this->size(this->size() - 1);
 	return value;
 
+}
+
+void VMArray::push(unsigned long value)
+{
+	contents[this->size() + 1] = value;
+	//contents[this->size()] = nil; Maybe reset to nil it is the point to have VM Array
+	this->size(this->size()+ 1);
 }
 
 void VMArray::add(unsigned long value)

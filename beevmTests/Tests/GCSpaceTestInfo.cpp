@@ -123,7 +123,7 @@ void baseTests() {
 cute::suite make_suite_GCSpaceInfoTest() {
 	cute::suite s;
 	//Long time so just test it one by one
-	s.push_back(CUTE(atTests));
+	//s.push_back(CUTE(atTests));
 	//s.push_back(CUTE(baseTests));
 	//s.push_back(CUTE(softLimitTests));
 	//s.push_back(CUTE(reservedLimitTests));

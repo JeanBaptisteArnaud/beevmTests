@@ -1,0 +1,149 @@
+/*
+ * Globales.h
+ *
+ *  Created on: 18 d�c. 2015
+ *      Author: Arnaud Jean-Baptiste
+ */
+
+#ifndef DATASTRUCTURES_VMMEMORY_H_
+#define DATASTRUCTURES_VMMEMORY_H_
+
+// this should manage all the raw access memory
+
+#define NULL 0
+#define  _strongPointersSize(pointer) 0
+
+//#pragma pack (1)
+#pragma pack (push,1)
+typedef struct header_t {
+	unsigned char size;
+	unsigned short hash;
+	unsigned char flags;
+	unsigned long * behavior;
+} header_t;
+
+typedef struct big_header_t {
+	unsigned char sizeInWordBis; 	// 1
+	unsigned short hashBis; 	// 2
+	unsigned char flagsBis;		// 1
+	unsigned long size;			// 4
+	unsigned char sizeInWord;	// 1
+	unsigned short hash;		// 2
+	unsigned char flags;		// 1
+	unsigned long * behavior; 	// 4
+} big_header_t;
+
+#pragma pack (pop)
+
+#define HEADER_OF(object) (header_t*)(((ulong)&object)-8)
+#define BIG_HEADER_OF(object) (big_header_t*)(((ulong)&object)-16)
+
+typedef unsigned long ulong;
+
+extern unsigned long *debugFrameMarker;
+extern unsigned long *MEM_anyCompiledMethodInFromSpace;
+extern unsigned long *MEM_checkNewNativizedCompiledMethods;
+extern unsigned long *MEM_polymorphicMethodCacheReferesToNewCM;
+extern unsigned long **MEM_JIT_globalMethodCache;
+extern unsigned long *MEM_JIT_codeCachePointer;
+extern unsigned long *MEM_globalFramePointerToWalkStack;
+extern unsigned long *nil;
+extern unsigned long *stTrue;
+extern unsigned long *stFalse;
+
+extern unsigned char ObjectFlag_reserved1;
+extern unsigned char ObjectFlag_generation;
+extern unsigned char ObjectFlag_isEphemeron;
+extern unsigned char ObjectFlag_isInRememberSet;
+extern unsigned char ObjectFlag_isBytes;
+extern unsigned char ObjectFlag_zeroTermOrNamed;
+extern unsigned char ObjectFlag_notIndexed;
+extern unsigned char ObjectFlag_isExtended;
+
+extern unsigned long ObjectExtendedShortSize;
+extern unsigned long ObjectSize;
+extern unsigned long ObjectExtendedFlags;
+extern unsigned long ObjectExtendedHash;
+extern unsigned long ObjectExtendedSize;
+extern unsigned long ObjectHash;
+extern unsigned long ObjectFlags;
+extern unsigned long ObjectHeaderBits;
+
+unsigned long * mockNil();
+unsigned long * mockTrue();
+unsigned long * mockArray();
+unsigned long * mockArray2();
+unsigned long * mockArray1024();
+
+
+void mockVMValue();
+void freeSimpleObject(unsigned char * object);
+void freeComplexObject(unsigned char * object);
+
+unsigned long * mockEphemeronFrom(unsigned long * key, unsigned long * value);
+unsigned long * mockObjectFrom();
+
+
+//done
+ulong _basicAt(ulong *object, int index);
+void _basicAtPut(ulong *object, int index, unsigned long value);
+void _basicSetSize(ulong *object, ulong size);
+ulong _basicGetSize(ulong *object);
+
+unsigned long rotateLeft(unsigned long n, unsigned int c);
+
+//unsigned long rotateLeft (unsigned long  n, unsigned int c);
+
+void _setExtendedSize(ulong *object, ulong size);
+ulong _getExtendedSize(ulong *object);
+
+unsigned long memoryAt(unsigned long pointer);
+void memoryAtPut(unsigned long * pointer, unsigned long value);
+//SendInliner
+
+bool _isProxy(ulong *object);
+bool isArray(ulong *object);
+ulong size(ulong *object);
+ulong _asOop(ulong *object);
+ulong _oop(ulong *object);
+
+ulong * _proxee(ulong *object);
+ulong _size(ulong *object);
+
+void _decommit(ulong limit, ulong delta);
+ulong * _commit(ulong limit, ulong delta);
+ulong _asObject(ulong * object);
+ulong * _asPointer(ulong object);
+ulong _sizeInBytes(ulong * object);
+ulong _headerSizeInBytes(ulong * object);
+
+bool testFlags(ulong *object, unsigned char flag);
+
+void setFlags(ulong *object, unsigned char flag);
+
+void _halt();
+void unsetFlags(ulong *object, unsigned char flag);
+
+bool _isBytes(ulong *object);
+bool _hasWeaks(ulong *object);
+bool _isActiveEphemeron(ulong *object);
+bool _isEphemeron(ulong *object);
+
+bool _isExtended(ulong *object);
+
+bool _isZeroTerminated(ulong *object);
+
+bool _isInRememberedSet(ulong *object);
+void _beInRememberedSet(ulong *object);
+
+void _beSecondGeneration(ulong *object);
+bool _isSecondGeneration(ulong *object);
+void _beExtended(ulong *object);
+bool _haveNoWeaks(ulong *object);
+
+ulong _framePointer();
+void _beNotInRememberSet(ulong *object);
+void _beNotInRememberedSet(ulong *object);
+ulong _size(ulong *object);
+
+#endif /* DATASTRUCTURES_VMMEMORY_H_ */

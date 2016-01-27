@@ -5,6 +5,8 @@
 #include "Windows.h"
 #include "stdlib.h"
 
+#include <iostream>
+
 extern cute::suite make_suite_MemoryTest();
 
 using namespace std;

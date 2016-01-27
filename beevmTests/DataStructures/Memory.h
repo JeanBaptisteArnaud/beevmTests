@@ -8,6 +8,7 @@
 #ifndef MEMORY_H_
 #define MEMORY_H_
 
+#include "../GarbageCollector/GarbageCollector.h"
 #include "GCSpace.h"
 #include "VMArray.h"
 #include <vector>
@@ -23,6 +24,7 @@ protected:
 	//Collector
 
 public:
+	GarbageCollector * collector;
 	GCSpace currentSpace;
 	std::vector<GCSpace * > spaces;
 	std::vector<GCSpace * > collectedSpaces;
@@ -35,6 +37,7 @@ public:
 	ulong * VM();
 	GCSpaceInfo allocateWithoutFinalization(ulong);
 	void initializeCollector();
+	void setGC(GarbageCollector * collector);
 	void startUp();
 	void createPinnedSpace();
 	void releaseEverything();

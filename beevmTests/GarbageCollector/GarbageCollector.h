@@ -12,6 +12,10 @@
 #include "../DataStructures/ReferencedVMArray.h"
 #include "../DataStructures/VMArray.h"
 
+
+#include <iostream>
+
+using namespace std;
 namespace Bee {
 
 class GarbageCollector {
@@ -24,39 +28,50 @@ public:
 	GCSpace localSpace;
 	GCSpace fromSpace;
 	GCSpace toSpace;
-	ReferencedVMArray rememberSet;
-
-protected:
 
 	GCSpace oldSpace;
+	ReferencedVMArray rememberSet;
+	void tombstone(unsigned long *);
+	void rescueEphemerons();
+	void rememberIfWeak (unsigned long *);
+	VMArray stack;
+
+	ReferencedVMArray rescuedEphemerons;
+
+	void fixWeakContainers();
+protected:
+
 	GCSpace auxSpace;
 	VMArray ephemerons;
 	VMArray weakContainers;
-	ReferencedVMArray rescuedEphemerons;
 	ReferencedVMArray literalsReferences;
 	ReferencedVMArray nativizedMethods;
 	ReferencedVMArray classCheckReferences;
-	VMArray stack;
+
 	VMArray unknowns;
 	unsigned long *residueObject;
 	static GarbageCollector *flipper;
 
+	void addWeakContainer (unsigned long * object);
 	void loadSpaces();
 	void initLocals();
 	void clearPolymorphicMethodCache();
-	void follow(unsigned long* pointer);
-	void follow(unsigned long* pointer, int count, unsigned long start);
+	void follow(unsigned long * pointer);
+	void follow(unsigned long * pointer, int count, unsigned long start);
 	void followStack();
-	void rescueEphemerons();
-	bool followEphemeronsCollectingUnknowns();
+
 	void rescueEphemeron(unsigned long *ephemeron);
 	void someEphemeronsRescued();
 	void makeRescuedEphemeronsNonWeak();
-	void fixWeakContainers();
 	void forgetNativeObjects();
 	void saveSpaces();
+	void followFrameCountStartingAt(unsigned long * frame ,unsigned long  count ,unsigned long  start);
+	//void followCountStartingAt(unsigned long * root,unsigned long  count ,unsigned long  start);
 
+	bool followEphemeronsCollectingUnknowns();
+	virtual void followCountStartingAt(unsigned long * pointer, int count, long start) = 0;
 	virtual unsigned long* framePointerToStartWalkingTheStack() = 0;
+	virtual bool checkReachablePropertyOf(unsigned long * ephemeron) = 0;
 	virtual void fixReferencesOrSetTombstone(unsigned long *weakArray) = 0;
 };
 

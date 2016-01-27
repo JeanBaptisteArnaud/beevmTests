@@ -10,16 +10,16 @@
 #include "../DataStructures/ReferencedVMArray.h"
 #include "../DataStructures/VMMemory.h"
 #include "GarbageCollector.h"
+#include <cstddef>
+#include <iostream>
+
+
 
 // just until I fix my environment
 #define NULL 0
 
-#include <cstddef>
-#include <iostream>
-
-//using namespace std;
+using namespace std;
 using namespace Bee;
-
 
 GarbageCollector* GarbageCollector::flipper = NULL;
 
@@ -30,34 +30,39 @@ GarbageCollector::GarbageCollector() {
 	residueObject = 0;
 }
 
-
-
-
-
-
 void GarbageCollector::collect() {
 
 }
 
-bool GarbageCollector::followEphemeronsCollectingUnknowns() {
-	//TODO
-	return false;
-}
-
 void GarbageCollector::rescueEphemeron(unsigned long *ephemeron) {
-	//self follow: ephemeron count: ephemeron _extendedSize startingAt: 1.
-	//rescuedEphemerons add: ephemeron
+	this->followCountStartingAt(ephemeron, _getExtendedSize(ephemeron), 1);
+	rescuedEphemerons.add((ulong) ephemeron);
 	return;
 }
 
 void GarbageCollector::someEphemeronsRescued() {
-	//self holdReferenceTo: rescuedEphemerons contents
+	//Todo self holdReferenceTo: rescuedEphemerons contents
+}
+
+bool GarbageCollector::followEphemeronsCollectingUnknowns() {
+	bool rescan = false;
+	while (!ephemerons.isEmpty()) {
+		unsigned long * ephemeron = (ulong *) ephemerons.pop();
+		if (!(ephemeron == nil)) {
+			if (this->checkReachablePropertyOf(ephemeron)) {
+				this->followCountStartingAt(ephemeron,
+						_getExtendedSize(ephemeron), 1);
+				rescan = true;
+			} else {
+				unknowns.add((ulong) ephemeron);
+			}
+		}
+	}
+	return rescan;
 }
 
 void GarbageCollector::rescueEphemerons() {
-	bool rescued;//, rescan = 0;
-	// need to check probably here.
-	// copy or value
+	bool rescued = false;
 	VMArray aux;
 	while (!ephemerons.isEmpty()) {
 		if (this->followEphemeronsCollectingUnknowns()) {
@@ -65,13 +70,14 @@ void GarbageCollector::rescueEphemerons() {
 			ephemerons = unknowns;
 			unknowns = aux;
 		} else {
-			for (ulong ephemeronIndex = 0; ephemeronIndex <= ephemerons.size();
+			for (ulong ephemeronIndex = 0; ephemeronIndex < ephemerons.size();
 					ephemeronIndex++)
 				this->rescueEphemeron(unknowns[ephemeronIndex]);
 			rescued = true;
 		}
 		unknowns.reset();
 	}
+
 	if (rescued)
 		this->someEphemeronsRescued();
 }
@@ -82,73 +88,77 @@ void GarbageCollector::clearPolymorphicMethodCache() {
 	}
 }
 
-void GarbageCollector::follow(unsigned long *pointer, int count,
-		unsigned long start) {
-//	| index objects limit |
-//	stack := self localStack.
-//	objects := root.
-//	index := base - 1.
-//	limit := index + size.
-//	[
-//		[index < limit] whileTrue: [| object |
-//			index := index + 1.
-//			object := objects _basicAt: index.
-//			(self arenaIncludes: object) ifTrue: [
-//				object _isProxy
-//					ifTrue: [objects _basicAt: index put: object _proxee]
-//					ifFalse: [| moved |
-//						index < limit ifTrue: [
-//							stack
-//								push: objects;
-//								push: index;
-//								push: limit].
-//						moved := self moveToOldOrTo: object.
-//						objects _basicAt: index put: moved.
-//						self rememberIfWeak: moved.
-//						index := -1.
-//						limit := index + moved _strongPointersSize.
-//						objects := moved]]].
-//		stack isEmpty]
-//		whileFalse: [
-//			limit := stack pop.
-//			index := stack pop.
-//			objects := stack pop]
-
-}
-
-
-
 void GarbageCollector::followStack() {
-//	unsigned long frame = this->framePointerToStartWalkingTheStack();
-//	while(memoryAt(frame)){
-//		size = nextFrame - frame;
-//		basicAT
-//	}
-//
-//
-//			(frame _basicAt: 2) == debugFrameMarker
-//				ifTrue: [
-//					self follow: frame count: 5 startingAt: 3.
-//					start := 9]
-//				ifFalse: [start := 3].
-//			self followFrame: frame count: size startingAt: start.
-//			frame := nextFrame]
+	unsigned long * frame = MEM_globalFramePointerToWalkStack;
+	unsigned long nextFrame = *frame;
+	while (nextFrame) {
+		unsigned long start;
+		unsigned long size = (ulong) nextFrame - (ulong) frame / 4;
+		if (_basicAt(frame, 2) == (ulong) debugFrameMarker) {
+			this->followCountStartingAt(frame, 5, 3);
+			start = 9;
+		} else
+			start = 3;
+		this->followFrameCountStartingAt(frame, size, start);
+		frame = (ulong *) nextFrame;
+		nextFrame = _basicAt(frame, 1);
+	}
 }
 
-void GarbageCollector::follow(unsigned long *pointer) {
-// TODO self rememberIfWeak: pointer.
-//this->follow(pointer, _strongPointersSize(pointer), 0);
+void GarbageCollector::followFrameCountStartingAt(unsigned long * frame,
+		unsigned long count, unsigned long start) {
+	cerr << "Need to implement " << "followCountStartingAt" << endl;
+//	followFrame: frame count: size startingAt: startIndex
+//		| start index gapMarker callbackFrame |
+//		gapMarker := 2 _asPointer _asObject.
+//		start := index := startIndex.
+//		[index < size] whileTrue: [| object |
+//			object := frame _basicAt: index.
+//			object == gapMarker ifTrue: [
+//				callbackFrame := frame _basicAt: index + 1.
+//				self follow: frame count: index - start startingAt: start.
+//				self follow: callbackFrame count: 5 startingAt: 1.
+//				index := callbackFrame _asPointer - frame _asPointer // 4 _asPointer.
+//				start := (index := index + 7) + 1].
+//			index := index + 1].
+//		self follow: frame count: size - start + 1 startingAt: start
+
+}
+
+void GarbageCollector::follow(unsigned long * pointer) {
+	this->rememberIfWeak(pointer);
+	this->followCountStartingAt(pointer, _strongPointersSize(pointer), 0);
+}
+
+void GarbageCollector::rememberIfWeak(unsigned long * object) {
+	if (_hasWeaks(object))
+		this->addWeakContainer(object);
+}
+
+void GarbageCollector::addWeakContainer(unsigned long * object) {
+	if (_isActiveEphemeron(object)) {
+		ephemerons.add((ulong) object);
+	} else
+		weakContainers.add((ulong) object);
 }
 
 void GarbageCollector::fixWeakContainers() {
+
+	cerr << "fix" << endl;
+	cerr << weakContainers.size() << endl;
 	for (ulong index = 1; index <= weakContainers.size(); index++) {
+		cerr << "call fixReferencesOrSetTombstone" << endl;
 		this->fixReferencesOrSetTombstone(weakContainers[index]);
 	}
 	weakContainers.reset();
 }
-
+void GarbageCollector::tombstone(unsigned long * pointer) {
+	this->residueObject = pointer;
+}
 
 void GarbageCollector::forgetNativeObjects() {
+
+	cerr << "Need to implement " << "forgetNativeObjects" << endl;
 //	rememberSet forget.
 //	literalsReferences forget.
 //	rescuedEphemerons forget.
@@ -163,11 +173,14 @@ void GarbageCollector::saveSpaces() {
 //toSpace save
 }
 void GarbageCollector::makeRescuedEphemeronsNonWeak() {
-//	rescuedEphemerons do: [:ephemeron | ephemeron _haveNoWeaks]
+	for (ulong index = 1; index <= rescuedEphemerons.size(); index++) {
+		_haveNoWeaks(rescuedEphemerons[index]);
+	}
 }
 
 void GarbageCollector::loadSpaces() {
-	fromSpace.load();
-	oldSpace.load();
-	toSpace.load();
-};
+//	fromSpace.load();
+//	oldSpace.load();
+//	toSpace.load();
+}
+;

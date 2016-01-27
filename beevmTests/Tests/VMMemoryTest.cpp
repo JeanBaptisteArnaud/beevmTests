@@ -1,5 +1,6 @@
 #include "../DataStructures/VMMemory.h"
 #include "../DataStructures/Memory.h"
+#include "../GarbageCollector/GenerationalGC.h"
 
 #include "cute.h"
 #include "cute_suite.h"
@@ -204,6 +205,18 @@ void objectFlagManipulation() {
 	setFlags(object, ObjectFlag_zeroTermOrNamed);
 	ASSERTM("_isZeroTerminated", _isZeroTerminated(object));
 
+	GenerationalGC * flipper = new GenerationalGC();
+	Memory::current()->setGC(flipper);
+	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+
+	unsigned long * ephemeron = mockEphemeronFrom(object, object);
+	ASSERTM("Ephemeron", _isActiveEphemeron(ephemeron));
+
+	unsigned long * weakArray = mockWeakArray();
+	ASSERTM("should not be Ephemeron", !_isEphemeron(weakArray));
+	ASSERTM("but should weak", _hasWeaks(weakArray));
+
+
 	Memory::current()->releaseEverything();
 }
 
@@ -227,12 +240,12 @@ void virtualBehavior() {
 
 cute::suite make_suite_VMMemoryTest() {
 	cute::suite s;
-	s.push_back(CUTE(headerOf));
-	s.push_back(CUTE(basicSize));
-	s.push_back(CUTE(beeExtended));
-	s.push_back(CUTE(rotateLeftTest));
+//	s.push_back(CUTE(headerOf));
+//	s.push_back(CUTE(basicSize));
+//	s.push_back(CUTE(beeExtended));
+//	s.push_back(CUTE(rotateLeftTest));
 	s.push_back(CUTE(objectFlagManipulation));
-	s.push_back(CUTE(virtualBehavior));
+//	s.push_back(CUTE(virtualBehavior));
 	return s;
 }
 
