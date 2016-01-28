@@ -11,21 +11,22 @@
 #include <iostream>
 
 using namespace Bee;
-
 using namespace std;
 
-unsigned long *debugFrameMarker = (unsigned long *) 0x1001B633;
-unsigned long *MEM_anyCompiledMethodInFromSpace = (unsigned long *) 0x10041710;
-unsigned long *MEM_checkNewNativizedCompiledMethods =
+unsigned long * debugFrameMarker = (unsigned long *) 0x1001B633;
+unsigned long * MEM_anyCompiledMethodInFromSpace = (unsigned long *) 0x10041710;
+unsigned long * MEM_checkNewNativizedCompiledMethods =
 		(unsigned long *) 0x10041714;
 unsigned long *MEM_polymorphicMethodCacheReferesToNewCM =
 		(unsigned long *) 0x1003EC48;
-unsigned long **MEM_JIT_globalMethodCache = (unsigned long **) 0x1002EC20;
-unsigned long *MEM_JIT_codeCachePointer = (unsigned long*) 0x1002E820;
-unsigned long *MEM_globalFramePointerToWalkStack = (unsigned long*) 0x100407C4;
-unsigned long *nil = (unsigned long*) 0x10026060;
-unsigned long *stTrue = (unsigned long*) 0x10026070;
-unsigned long *stFalse = (unsigned long*) 0x10026080;
+unsigned long ** MEM_JIT_globalMethodCache = (unsigned long **) 0x1002EC20;
+unsigned long * MEM_JIT_codeCachePointer = (unsigned long*) 0x1002E820;
+unsigned long * MEM_globalFramePointerToWalkStack = (unsigned long*) 0x100407C4;
+unsigned long * nil = (unsigned long*) 0x10026060;
+unsigned long * stTrue = (unsigned long*) 0x10026070;
+unsigned long * stFalse = (unsigned long*) 0x10026080;
+unsigned long * arrayBehavior = (unsigned long*) 0x0A0792F0; // only for testing
+
 
 unsigned char ObjectFlag_reserved1 = 1;
 unsigned char ObjectFlag_generation = 2;
@@ -101,7 +102,7 @@ unsigned long * mockArray() {
 	// 12:10has 3 slots
 
 	unsigned long * localArray =
-			(unsigned long *) (Memory::current())->currentSpace.allocate(3 * 8);
+			(unsigned long *) (Memory::current())->currentSpace->allocate(3 * 8);
 	localArray[0] = (unsigned long) 0x0137F803;
 	localArray[1] = (unsigned long) 0x0A0792F0;
 	localArray[2] = (unsigned long) 0xFFFFFFFF;
@@ -157,7 +158,7 @@ unsigned long * mockArray2() {
 	//
 
 	unsigned long * stArray =
-			(unsigned long *) (Memory::current())->currentSpace.allocate(7 * 8);
+			(unsigned long *) (Memory::current())->currentSpace->allocate(7 * 8);
 	stArray[0] = (unsigned long) 0x01000005;
 	stArray[1] = (unsigned long) 0x0A0792F0;
 	stArray[2] = (unsigned long) nil;
@@ -172,7 +173,7 @@ unsigned long * mockArray1024() {
 
 	// 03 00 00 01  D8 71 85 02
 	unsigned long * localArray =
-			(unsigned long *) (Memory::current())->currentSpace.allocate(
+			(unsigned long *) (Memory::current())->currentSpace->allocate(
 					16 + (4 * 1024));
 
 	// Array new: 3
@@ -194,7 +195,7 @@ unsigned long * mockWeakArray() {
 
 	// 03 00 00 01  D8 71 85 02
 	unsigned long * localArray =
-			(unsigned long *) (Memory::current())->currentSpace.allocate(
+			(unsigned long *) (Memory::current())->currentSpace->allocate(
 					16 + (4 * 1024));
 
 	// Array new: 3
@@ -213,6 +214,16 @@ unsigned long * mockWeakArray() {
 	return &localArray[4];
 }
 
+
+
+bool checkValueMockArray1024(unsigned long * localArray) {
+
+	for (int index = 0; index <= 1020; index++) {
+		if(!(localArray[index] == (unsigned long) ((4 + index) << 1))) return false;
+	}
+	return true;
+}
+
 void freeSimpleObject(unsigned char * object) {
 	free(&object[-8]);
 }
@@ -221,13 +232,13 @@ void freeComplexObject(unsigned char * object) {
 	free(&object[-16]);
 }
 
-ulong _basicAt(ulong * object, int index) {
-	return object[index - 1];
-}
+//ulong _basicAt(ulong * object, int index) {
+//	return object[index - 1];
+//}
 
-void _basicAtPut(ulong * object, int index, ulong value) {
-	object[index - 1] = value;
-}
+//void _basicAtPut(ulong * object, int index, ulong value) {
+//	object[index - 1] = value;
+//}
 
 void _basicSetSize(ulong *object, ulong size) {
 	header_t * h = HEADER_OF(*object);
@@ -264,11 +275,14 @@ ulong _size(ulong *object) {
 
 }
 
+// something go wrong
 ulong _asObject(ulong * object) {
+	cerr << "_asObject ask yourself";
 	return (ulong) object >> 1;
 }
 
 ulong * _asPointer(ulong object) {
+	cerr << "_asPointer ask yourself";
 	if (object & 1) {
 		return (ulong *) (object >> 1 | 1);
 	} else {
@@ -276,8 +290,13 @@ ulong * _asPointer(ulong object) {
 	}
 }
 
-void _decommit(ulong limit, ulong delta) {
-	VirtualFree((void *) limit, delta, MEM_DECOMMIT);
+//memory
+void _decommit(ulong * limit, ulong * delta) {
+	VirtualFree((void *) limit, (ulong) delta, MEM_DECOMMIT);
+}
+
+void _free(ulong * limit, ulong * delta) {
+	VirtualFree((void *) limit, (ulong)delta, MEM_RELEASE);
 }
 
 ulong * _commit(ulong limit, ulong delta) {
@@ -285,10 +304,7 @@ ulong * _commit(ulong limit, ulong delta) {
 	PAGE_READWRITE);
 }
 
-void _halt() {
-	cerr << "_halt" << endl;
-}
-// flags Tests
+// flags manipulation
 
 bool testFlags(ulong *object, unsigned char flag) {
 	header_t * h = HEADER_OF(*object);
@@ -372,6 +388,8 @@ void _beInRememberedSet(ulong *object) {
 	setFlags(object, ObjectFlag_isInRememberSet);
 }
 
+// size
+
 ulong _sizeInBytes(ulong *object) {
 	if (_isBytes(object)) {
 		int zero;
@@ -383,18 +401,6 @@ ulong _sizeInBytes(ulong *object) {
 
 	} else
 		return _size(object) * 4;
-}
-
-unsigned long rotateLeft(unsigned long n, unsigned int c) {
-	const unsigned int mask = (CHAR_BIT * sizeof(n) - 1);
-	c &= mask;
-	return (n << c) | (n >> ((-c) & mask));
-}
-
-unsigned long rotateRight(unsigned long n, unsigned int c) {
-	const unsigned int mask = (CHAR_BIT * sizeof(n) - 1);
-	c &= mask;
-	return (n >> c) | (n << ((-c) & mask));
 }
 
 ulong _headerSizeInBytes(ulong *object) {
@@ -417,32 +423,56 @@ ulong size(ulong *object) {
 		return total;
 }
 
-ulong _asOop(ulong *object) {
+bool isArray(ulong *object) {
+	return object[-1] == (ulong)arrayBehavior;
+}
+
+// should not use yet or never
+
+unsigned long memoryAt(unsigned long pointer) {
+	cerr << "memoryAt is empty [] guy" << endl;
+}
+
+void memoryAtPut(unsigned long * pointer, unsigned long value) {
+	cerr << "memoryAtPut is empty [] = guy" << endl;
 }
 
 ulong _oop(ulong *object) {
+	cerr << " Noooo" << endl;
 }
 
+ulong _asOop(ulong *object) {
+	cerr << "_asOop Noooo" << endl;
+}
+
+void _halt() {
+	cerr << "_halt" << endl;
+}
+
+
+// proxiing method
 bool _isProxy(ulong *object) {
 	return !testFlags(object, ObjectFlag_reserved1);
 }
 
 void _setProxee(ulong *object, ulong value) {
-	_basicAtPut(object, -1, rotateRight(value, 8));
+	object[-2] = rotateRight(value, 8);
 }
 
 ulong _getProxee(ulong *object) {
-	return rotateLeft(_basicAt(object, -1), 8);
+	return rotateLeft(object[-2], 8);
 }
 
-bool isArray(ulong *object) {
-
-	return (_basicAt(object, 0) == 0x0A0792F0);
+// tool
+unsigned long rotateLeft(unsigned long n, unsigned int c) {
+	const unsigned int mask = (CHAR_BIT * sizeof(n) - 1);
+	c &= mask;
+	return (n << c) | (n >> ((-c) & mask));
 }
 
-unsigned long memoryAt(unsigned long pointer) {
-}
-
-void memoryAtPut(unsigned long * pointer, unsigned long value) {
+unsigned long rotateRight(unsigned long n, unsigned int c) {
+	const unsigned int mask = (CHAR_BIT * sizeof(n) - 1);
+	c &= mask;
+	return (n >> c) | (n << ((-c) & mask));
 }
 

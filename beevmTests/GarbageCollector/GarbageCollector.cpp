@@ -94,14 +94,14 @@ void GarbageCollector::followStack() {
 	while (nextFrame) {
 		unsigned long start;
 		unsigned long size = (ulong) nextFrame - (ulong) frame / 4;
-		if (_basicAt(frame, 2) == (ulong) debugFrameMarker) {
+		if (frame[1] == (ulong) debugFrameMarker) {
 			this->followCountStartingAt(frame, 5, 3);
 			start = 9;
 		} else
 			start = 3;
 		this->followFrameCountStartingAt(frame, size, start);
 		frame = (ulong *) nextFrame;
-		nextFrame = _basicAt(frame, 1);
+		nextFrame = frame[0];
 	}
 }
 
@@ -143,11 +143,7 @@ void GarbageCollector::addWeakContainer(unsigned long * object) {
 }
 
 void GarbageCollector::fixWeakContainers() {
-
-	cerr << "fix" << endl;
-	cerr << weakContainers.size() << endl;
 	for (ulong index = 1; index <= weakContainers.size(); index++) {
-		cerr << "call fixReferencesOrSetTombstone" << endl;
 		this->fixReferencesOrSetTombstone(weakContainers[index]);
 	}
 	weakContainers.reset();

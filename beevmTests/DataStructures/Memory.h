@@ -25,10 +25,10 @@ protected:
 
 public:
 	GarbageCollector * collector;
-	GCSpace currentSpace;
+	GCSpace * currentSpace;
 	std::vector<GCSpace * > spaces;
 	std::vector<GCSpace * > collectedSpaces;
-	GCSpace nextSpace;
+	GCSpace * nextSpace;
 	static Memory * current();
 	Memory();
 	GCSpace * growIfNeeded(ulong size);

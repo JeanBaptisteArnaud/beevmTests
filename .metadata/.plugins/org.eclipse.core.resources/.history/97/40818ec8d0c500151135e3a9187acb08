@@ -1,0 +1,289 @@
+#include "../DataStructures/VMMemory.h"
+#include "../DataStructures/Memory.h"
+#include "../GarbageCollector/GenerationalGC.h"
+
+#include "cute.h"
+#include "cute_suite.h"
+
+#include "Windows.h"
+#include "stdlib.h"
+#include <iostream>
+
+extern cute::suite make_suite_VMMemoryTest();
+
+using namespace std;
+using namespace Bee;
+// File myclassTest.h
+
+// nil 00 45 34 61 10 DC 0D 0A
+//nil_hdr Object <0, 3445h, \             ; DATA XREF: GC_full+E3?o
+// .data:10026058                                         ; sub_10010E40+33?w
+// .data:10026058         ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,\
+// .data:10026058         offset unk_A0DDC10>
+
+// true 00 00 00 61 A0 6B 0B 0A
+//true_hdr Object <0, 0, ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,
+// offset unk_A0B6BA0>
+
+// Array new: 3
+// 03 F8 37 01 F0 92 07 0A
+// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
+// 12:10has 3 slots
+
+void headerOf() {
+	mockVMValue();
+	unsigned long * object;
+	header_t * h;
+	object = mockArray();
+
+	h = HEADER_OF(*object);
+
+	ASSERTM("Array 1 : Size", (unsigned short ) h->size == 3);
+	ASSERTM("Array 1 : Hash", h->hash == (unsigned short ) 0x37F8);
+	ASSERTM("Array 1 : Flags",
+			(unsigned short ) (h->flags) == ObjectFlag_reserved1);
+	ASSERTM("Array 1 : behavior", ((ulong )h->behavior) == 0x0A0792F0);
+
+	object = mockArray2();
+	h = HEADER_OF(*object);
+	ASSERTM("Array 2 : Size", ((unsigned short ) h->size) == 3);
+	ASSERTM("Array 2 : Hash", h->hash == (unsigned short ) 0x0000);
+	ASSERTM("Array 2 : Flags",
+			((unsigned short ) h->flags == ObjectFlag_reserved1));
+	ASSERTM("Array 2 : behavior", ((ulong )h->behavior) == 0x0A0792F0);
+
+	object = mockTrue();
+	h = HEADER_OF(*object);
+	//00000061 A06B0B0A
+
+	ASSERTM("True : Size", ((unsigned short ) h->size) == 0);
+	ASSERTM("True : Hash", h->hash == (unsigned short ) 0x0000);
+	ASSERTM("True : Flags",
+			((unsigned short ) h->flags)
+					== (ObjectFlag_reserved1 | ObjectFlag_notIndexed
+							| ObjectFlag_zeroTermOrNamed));
+	ASSERTM("True : behavior", ((ulong )h->behavior) == 0x0A0B6BA0);
+
+	//00 45 34 61 10 DC 0D 0A
+	object = mockNil();
+	h = HEADER_OF(*object);
+	ASSERTM("Nil : Size", ((unsigned short ) h->size) == 0);
+	ASSERTM("Nil : Hash", h->hash == (unsigned short ) 0x3445);
+	ASSERTM("Nil : Flags",
+			(unsigned short ) h->flags
+					== (ObjectFlag_reserved1 | ObjectFlag_notIndexed
+							| ObjectFlag_zeroTermOrNamed));
+	ASSERTM("Nil : behavior", ((ulong )h->behavior) == 0x0A0DDC10);
+
+	Memory::current()->releaseEverything();
+
+}
+
+void basicSize() {
+	mockVMValue();
+	unsigned long * object = mockArray();
+	ASSERTM("size ", (_basicGetSize(object) == 3));
+	_basicSetSize(object, 122);
+	ASSERTM("size ", (_basicGetSize(object) == 122));
+
+	object = mockArray1024();
+	ASSERTM("size ", (_size(object) == 1024));
+	_setExtendedSize(object, 122);
+	ASSERTM("size ", (_size(object) == 122));
+
+	Memory::current()->releaseEverything();
+}
+
+void beeExtended() {
+	mockVMValue();
+	unsigned long * object = mockArray1024();
+	_beExtended((ulong *) object);
+	big_header_t * h = BIG_HEADER_OF(*object);
+	ASSERTM("sizeInWordBis", ((unsigned short )h->sizeInWordBis == 4));
+	ASSERTM("sizeInWord", ((unsigned short )h->sizeInWord == 4));
+	ASSERTM("flags",
+			((unsigned short )h->flags
+					== (ObjectFlag_reserved1 | ObjectFlag_isExtended)));
+	ASSERTM("flagsBis",
+			((unsigned short )h->flagsBis
+					== (ObjectFlag_reserved1 | ObjectFlag_isExtended)));
+	ASSERTM("real size", (h->size == 1024));
+	Memory::current()->releaseEverything();
+}
+
+void rotateLeftTest() {
+	unsigned long i = 1;
+	i = rotateLeft(i, 1);
+	ASSERTM("2", i == 2);
+	i = rotateLeft(i, 1);
+	ASSERTM("4", i == 4);
+	i = rotateLeft(i, 1);
+	ASSERTM("8", i == 8);
+	i = rotateLeft(i, 1);
+	ASSERTM("16", i == 16);
+	i = rotateLeft(i, 1);
+	ASSERTM("32", i == 32);
+	i = rotateLeft(i, 1);
+	ASSERTM("64", i == 64);
+	i = rotateLeft(i, 1);
+	ASSERTM("128", i == 128);
+	i = rotateLeft(i, 1);
+	ASSERTM("256", i == 256);
+	i = rotateLeft(i, 1);
+	ASSERTM("512", i == 512);
+	i = rotateLeft(i, 1);
+	ASSERTM("1024", i == 1024);
+	i = rotateLeft(i, 1);
+	ASSERTM("2048", i == 2048);
+	i = rotateLeft(i, 1);
+	ASSERTM("4096", i == 4096);
+	i = rotateLeft(i, 1);
+	ASSERTM("8192", i == 8192);
+	i = rotateLeft(i, 1);
+	ASSERTM("16384", i == 16384);
+	i = rotateLeft(i, 1);
+	ASSERTM("32768", i == 32768);
+	i = rotateLeft(i, 1);
+	ASSERTM("65536", i == 65536);
+	i = rotateLeft(i, 1);
+	ASSERTM("131072", i == 131072);
+	i = rotateLeft(i, 1);
+	ASSERTM("262144", i == 262144);
+	i = rotateLeft(i, 1);
+	ASSERTM("524288", i == 524288);
+	i = rotateLeft(i, 1);
+	ASSERTM("1048576", i == 1048576);
+	i = rotateLeft(i, 1);
+	ASSERTM("2097152", i == 2097152);
+	i = rotateLeft(i, 1);
+	ASSERTM("4194304", i == 4194304);
+	i = rotateLeft(i, 1);
+	ASSERTM("8388608", i == 8388608);
+	i = rotateLeft(i, 1);
+	ASSERTM("16777216", i == 16777216);
+	i = rotateLeft(i, 1);
+	ASSERTM("33554432", i == 33554432);
+	i = rotateLeft(i, 1);
+	ASSERTM("67108864", i == 67108864);
+	i = rotateLeft(i, 1);
+	ASSERTM("134217728", i == 134217728);
+	i = rotateLeft(i, 1);
+	ASSERTM("268435456", i == 268435456);
+	i = rotateLeft(i, 1);
+	ASSERTM("536870912", i == 536870912);
+	i = rotateLeft(i, 1);
+	ASSERTM("1073741824", i == 1073741824);
+	i = rotateLeft(i, 1);
+	ASSERTM("2147483648", i == 2147483648);
+	i = rotateLeft(i, 1);
+	ASSERTM("loop", i == 1);
+	i = rotateLeft(i, 1);
+	ASSERTM("beeExtended b", i == 2);
+	i = rotateLeft(i, 1);
+	ASSERTM("beeExtended b", i == 4);
+}
+
+void objectFlagManipulation() {
+	mockVMValue();
+	unsigned long * object;
+	object = mockArray();
+
+	ASSERTM("check reserved1", !testFlags(object, ObjectFlag_isEphemeron));
+	setFlags(object, ObjectFlag_isEphemeron);
+	ASSERTM("set reserved1", testFlags(object, ObjectFlag_isEphemeron));
+	unsetFlags(object, ObjectFlag_isEphemeron);
+	ASSERTM("unset reserved1", !testFlags(object, ObjectFlag_isEphemeron));
+
+	setFlags(object, ObjectFlag_isBytes);
+	ASSERTM("_isBytes", _isBytes(object));
+
+	_beExtended(object);
+	ASSERTM("_isExtended", _isExtended(object));
+	unsetFlags(object, ObjectFlag_isExtended);
+	ASSERTM("_isExtended", !_isExtended(object));
+
+	setFlags(object, ObjectFlag_zeroTermOrNamed);
+	ASSERTM("_isZeroTerminated", _isZeroTerminated(object));
+
+	GenerationalGC * flipper = new GenerationalGC();
+	Memory::current()->setGC(flipper);
+	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+
+	unsigned long * ephemeron = mockEphemeronFrom(object, object);
+	ASSERTM("Ephemeron", _isActiveEphemeron(ephemeron));
+
+	unsigned long * weakArray = mockWeakArray();
+	ASSERTM("should not be Ephemeron", !_isEphemeron(weakArray));
+	ASSERTM("but should weak", _hasWeaks(weakArray));
+
+
+	Memory::current()->releaseEverything();
+}
+
+void virtualBehavior() {
+	unsigned long reservedSize = 4 * 1024 * 100;
+	unsigned long maxValueQuery = 28;
+	PMEMORY_BASIC_INFORMATION queryAnswer = (PMEMORY_BASIC_INFORMATION) malloc(
+			maxValueQuery);
+
+	unsigned long * base;
+	_commit((ulong) base, (ulong) reservedSize);
+	VirtualQuery((void *) base, queryAnswer, maxValueQuery);
+	ASSERTM("Memory not commit",
+			queryAnswer->State && MEM_COMMIT == MEM_COMMIT);
+	_decommit((ulong) base, (ulong) reservedSize);
+	//VirtualQuery((void *) base, queryAnswer, maxValueQuery);
+	//ASSERTM("Memory decommit fail",
+	//	(queryAnswer->State && MEM_DECOMMIT) == MEM_DECOMMIT);
+	free(queryAnswer);
+}
+
+void proxying() {
+	mockVMValue();
+	GenerationalGC * flipper = new GenerationalGC();
+	Memory::current()->setGC(flipper);
+	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+	flipper->localSpace = local;
+	flipper->initLocals();
+	flipper->initNonLocals();
+	unsigned long * object = flipper->fromSpace.shallowCopy(mockArray1024());
+
+	unsigned long * newO = flipper->copyTo(object, flipper->toSpace);
+	cerr << object[-2] << endl;
+	cerr << rotateLeft(object[-2],8) << endl;
+	cerr << (ulong) newO << endl;
+	cerr << rotateRight((ulong)newO, 8) << endl;
+	Memory::current()->releaseEverything();
+}
+
+void multiTest() {
+	mockVMValue();
+	GenerationalGC * flipper = new GenerationalGC();
+	Memory::current()->setGC(flipper);
+	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+	flipper->localSpace = local;
+	flipper->initLocals();
+	flipper->initNonLocals();
+	unsigned long * object = flipper->fromSpace.shallowCopy(mockArray1024());
+
+	unsigned long * newO = flipper->copyTo(object, flipper->toSpace);
+	cerr << object[-2] << endl;
+	cerr << rotateLeft(object[-2],8) << endl;
+	cerr << (ulong) newO << endl;
+	cerr << rotateRight((ulong)newO, 8) << endl;
+	Memory::current()->releaseEverything();
+}
+
+cute::suite make_suite_VMMemoryTest() {
+	cute::suite s;
+//	s.push_back(CUTE(headerOf));
+//	s.push_back(CUTE(basicSize));
+//  s.push_back(CUTE(beeExtended));
+//	s.push_back(CUTE(rotateLeftTest));
+//	s.push_back(CUTE(objectFlagManipulation));
+//	s.push_back(CUTE(virtualBehavior));
+	//s.push_back(CUTE(proxying));
+	//s.push_back(CUTE(multiTest));
+	return s;
+}
+

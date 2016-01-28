@@ -74,7 +74,7 @@ unsigned long * mockArray();
 unsigned long * mockArray2();
 unsigned long * mockArray1024();
 unsigned long * mockWeakArray();
-
+bool checkValueMockArray1024(unsigned long * localArray);
 
 void mockVMValue();
 void freeSimpleObject(unsigned char * object);
@@ -90,6 +90,7 @@ void _basicSetSize(ulong *object, ulong size);
 ulong _basicGetSize(ulong *object);
 
 unsigned long rotateLeft(unsigned long n, unsigned int c);
+unsigned long rotateRight(unsigned long n, unsigned int c);
 
 //unsigned long rotateLeft (unsigned long  n, unsigned int c);
 
@@ -100,18 +101,15 @@ unsigned long memoryAt(unsigned long pointer);
 void memoryAtPut(unsigned long * pointer, unsigned long value);
 //SendInliner
 
-bool _isProxy(ulong *object);
 bool isArray(ulong *object);
 ulong size(ulong *object);
 ulong _asOop(ulong *object);
 ulong _strongPointersSize(ulong *object);
 ulong _oop(ulong *object);
-
-void _setProxee(ulong * object, ulong copy);
-ulong _getProxee(ulong * object);
 ulong _size(ulong *object);
 
-void _decommit(ulong limit, ulong delta);
+void _decommit(ulong * limit, ulong * delta);
+void _free(ulong * limit, ulong * delta);
 ulong * _commit(ulong limit, ulong delta);
 ulong _asObject(ulong * object);
 ulong * _asPointer(ulong object);
@@ -146,5 +144,11 @@ ulong _framePointer();
 void _beNotInRememberSet(ulong *object);
 void _beNotInRememberedSet(ulong *object);
 ulong _size(ulong *object);
+
+// proxiing method
+
+bool _isProxy(ulong *object);
+void _setProxee(ulong * object, ulong copy);
+ulong _getProxee(ulong * object);
 
 #endif /* DATASTRUCTURES_VMMEMORY_H_ */

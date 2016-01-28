@@ -17,8 +17,8 @@ void singleton() {
 	Memory * m2 = Memory::current();
 	m->createNextSpace();
 	ASSERTM("Not a singleton",
-			(ulong ) m2->nextSpace.getBase()
-					== (ulong ) m->nextSpace.getBase());
+			(ulong ) m2->nextSpace->getBase()
+					== (ulong ) m->nextSpace->getBase());
 }
 
 void mooooooooore() {
@@ -40,15 +40,23 @@ void mooooooooore() {
 
 void release() {
 	Memory * m = Memory::current();
-	GCSpace space = m->currentSpace;
+	ulong * address = m->VM();
+	Memory::current()->releaseEverything();
+	address = (Memory::current())->VM();
+	Memory::current()->releaseEverything();
+	address = (Memory::current())->VM();
+	Memory::current()->releaseEverything();
+	address = (Memory::current())->VM();
+	Memory::current()->releaseEverything();
+	address = Memory::current()->VM();
 	Memory::current()->releaseEverything();
 }
 
 
 cute::suite make_suite_MemoryTest() {
 	cute::suite s;
-	s.push_back(CUTE(singleton));
-	s.push_back(CUTE(mooooooooore));
+//	s.push_back(CUTE(singleton));
+//	s.push_back(CUTE(mooooooooore));
 	s.push_back(CUTE(release));
 	//s.push_back(CUTE(rotateLeftTest));
 	//s.push_back(CUTE(objectFlagManipulation));

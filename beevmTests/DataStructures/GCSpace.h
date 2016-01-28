@@ -45,7 +45,6 @@ public:
 
 	GCSpace();
 	void load();
-	void load2();
 	void save();
 	void loadFrom(GCSpace from);
 	void reset();

@@ -9,13 +9,13 @@
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
 			<item value="fixReferencesOrSetTombstone"/>
+			<item value="referenceOrThombstone"/>
 			<item value="cerr"/>
 			<item value="_rotate"/>
 			<item value="followCountStartingAt"/>
 			<item value="arenaIncludes"/>
 			<item value="mockEphemeron"/>
 			<item value="release"/>
-			<item value="re"/>
 		</list>
 		<list key="replacehistory">
 			<item value="ulong"/>

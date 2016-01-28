@@ -47,17 +47,12 @@ void GenerationalGC::purgeLiteralsReference() {
 
 void GenerationalGC::fixReferencesOrSetTombstone(ulong * weakContainer) {
 	unsigned long * referenceOrThombstone;
-	cerr << "referenceOrThombstone" << endl;
 	for (ulong index = 0; index < _size(weakContainer); index++) {
-		cerr << "+";
 		ulong *instance = (ulong*) weakContainer[index];
-		cerr << instance << endl;
 		if (this->arenaIncludes(instance)) {
 			if (_isProxy(instance)) {
-				cerr << instance << " is proxy " << endl;
 				weakContainer[index] = _getProxee(instance);
 			} else {
-				cerr << instance << " is not proxy " << endl;
 				weakContainer[index] = (ulong) residueObject;
 			}
 		}
@@ -240,18 +235,21 @@ void GenerationalGC::followCountStartingAt(unsigned long * root, int size,
 			index = index + 1;
 			unsigned long * object = (ulong *) objects[index];
 			if (this->arenaIncludes(object)) {
-				if (_isProxy(object))
+				if (_isProxy(object)){
 					objects[index] = (ulong) _getProxee(object);
+				}
 				else {
 					if (index < limit) {
 						stack.push((ulong) objects);
 						stack.push(index);
 						stack.push(limit);
 					}
+					this->rememberIfWeak(object);
+					// in the original I think it is a bug self rememberIfWeak: moved. and move before
 					unsigned long * moved = this->moveToOldOrTo(object);
 					objects[index] = (ulong) moved;
 					this->rememberIfWeak(moved);
-					index = -1;
+					index = - 2; // smalltalk power array base 1
 					limit = index + _strongPointersSize(moved);
 					objects = moved;
 				}

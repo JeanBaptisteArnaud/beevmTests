@@ -26,19 +26,18 @@ void GCSpace::garbageCollect() {
 	//	^Memory current garbageCollect: self
 }
 
-
-void Memory::setGC(GarbageCollector * localCollector){
+void Memory::setGC(GarbageCollector * localCollector) {
 	this->collector = localCollector;
 }
 
 GCSpace * Memory::growIfNeeded(ulong size) {
-	ulong total = currentSpace.size();
-	ulong used = currentSpace.used();
+	ulong total = currentSpace->size();
+	ulong used = currentSpace->used();
 	long free = total - size;
 	if ((used / total) > 0.9 || (free < size)) {
 		return this->acquireMoreSpace();
 	} else {
-		return &currentSpace;
+		return currentSpace;
 	}
 }
 
@@ -65,14 +64,14 @@ void Memory::startUp() {
 
 GCSpace * Memory::acquireMoreSpace() {
 	currentSpace = nextSpace;
-	this->addSpace(&nextSpace);
+	this->addSpace(nextSpace);
 	this->createNextSpace();
-	this->addCollectedSpace(&currentSpace);
-	return &currentSpace;
+	this->addCollectedSpace(currentSpace);
+	return currentSpace;
 }
 
 unsigned long * Memory::VM() {
-	GCSpace space = GCSpace();
+	GCSpace * space = new GCSpace();
 	ulong * address = (ulong *) VirtualAlloc((void *) 0x10000000, 0x42000,
 	MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 	if (!address)
@@ -84,15 +83,15 @@ unsigned long * Memory::VM() {
 	info.setCommitedLimit(limit);
 	info.setSoftLimit(limit);
 	info.setReservedLimit((ulong *) (0x10000000 + 0x42000));
-	space.setInfo(info);
-	space.load();
+	space->setInfo(info);
+	//space.load();
 	currentSpace = space;
-	this->addSpace(&space);
-	space.setBase(address);
-	space.setNextFree(address);
-	space.setCommitedLimit(limit);
-	space.setSoftLimit(limit);
-	space.setReservedLimit((ulong *) (0x10000000 + 0x42000));
+	this->addSpace(space);
+	space->setBase(address);
+	space->setNextFree(address);
+	space->setCommitedLimit(limit);
+	space->setSoftLimit(limit);
+	space->setReservedLimit((ulong *) (0x10000000 + 0x42000));
 	return address;
 }
 
@@ -155,18 +154,24 @@ Memory * Memory::current() {
 }
 
 void Memory::releaseEverything() {
-	singleton = 0;
 	for (int index = spaces.size(); 0 < index; index = spaces.size()) {
 		GCSpace * localSpace = this->spaces.back();
 		this->spaces.pop_back();
 		localSpace->release();
 	}
+
+	if (collector)
+		collector->localSpace.release();
+	if (collector)
+		collector = 0;
+
+	singleton = 0;
 }
 
 void Memory::createNextSpace() {
-	nextSpace = GCSpace();
-	nextSpace.setInfo(this->allocateWithoutFinalization(64 * 1024 * 1024));
-	nextSpace.load();
-	nextSpace.setSoftLimit(
-			(ulong *) nextSpace.getSoftLimit() - (64 * 1024 / 2));
+	nextSpace = new GCSpace();
+	nextSpace->setInfo(this->allocateWithoutFinalization(64 * 1024 * 1024));
+	nextSpace->load();
+	nextSpace->setSoftLimit(
+			(ulong *) nextSpace->getSoftLimit() - (64 * 1024 / 2));
 }

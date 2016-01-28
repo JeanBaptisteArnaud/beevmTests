@@ -42,7 +42,6 @@ ulong * GCSpace::getRegionBase() {
 	return regionBase;
 }
 
-
 void GCSpace::loadFrom(GCSpace space) {
 
 	this->setSoftLimit(space.getSoftLimit());
@@ -87,7 +86,8 @@ void GCSpace::setSoftLimit(ulong * localSoftLimit) {
 }
 
 void GCSpace::release() {
-	_decommit((ulong) base, (ulong) reservedLimit);
+	_decommit(base, (ulong *) 0 );
+	_free(base, (ulong *) 0 );
 }
 
 void GCSpace::setInfo(GCSpaceInfo localInfo) {
@@ -106,16 +106,6 @@ void GCSpace::load() {
 	softLimit = (ulong *) info.getSoftLimit();
 }
 
-void GCSpace::load2() {
-	regionBase = (ulong *) info.getBase();
-	base = regionBase;
-	base_3 = (ulong *) info.getBase_3();
-	commitedLimit = (ulong *) info.getCommitedLimit();
-	nextFree = (ulong *) info.getNextFree();
-	cerr << nextFree << endl;
-	reservedLimit = (ulong *) info.getReservedLimit();
-	softLimit = (ulong *) info.getSoftLimit();
-}
 
 ulong GCSpace::size() {
 	return (ulong) reservedLimit - (ulong) base;
@@ -189,7 +179,7 @@ void GCSpace::decommitSlack() {
 	if (delta < 0)
 		this->grow();
 	if (delta > 0) {
-		_decommit(limit, delta);
+		_decommit((ulong *)limit, (ulong *)delta);
 		this->setCommitedLimit((ulong *) limit);
 	}
 }
@@ -239,10 +229,9 @@ ulong * GCSpace::shallowCopy(ulong * object) {
 	ulong total = headerSize + _sizeInBytes(object);
 	ulong * buffer = this->allocate(total);
 	ulong * copy = (ulong *) ((ulong) buffer + 16);
-	for (int index = (1 - (headerSize / 4)); index <= (int) _size(object);
+	for (int index = (0 - (headerSize / 4)); index < (int) _size(object);
 			index++) {
-		ulong inter = _basicAt(object, index);
-		_basicAtPut(copy, index, inter);
+		copy[index] = object[index];
 	}
 	_beNotInRememberedSet(copy);
 	return copy;
@@ -253,16 +242,16 @@ ulong * GCSpace::shallowCopyGrowingTo(ulong * array, ulong newSize) {
 	ulong total = (headerSize + newSize) * 4;
 	ulong * buffer = this->allocate(total);
 	ulong * copy = (ulong *) ((ulong) buffer + 16);
-	for (int index = -1; index <= (int) _size(array); index++) {
-		ulong inter = _basicAt(array, index);
-		_basicAtPut(copy, index, inter);
+	for (int index = -2; index < (int) _size(array); index++) {
+		copy[index] = array[index];
+		;
 	}
 	_beExtended(copy);
 	_basicSetSize(copy, 4);
 	_setExtendedSize(copy, newSize);
-	_basicAtPut(copy, -3, _basicAt(array, -1));
+	copy[-4] = array[-2];
 	for (int index = (_size(array) + 1); index <= newSize; index++) {
-		_basicAtPut(copy, index, (ulong) nil);
+		copy[index] = (ulong) nil;
 	}
 	_beNotInRememberedSet(copy);
 	return copy;

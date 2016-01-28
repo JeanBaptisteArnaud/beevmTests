@@ -231,21 +231,51 @@ void virtualBehavior() {
 	VirtualQuery((void *) base, queryAnswer, maxValueQuery);
 	ASSERTM("Memory not commit",
 			queryAnswer->State && MEM_COMMIT == MEM_COMMIT);
-	_decommit((ulong) base, (ulong) reservedSize);
+	_decommit((ulong *) base, (ulong *) reservedSize);
 	//VirtualQuery((void *) base, queryAnswer, maxValueQuery);
 	//ASSERTM("Memory decommit fail",
 	//	(queryAnswer->State && MEM_DECOMMIT) == MEM_DECOMMIT);
 	free(queryAnswer);
 }
 
+void proxying() {
+	mockVMValue();
+	GenerationalGC * flipper = new GenerationalGC();
+	Memory::current()->setGC(flipper);
+	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+	flipper->localSpace = local;
+	flipper->initLocals();
+	flipper->initNonLocals();
+	unsigned long * object = flipper->fromSpace.shallowCopy(mockArray1024());
+
+	unsigned long * newO = flipper->copyTo(object, flipper->toSpace);
+	cerr << object[-2] << endl;
+	cerr << rotateLeft(object[-2],8) << endl;
+	cerr << (ulong) newO << endl;
+	cerr << rotateRight((ulong)newO, 8) << endl;
+	Memory::current()->releaseEverything();
+}
+
+void multiTests() {
+	mockVMValue();
+	GenerationalGC * flipper = new GenerationalGC();
+	Memory::current()->setGC(flipper);
+	Memory::current()->releaseEverything();
+	mockVMValue();
+	flipper = new GenerationalGC();
+	Memory::current()->setGC(flipper);
+}
+
 cute::suite make_suite_VMMemoryTest() {
 	cute::suite s;
 //	s.push_back(CUTE(headerOf));
 //	s.push_back(CUTE(basicSize));
-//	s.push_back(CUTE(beeExtended));
+//  s.push_back(CUTE(beeExtended));
 //	s.push_back(CUTE(rotateLeftTest));
-	s.push_back(CUTE(objectFlagManipulation));
+//	s.push_back(CUTE(objectFlagManipulation));
 //	s.push_back(CUTE(virtualBehavior));
+	//s.push_back(CUTE(proxying));
+	s.push_back(CUTE(multiTests));
 	return s;
 }
 

@@ -44,7 +44,7 @@ void extendedGrowingTo() {
 	ASSERTM("copy is not consistent (last element diverge)",
 			array[1023] == copy[1023]);
 
-	//ASSERTM((copy count: [:x | x isNil]) = (copy size - array size));
+	ASSERTM("value not correctly copied" ,checkValueMockArray1024(copy));
 //	ASSERTM("The moon is red",
 //						(ulong) copy == (ulong)((ulong) localSpace.getBase()) * 2 + 16);
 //	ASSERTM("I feel a perturbation in the force",
@@ -53,6 +53,9 @@ void extendedGrowingTo() {
 
 	Memory::current()->releaseEverything();
 }
+
+
+
 
 void gcspace() {
 	GCSpace space = GCSpace::currentFrom();
@@ -74,6 +77,7 @@ void gcspace() {
 	//mockArray();
 	ASSERTM("Maybe should be test only from Image",
 			oldNextFree == space.getNextFree());
+	Memory::current()->releaseEverything();
 }
 
 void grow() {
@@ -253,9 +257,10 @@ void synchronousGCSpace() {
 
 cute::suite make_suite_GCSpaceTest() {
 	cute::suite s;
-	//s.push_back(CUTE(allocate));
+	s.push_back(CUTE(allocate));
+	s.push_back(CUTE(gcspace));
 	s.push_back(CUTE(extendedGrowingTo));
-	s.push_back(CUTE(grow));
+//	s.push_back(CUTE(grow));
 //	s.push_back(CUTE(growingTo));
 //	s.push_back(CUTE(newGCSpaceShallowCopy));
 //	s.push_back(CUTE(shallowCopy));

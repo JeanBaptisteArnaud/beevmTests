@@ -25,6 +25,7 @@ public:
 	void addRoot(unsigned long * object);
 	void followRoots();
 	bool arenaIncludes(unsigned long *pointer);
+	unsigned long * copyTo(unsigned long *object, GCSpace &to);
 
 protected:
 	bool hasToPurge(unsigned long *pointer);
@@ -41,7 +42,6 @@ protected:
 	void fixReferencesFromNativeMethods();
 	void flipSpaces();
 	void updateSpacesDelta();
-	unsigned long * copyTo(unsigned long *object, GCSpace &to);
 	unsigned long * moveToOldSpace(unsigned long * object);
 	unsigned long * moveToToSpace(unsigned long * object);
 	unsigned long holdReferenceTo(unsigned long *object);
