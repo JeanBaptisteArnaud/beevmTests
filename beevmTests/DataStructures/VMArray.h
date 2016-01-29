@@ -16,6 +16,7 @@ class VMArray {
 
 public:
 	GCSpace * space;
+	unsigned long * contents;
 	int maxSize = 10;
 
 	void setSpace(GCSpace * argSpace);
@@ -37,7 +38,6 @@ public:
 	unsigned long*& operator[](int i);
 	void emptyWith(unsigned long *);
 
-	unsigned long * contents;
 
 };
 

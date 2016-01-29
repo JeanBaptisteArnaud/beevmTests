@@ -14,13 +14,13 @@ testEphemeronOnce: rescued ephemeron is empty
 			</failure>
 		</testcase>
 		<testcase classname="GCTest" name="Bee::GCTest::testFollowObjectAndCheckGraph">
-			<failure message="..\Tests\GCTest.cpp:237 testFollowObjectAndCheckGraph: root 2 mockArray 2 change">
-testFollowObjectAndCheckGraph: root 2 mockArray 2 change
+			<failure message="..\Tests\GCTest.cpp:211 testFollowObjectAndCheckGraph: ToSpace not correctly allocated ">
+testFollowObjectAndCheckGraph: ToSpace not correctly allocated 
 			</failure>
 		</testcase>
 		<testcase classname="GCTest" name="Bee::GCTest::testFollowObjectCheckGraphAndOop">
-			<failure message="..\Tests\GCTest.cpp:280 testFollowObjectCheckGraphAndOop: root 2 mockArray 2 change">
-testFollowObjectCheckGraphAndOop: root 2 mockArray 2 change
+			<failure message="..\Tests\GCTest.cpp:253 testFollowObjectCheckGraphAndOop: ToSpace not correctly allocated ">
+testFollowObjectCheckGraphAndOop: ToSpace not correctly allocated 
 			</failure>
 		</testcase>
 		<testcase classname="GCTest" name="Bee::GCTest::testPurgeLiteralsWithNewObject"/>

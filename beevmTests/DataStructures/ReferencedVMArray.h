@@ -16,6 +16,19 @@ namespace Bee {
 class ReferencedVMArray: public VMArray {
 public:
 	ReferencedVMArray();
+	unsigned long * referer;
+	unsigned long * mda;
+
+	void contentsFromReferer();
+	void emptyReserving(unsigned long size);
+	void loadMDAFrom(ReferencedVMArray * size);
+	void setReferer(unsigned long size);
+	void forget();
+	void grow();
+	void loadContentsMDA();
+	void setContentsMDA();
+	void updateReference();
+
 };
 
 }

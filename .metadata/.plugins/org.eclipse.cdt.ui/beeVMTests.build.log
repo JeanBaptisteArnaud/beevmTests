@@ -1,1 +1,12 @@
-Info: Nothing to build for beevmTests
+16:09:39 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+
+16:09:40 Build Finished (took 1s.132ms)
+

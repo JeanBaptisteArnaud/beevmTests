@@ -31056,3 +31056,514 @@ D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef
                   ^
 g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
 Info: Nothing to build for beevmTests
+15:41:03 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCTest.o" "..\\Tests\\GCTest.cpp" 
+In file included from ..\Tests\../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\GCTest.cpp:2:
+..\Tests\../DataStructures/VMArray.h:19:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCTest.cpp:7:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+Info: Nothing to build for beevmTests
+16:06:35 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\GCSpace.o" "..\\DataStructures\\GCSpace.cpp" 
+In file included from ..\DataStructures\../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\../GarbageCollector/GarbageCollector.h:12,
+                 from ..\DataStructures\Memory.h:11,
+                 from ..\DataStructures\GCSpace.cpp:12:
+..\DataStructures\../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\GCSpace.cpp: In member function 'ulong* Bee::GCSpace::shallowCopyGrowingTo(ulong*, ulong)':
+..\DataStructures\GCSpace.cpp:255:48: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (int index = (_size(array) + 1); index <= newSize; index++) {
+                                                ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\VMArray.o" "..\\DataStructures\\VMArray.cpp" 
+In file included from ..\DataStructures\VMArray.cpp:8:0:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\VMArray.cpp: In member function 'long int Bee::VMArray::nextFree(long unsigned int)':
+..\DataStructures\VMArray.cpp:77:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+..\DataStructures\VMArray.cpp: In member function 'long int Bee::VMArray::size(long unsigned int)':
+..\DataStructures\VMArray.cpp:83:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+..\DataStructures\VMArray.cpp: In member function 'void Bee::VMArray::addAll(long unsigned int*, long unsigned int)':
+..\DataStructures\VMArray.cpp:130:31: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  if((this->size() + value) >= maxSize) this->grow(value);
+                               ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\VMMemory.o" "..\\DataStructures\\VMMemory.cpp" 
+..\DataStructures\VMMemory.cpp:84:2: warning: multi-line comment [-Wcomment]
+  // .data:10026058         ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,\
+  ^
+In file included from ..\DataStructures\../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\../GarbageCollector/GarbageCollector.h:12,
+                 from ..\DataStructures\Memory.h:11,
+                 from ..\DataStructures\VMMemory.cpp:8:
+..\DataStructures\../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\VMMemory.cpp: In function 'void mockVMValue()':
+..\DataStructures\VMMemory.cpp:59:29: warning: value computed is not used [-Wunused-value]
+   *MEM_JIT_globalMethodCache; // array compiled method!behavior 2 by 2
+                             ^
+..\DataStructures\VMMemory.cpp:59:29: warning: statement has no effect [-Wunused-value]
+..\DataStructures\VMMemory.cpp: In function 'bool isSameArray(long unsigned int*, long unsigned int*)':
+..\DataStructures\VMMemory.cpp:235:30: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (int index = 0; index < sizeA; index++) {
+                              ^
+..\DataStructures\VMMemory.cpp: In function 'bool checkMockArray2(long unsigned int*)':
+..\DataStructures\VMMemory.cpp:250:30: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (int index = 0; index < sizeA; index++) {
+                              ^
+..\DataStructures\VMMemory.cpp: In function 'long unsigned int memoryAt(long unsigned int)':
+..\DataStructures\VMMemory.cpp:475:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+..\DataStructures\VMMemory.cpp: In function 'ulong _oop(ulong*)':
+..\DataStructures\VMMemory.cpp:483:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+..\DataStructures\VMMemory.cpp: In function 'ulong _asOop(ulong*)':
+..\DataStructures\VMMemory.cpp:487:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ }
+ ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\ReferencedVMArray.cpp:15:19: error: expected unqualified-id before ')' token
+ ReferencedVMArray();
+                   ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::contentsFromReferer()':
+..\DataStructures\ReferencedVMArray.cpp:20:52: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+   contents = (unsigned long *) *(_asObject(referer));
+                                                    ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::loadContentsMDA()':
+..\DataStructures\ReferencedVMArray.cpp:47:20: error: invalid type argument of unary '*' (have 'long unsigned int')
+  mda = *contents[-1];
+                    ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::setContentsMDA()':
+..\DataStructures\ReferencedVMArray.cpp:50:33: error: invalid conversion from 'long unsigned int*' to 'long unsigned int' [-fpermissive]
+  if(!(mda == nil)) contents[-1] = mda;
+                                 ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::updateReference()':
+..\DataStructures\ReferencedVMArray.cpp:54:43: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+  if(!(referer == nil)) (*_asObject(referer)) = contents;
+                                           ^
+16:07:17 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:3:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: In function 'void allocate()':
+..\Tests\GCSpaceTest.cpp:19:10: warning: variable 'address' set but not used [-Wunused-but-set-variable]
+  ulong * address = localSpace.allocate(1024);
+          ^
+..\Tests\GCSpaceTest.cpp: In function 'void extendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:39:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In function 'void growingTo()':
+..\Tests\GCSpaceTest.cpp:135:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\MemoryTest.o" "..\\Tests\\MemoryTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\MemoryTest.cpp:1:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\MemoryTest.cpp:2:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\MemoryTest.cpp: In function 'void release()':
+..\Tests\MemoryTest.cpp:43:10: warning: variable 'address' set but not used [-Wunused-but-set-variable]
+  ulong * address = m->VM();
+          ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\ReferencedVMArray.cpp:15:19: error: expected unqualified-id before ')' token
+ ReferencedVMArray();
+                   ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::contentsFromReferer()':
+..\DataStructures\ReferencedVMArray.cpp:20:52: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+   contents = (unsigned long *) *(_asObject(referer));
+                                                    ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::loadContentsMDA()':
+..\DataStructures\ReferencedVMArray.cpp:47:30: error: invalid type argument of unary '*' (have 'long unsigned int')
+  mda = (ulong *) *contents[-1];
+                              ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::updateReference()':
+..\DataStructures\ReferencedVMArray.cpp:54:43: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+  if(!(referer == nil)) (*_asObject(referer)) = contents;
+                                           ^
+16:07:28 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCTest.o" "..\\Tests\\GCTest.cpp" 
+In file included from ..\Tests\../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\GCTest.cpp:2:
+..\Tests\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCTest.cpp:7:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\VMArrayTest.o" "..\\Tests\\VMArrayTest.cpp" 
+In file included from ..\Tests\VMArrayTest.cpp:1:0:
+..\Tests\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\VMArrayTest.cpp:2:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\ReferencedVMArray.cpp:15:19: error: expected unqualified-id before ')' token
+ ReferencedVMArray();
+                   ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::contentsFromReferer()':
+..\DataStructures\ReferencedVMArray.cpp:20:52: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+   contents = (unsigned long *) *(_asObject(referer));
+                                                    ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::loadContentsMDA()':
+..\DataStructures\ReferencedVMArray.cpp:47:28: error: invalid type argument of unary '*' (have 'long unsigned int')
+  mda = (ulong) *contents[-1];
+                            ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::updateReference()':
+..\DataStructures\ReferencedVMArray.cpp:54:43: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+  if(!(referer == nil)) (*_asObject(referer)) = contents;
+                                           ^
+16:07:44 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\Memory.o" "..\\DataStructures\\Memory.cpp" 
+In file included from ..\DataStructures\../GarbageCollector/../DataStructures/GCSpace.h:11:0,
+                 from ..\DataStructures\../GarbageCollector/GarbageCollector.h:11,
+                 from ..\DataStructures\Memory.h:11,
+                 from ..\DataStructures\Memory.cpp:13:
+..\DataStructures\../GarbageCollector/../DataStructures/VMMemory.h:13:0: warning: "NULL" redefined [enabled by default]
+ #define NULL 0
+ ^
+In file included from c:\mingw\include\string.h:24:0,
+                 from c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\cstring:42,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/function/function_base.hpp:62,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/function/detail/prologue.hpp:17,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/function.hpp:24,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:38,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\DataStructures\Memory.cpp:8:
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h:399:0: note: this is the location of the previous definition
+ #define NULL __null
+ ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\DataStructures\Memory.cpp:8:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+In file included from ..\DataStructures\../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\../GarbageCollector/GarbageCollector.h:12,
+                 from ..\DataStructures\Memory.h:11,
+                 from ..\DataStructures\Memory.cpp:13:
+..\DataStructures\../GarbageCollector/../DataStructures/VMArray.h: At global scope:
+..\DataStructures\../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\Memory.cpp: In member function 'Bee::GCSpace* Bee::Memory::growIfNeeded(ulong)':
+..\DataStructures\Memory.cpp:37:38: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  if ((used / total) > 0.9 || (free < size)) {
+                                      ^
+..\DataStructures\Memory.cpp: In member function 'long unsigned int* Bee::Memory::VM()':
+..\DataStructures\Memory.cpp:80:48: warning: pointer to a function used in arithmetic [-Wpointer-arith]
+  ulong * limit = (ulong *) (((ulong) address + size));
+                                                ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\VMMemoryTest.o" "..\\Tests\\VMMemoryTest.cpp" 
+..\Tests\VMMemoryTest.cpp:21:1: warning: multi-line comment [-Wcomment]
+ // .data:10026058         ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,\
+ ^
+..\Tests\VMMemoryTest.cpp:177:2: warning: this decimal constant is unsigned only in ISO C90 [enabled by default]
+  ASSERTM("2147483648", i == 2147483648);
+  ^
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\VMMemoryTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\VMMemoryTest.cpp:5:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\VMMemoryTest.cpp: In function 'void objectFlagManipulation()':
+..\Tests\VMMemoryTest.cpp:210:10: warning: variable 'local' set but not used [-Wunused-but-set-variable]
+  GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+          ^
+..\Tests\VMMemoryTest.cpp: In function 'void virtualBehavior()':
+..\Tests\VMMemoryTest.cpp:230:44: warning: 'base' is used uninitialized in this function [-Wuninitialized]
+  _commit((ulong) base, (ulong) reservedSize);
+                                            ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "GarbageCollector\\GarbageCollector.o" "..\\GarbageCollector\\GarbageCollector.cpp" 
+..\GarbageCollector\GarbageCollector.cpp:19:0: warning: "NULL" redefined [enabled by default]
+ #define NULL 0
+ ^
+In file included from c:\mingw\lib\gcc\mingw32\4.8.1\include\c++\cstddef:42:0,
+                 from ..\GarbageCollector\GarbageCollector.cpp:13:
+c:\mingw\lib\gcc\mingw32\4.8.1\include\stddef.h:399:0: note: this is the location of the previous definition
+ #define NULL __null
+ ^
+In file included from ..\GarbageCollector\GarbageCollector.cpp:8:0:
+..\GarbageCollector\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\GarbageCollector\GarbageCollector.cpp: In member function 'void Bee::GarbageCollector::rescueEphemerons()':
+..\GarbageCollector\GarbageCollector.cpp:69:68: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+    for (ulong ephemeronIndex = 0; ephemeronIndex < ephemerons.size();
+                                                                    ^
+..\GarbageCollector\GarbageCollector.cpp: In member function 'void Bee::GarbageCollector::fixWeakContainers()':
+..\GarbageCollector\GarbageCollector.cpp:142:53: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= weakContainers.size(); index++) {
+                                                     ^
+..\GarbageCollector\GarbageCollector.cpp: In member function 'void Bee::GarbageCollector::makeRescuedEphemeronsNonWeak()':
+..\GarbageCollector\GarbageCollector.cpp:168:56: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rescuedEphemerons.size(); index++) {
+                                                        ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "GarbageCollector\\GenerationalGC.o" "..\\GarbageCollector\\GenerationalGC.cpp" 
+In file included from ..\GarbageCollector\../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\GarbageCollector\GarbageCollector.h:12,
+                 from ..\GarbageCollector\GenerationalGC.h:11,
+                 from ..\GarbageCollector\GenerationalGC.cpp:8:
+..\GarbageCollector\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeLiteralsReference()':
+..\GarbageCollector\GenerationalGC.cpp:46:56: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < literalsReferences.size();
+                                                        ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'virtual void Bee::GenerationalGC::fixReferencesOrSetTombstone(ulong*)':
+..\GarbageCollector\GenerationalGC.cpp:59:18: warning: unused variable 'referenceOrThombstone' [-Wunused-variable]
+  unsigned long * referenceOrThombstone;
+                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeRememberSet()':
+..\GarbageCollector\GenerationalGC.cpp:74:50: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rememberSet.size(); index++) {
+                                                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::followRememberSet()':
+..\GarbageCollector\GenerationalGC.cpp:92:50: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rememberSet.size(); index++) {
+                                                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveClassCheckReferences()':
+..\GarbageCollector\GenerationalGC.cpp:107:58: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < classCheckReferences.size(); index++) {
+                                                          ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveToOldAll(Bee::ReferencedVMArray&)':
+..\GarbageCollector\GenerationalGC.cpp:126:46: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= objects.size(); index++) {
+                                              ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\ReferencedVMArray.cpp:15:19: error: expected unqualified-id before ')' token
+ ReferencedVMArray();
+                   ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::contentsFromReferer()':
+..\DataStructures\ReferencedVMArray.cpp:20:52: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+   contents = (unsigned long *) *(_asObject(referer));
+                                                    ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::loadContentsMDA()':
+..\DataStructures\ReferencedVMArray.cpp:47:6: error: invalid conversion from 'ulong {aka long unsigned int}' to 'long unsigned int*' [-fpermissive]
+  mda = *(ulong *)contents[-1];
+      ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::updateReference()':
+..\DataStructures\ReferencedVMArray.cpp:54:43: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+  if(!(referer == nil)) (*_asObject(referer)) = contents;
+                                           ^
+16:07:55 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\ReferencedVMArray.cpp:15:19: error: expected unqualified-id before ')' token
+ ReferencedVMArray();
+                   ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::contentsFromReferer()':
+..\DataStructures\ReferencedVMArray.cpp:20:52: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+   contents = (unsigned long *) *(_asObject(referer));
+                                                    ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::loadContentsMDA()':
+..\DataStructures\ReferencedVMArray.cpp:47:6: error: invalid conversion from 'ulong {aka long unsigned int}' to 'long unsigned int*' [-fpermissive]
+  mda = *((ulong *)contents[-1]);
+      ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::updateReference()':
+..\DataStructures\ReferencedVMArray.cpp:54:43: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+  if(!(referer == nil)) (*_asObject(referer)) = contents;
+                                           ^
+16:08:14 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\ReferencedVMArray.cpp:15:19: error: expected unqualified-id before ')' token
+ ReferencedVMArray();
+                   ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::contentsFromReferer()':
+..\DataStructures\ReferencedVMArray.cpp:20:52: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+   contents = (unsigned long *) *(_asObject(referer));
+                                                    ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::updateReference()':
+..\DataStructures\ReferencedVMArray.cpp:54:43: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+  if(!(referer == nil)) (*_asObject(referer)) = contents;
+                                           ^
+16:08:40 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\ReferencedVMArray.cpp:15:19: error: expected unqualified-id before ')' token
+ ReferencedVMArray();
+                   ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::contentsFromReferer()':
+..\DataStructures\ReferencedVMArray.cpp:20:52: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+   contents = (unsigned long *) *(_asObject(referer));
+                                                    ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::updateReference()':
+..\DataStructures\ReferencedVMArray.cpp:54:56: error: invalid conversion from 'long unsigned int*' to 'ulong {aka long unsigned int}' [-fpermissive]
+  if(!(referer == nil)) (* (ulong *)_asObject(referer)) = contents;
+                                                        ^
+16:08:59 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\ReferencedVMArray.cpp:15:19: error: expected unqualified-id before ')' token
+ ReferencedVMArray();
+                   ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::contentsFromReferer()':
+..\DataStructures\ReferencedVMArray.cpp:20:52: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+   contents = (unsigned long *) *(_asObject(referer));
+                                                    ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::updateReference()':
+..\DataStructures\ReferencedVMArray.cpp:54:65: error: lvalue required as left operand of assignment
+  if(!(referer == nil)) (ulong *)(* (ulong *)_asObject(referer)) = contents;
+                                                                 ^
+16:09:09 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\DataStructures\ReferencedVMArray.cpp:15:19: error: expected unqualified-id before ')' token
+ ReferencedVMArray();
+                   ^
+..\DataStructures\ReferencedVMArray.cpp: In member function 'void Bee::ReferencedVMArray::contentsFromReferer()':
+..\DataStructures\ReferencedVMArray.cpp:20:52: error: invalid type argument of unary '*' (have 'ulong {aka long unsigned int}')
+   contents = (unsigned long *) *(_asObject(referer));
+                                                    ^
+16:09:39 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "DataStructures\\ReferencedVMArray.o" "..\\DataStructures\\ReferencedVMArray.cpp" 
+In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
+                 from ..\DataStructures\ReferencedVMArray.cpp:8:
+..\DataStructures\VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 

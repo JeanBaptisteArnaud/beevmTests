@@ -34,6 +34,7 @@ public:
 	void testFollowObject();
 	void testGCReferencesAfterCollect();
 	void testTombstone();
+
 	GCTest() {
 		this->setUp();
 	}

@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="purgeLiteralsReference" key="selection"/>
+		<item value="checkReachablePropertyOf" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="checkReachablePropertyOf"/>
+			<item value="checkReachablePropertyOf:"/>
 			<item value="purgeLiteralsReference"/>
 			<item value="void GenerationalGC::holdReferenceTo"/>
 			<item value="fixReferencesOrSetTombstone"/>
 			<item value="referenceOrThombstone"/>
 			<item value="cerr"/>
 			<item value="_rotate"/>
-			<item value="followCountStartingAt"/>
-			<item value="arenaIncludes"/>
 		</list>
 		<list key="replacehistory">
 			<item value="ulong"/>

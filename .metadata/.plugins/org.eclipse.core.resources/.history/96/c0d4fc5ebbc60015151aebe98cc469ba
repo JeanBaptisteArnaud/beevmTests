@@ -1,0 +1,55 @@
+/*
+ * ReferencedVMArray.cpp
+ *
+ *  Created on: 18 déc. 2015
+ *      Author: Arnaud Jean-Baptiste
+ */
+
+#include "ReferencedVMArray.h"
+
+using namespace Bee;
+
+ReferencedVMArray::ReferencedVMArray() {
+}
+
+ReferencedVMArray();
+unsigned long * referer;
+unsigned long * mda;
+
+void ReferencedVMArray::contentsFromReferer() {
+		contents = (unsigned long *) *(_asObject(referer));
+}
+
+void ReferencedVMArray::emptyReserving(unsigned long size){
+	ReferencedVMArray::emptyReserving(size);
+	this->updateReference();
+	this->setContentsMDA();
+}
+
+void ReferencedVMArray::loadMDAFrom(ReferencedVMArray * other){
+	mda = other->mda;
+}
+void ReferencedVMArray::setReferer(unsigned long value) {
+	referer = (ulong * )value;
+	this->contentsFromReferer();
+	this->loadContentsMDA();
+}
+void ReferencedVMArray::forget() {
+	contents = mda = nil;
+}
+
+void ReferencedVMArray::grow() {
+	VMArray::grow();
+	this->updateReference();
+}
+
+void ReferencedVMArray::loadContentsMDA(){
+	mda = *contents[-1];
+}
+void ReferencedVMArray::setContentsMDA() {
+	if(!(mda == nil)) contents[-1] = mda;
+}
+
+void ReferencedVMArray::updateReference() {
+	if(!isNil(referer)) *_asObject(referer) = contents]
+}

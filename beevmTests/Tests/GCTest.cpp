@@ -199,8 +199,6 @@ void GCTest::testTombstone() {
 }
 
 void GCTest::testFollowObjectAndCheckGraph() {
-
-	unsigned long * array = flipper->fromSpace.shallowCopy(mockArray2());
 	unsigned long * string = flipper->fromSpace.shallowCopy(mockArray2());
 	flipper->fromSpace.shallowCopy(mockArray1024());
 	unsigned long * byteArray = flipper->fromSpace.shallowCopy(mockArray2());
@@ -243,7 +241,6 @@ void GCTest::testFollowObjectAndCheckGraph() {
 
 void GCTest::testFollowObjectCheckGraphAndOop() {
 	// no need it
-	unsigned long * array = flipper->fromSpace.shallowCopy(mockArray2());
 	unsigned long * string = flipper->fromSpace.shallowCopy(mockArray2());
 	flipper->fromSpace.shallowCopy(mockArray1024());
 	unsigned long * byteArray = flipper->fromSpace.shallowCopy(mockArray2());
