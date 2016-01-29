@@ -1,29 +1,14 @@
 <testsuites>
-	<testsuite name="GCTest" tests="13">
-		<testcase classname="GCTest" name="Bee::GCTest::testGCCollect"/>
-		<testcase classname="GCTest" name="Bee::GCTest::testCopyToFlip"/>
-		<testcase classname="GCTest" name="Bee::GCTest::testCopyToOld"/>
-		<testcase classname="GCTest" name="Bee::GCTest::testCopyToOldBee"/>
-		<testcase classname="GCTest" name="Bee::GCTest::testEphemeron"/>
-		<testcase classname="GCTest" name="Bee::GCTest::testFollowObject"/>
-		<testcase classname="GCTest" name="Bee::GCTest::testGCReferencesAfterCollect"/>
-		<testcase classname="GCTest" name="Bee::GCTest::testTombstone"/>
-		<testcase classname="GCTest" name="Bee::GCTest::testEphemeronOnce">
-			<failure message="..\Tests\GCTest.cpp:119 testEphemeronOnce: rescued ephemeron is empty">
-testEphemeronOnce: rescued ephemeron is empty
+	<testsuite name="GCSpaceTest" tests="2">
+		<testcase classname="GCSpaceTest" name="Bee::GCSpaceTest::testAllocate">
+			<failure message="..\Tests\GCSpaceTest.cpp:18 testAllocate: init wrong">
+testAllocate: init wrong
 			</failure>
 		</testcase>
-		<testcase classname="GCTest" name="Bee::GCTest::testFollowObjectAndCheckGraph">
-			<failure message="..\Tests\GCTest.cpp:211 testFollowObjectAndCheckGraph: ToSpace not correctly allocated ">
-testFollowObjectAndCheckGraph: ToSpace not correctly allocated 
+		<testcase classname="GCSpaceTest" name="Bee::GCSpaceTest::testAllocate">
+			<failure message="..\Tests\GCSpaceTest.cpp:18 testAllocate: init wrong">
+testAllocate: init wrong
 			</failure>
 		</testcase>
-		<testcase classname="GCTest" name="Bee::GCTest::testFollowObjectCheckGraphAndOop">
-			<failure message="..\Tests\GCTest.cpp:253 testFollowObjectCheckGraphAndOop: ToSpace not correctly allocated ">
-testFollowObjectCheckGraphAndOop: ToSpace not correctly allocated 
-			</failure>
-		</testcase>
-		<testcase classname="GCTest" name="Bee::GCTest::testPurgeLiteralsWithNewObject"/>
-		<testcase classname="GCTest" name="Bee::GCTest::testGCReferencesAfterCollect"/>
 	</testsuite>
 </testsuites>

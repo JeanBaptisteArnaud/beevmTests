@@ -14,6 +14,7 @@ using namespace std;
 // File myclassTest.h
 
 void GCSpaceTest::testAllocate() {
+	GCSpace localSpace = flipper->localSpace;
 	ASSERTM("init wrong", localSpace.getNextFree() == localSpace.getBase());
 	ulong * address = localSpace.allocate(1024);
 	address = localSpace.allocate(1024);
@@ -28,6 +29,7 @@ void GCSpaceTest::testAllocate() {
 }
 
 void GCSpaceTest::testExtendedGrowingTo() {
+	GCSpace localSpace = flipper->localSpace;
 	unsigned long * array = mockArray1024();
 	unsigned long * stTrue = mockTrue();
 	ulong * copy = localSpace.shallowCopyGrowingTo( array, 2048);
@@ -52,6 +54,8 @@ void GCSpaceTest::testExtendedGrowingTo() {
 
 
 void GCSpaceTest::testGCSpace() {
+
+	GCSpace localSpace = flipper->localSpace;
 	ASSERTM("base < nextfree", localSpace.getBase() < localSpace.getNextFree());
 	ASSERTM("base < commitedLimit", localSpace.getBase() < localSpace.getCommitedLimit());
 	ASSERTM("commitedLimit <= reservedLimit",
@@ -72,6 +76,8 @@ void GCSpaceTest::testGCSpace() {
 }
 
 void GCSpaceTest::testGrow() {
+
+	GCSpace localSpace = flipper->localSpace;
 	unsigned long * array;
 	array = (ulong *) malloc(100);
 	unsigned long reservedSize = 4 * 1024 * 100;
@@ -117,6 +123,8 @@ void GCSpaceTest::testGrow() {
 }
 
 void GCSpaceTest::testGrowingTo() {
+
+	GCSpace localSpace = flipper->localSpace;
 	unsigned long * array = mockArray();
 	ulong * copy = localSpace.shallowCopyGrowingTo((unsigned long *) array,
 			2048);
@@ -136,6 +144,8 @@ void GCSpaceTest::testGrowingTo() {
 }
 
 void GCSpaceTest::testNewGCSpaceShallowCopy() {
+
+	GCSpace localSpace = flipper->localSpace;
 	ulong * array = (ulong *) mockArray1024();
 	ulong * copy = localSpace.shallowCopy(array);
 	ASSERTM("copy is not a Array", isArray(copy));
@@ -147,6 +157,8 @@ void GCSpaceTest::testNewGCSpaceShallowCopy() {
 }
 
 void GCSpaceTest::testShallowCopy() {
+
+	GCSpace localSpace = flipper->localSpace;
 	ulong * array = (ulong *) mockArray();
 	ulong * copy = localSpace.shallowCopy(array);
 	ASSERTM("the copy not array", isArray(copy));
@@ -246,7 +258,7 @@ void GCSpaceTest::setUp() {
 	mockVMValue();
 	flipper = new GenerationalGC();
 	Memory::current()->setGC(flipper);
-	localSpace = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+	GCSpace localSpace = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
 	flipper->localSpace = localSpace;
 	flipper->initLocals();
 	flipper->initNonLocals();
@@ -261,7 +273,7 @@ cute::suite make_suite_GCSpaceTest() {
 	cute::suite s;
 
 	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testAllocate));
-//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testAllocate));
+	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testAllocate));
 //	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testGCSpace));
 //	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testExtendedGrowingTo));
 //	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testGrow));

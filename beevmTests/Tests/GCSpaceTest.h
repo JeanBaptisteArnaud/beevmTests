@@ -23,7 +23,6 @@ protected:
 
 public:
 	GenerationalGC * flipper;
-	GCSpace localSpace;
 	void testAllocate();
 	void testGCSpace();
 	void testExtendedGrowingTo();
