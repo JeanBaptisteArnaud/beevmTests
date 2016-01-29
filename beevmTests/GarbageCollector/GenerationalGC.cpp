@@ -24,9 +24,19 @@ unsigned long * GenerationalGC::framePointerToStartWalkingTheStack() {
 }
 
 bool GenerationalGC::hasToPurge(unsigned long *pointer) {
-	// TODO
+	cerr << "hasToPurge" << endl;
 	return false;
+}
 
+void GenerationalGC::holdReferenceTo(unsigned long * object) {
+	if (!_isInRememberedSet(object)) {
+		_beInRememberedSet(object);
+		rememberSet.add((ulong) object);
+	}
+}
+
+void GenerationalGC::someEphemeronsRescued() {
+	//this->holdReferenceTo(rescuedEphemerons.contents);
 }
 
 void GenerationalGC::purgeLiteralsReference() {
@@ -129,16 +139,9 @@ void GenerationalGC::moveToOldAll(ReferencedVMArray &objects) {
 }
 
 unsigned long* GenerationalGC::moveToOldSpace(unsigned long *object) {
-	unsigned long *copy = this->copyTo(object, oldSpace);
+	unsigned long * copy = this->copyTo(object, oldSpace);
 	this->holdReferenceTo(copy);
 	return copy;
-}
-
-unsigned long GenerationalGC::holdReferenceTo(unsigned long *object) {
-	if (!_isInRememberedSet(object)) {
-		_beInRememberedSet(object);
-		rememberSet.add((ulong) object);
-	}
 }
 
 unsigned long* GenerationalGC::copyTo(unsigned long *object, GCSpace &to) {
@@ -151,6 +154,15 @@ bool GenerationalGC::checkReachablePropertyOf(unsigned long * ephemeron) {
 	return _isProxy((ulong *) *ephemeron)
 			| (!(this->arenaIncludes((ulong *) *ephemeron)));
 }
+
+
+void GenerationalGC::purgeRoots() {
+	this->purgeLiteralsReference();
+	this->purgeRememberSet();
+
+}
+
+
 
 void GenerationalGC::followCodeCacheReferences() {
 	if (*MEM_polymorphicMethodCacheReferesToNewCM) {

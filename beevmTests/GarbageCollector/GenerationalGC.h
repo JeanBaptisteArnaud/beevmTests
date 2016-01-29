@@ -27,6 +27,8 @@ public:
 	bool arenaIncludes(unsigned long *pointer);
 	unsigned long * copyTo(unsigned long *object, GCSpace &to);
 
+	void purgeRoots();
+
 protected:
 	bool hasToPurge(unsigned long *pointer);
 	unsigned long* codeCacheAtOffset(unsigned long offset);
@@ -44,12 +46,14 @@ protected:
 	void updateSpacesDelta();
 	unsigned long * moveToOldSpace(unsigned long * object);
 	unsigned long * moveToToSpace(unsigned long * object);
-	unsigned long holdReferenceTo(unsigned long *object);
+
 	void spacesDelta(unsigned long delta);
 	unsigned long spacesDelta();
 	unsigned long* framePointerToStartWalkingTheStack();
 	void fixReferencesOrSetTombstone(unsigned long *weakContainer);
 	void followCountStartingAt(unsigned long * pointer, int count, long start);
+	void someEphemeronsRescued();
+	void holdReferenceTo(unsigned long * object);
 };
 
 extern "C" {

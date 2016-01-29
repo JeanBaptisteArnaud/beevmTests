@@ -27,7 +27,6 @@ unsigned long * stTrue = (unsigned long*) 0x10026070;
 unsigned long * stFalse = (unsigned long*) 0x10026080;
 unsigned long * arrayBehavior = (unsigned long*) 0x0A0792F0; // only for testing
 
-
 unsigned char ObjectFlag_reserved1 = 1;
 unsigned char ObjectFlag_generation = 2;
 unsigned char ObjectFlag_isEphemeron = 4;
@@ -102,7 +101,8 @@ unsigned long * mockArray() {
 	// 12:10has 3 slots
 
 	unsigned long * localArray =
-			(unsigned long *) (Memory::current())->currentSpace->allocate(3 * 8);
+			(unsigned long *) (Memory::current())->currentSpace->allocate(
+					3 * 8);
 	localArray[0] = (unsigned long) 0x0137F803;
 	localArray[1] = (unsigned long) 0x0A0792F0;
 	localArray[2] = (unsigned long) 0xFFFFFFFF;
@@ -158,7 +158,8 @@ unsigned long * mockArray2() {
 	//
 
 	unsigned long * stArray =
-			(unsigned long *) (Memory::current())->currentSpace->allocate(7 * 8);
+			(unsigned long *) (Memory::current())->currentSpace->allocate(
+					7 * 8);
 	stArray[0] = (unsigned long) 0x01000005;
 	stArray[1] = (unsigned long) 0x0A0792F0;
 	stArray[2] = (unsigned long) nil;
@@ -210,16 +211,55 @@ unsigned long * mockWeakArray() {
 	for (int index = 4; index <= 1024; index++) {
 		localArray[index] = (unsigned long) (index << 1);
 	}
-	setFlags(&localArray[4],ObjectFlag_isEphemeron);
+	setFlags(&localArray[4], ObjectFlag_isEphemeron);
 	return &localArray[4];
 }
 
+bool isSameArray(unsigned long * object, unsigned long * anotherObject) {
+	unsigned long sizeA = _size(object);
+	unsigned long sizeB = _size(anotherObject);
+	if (sizeA != sizeB)
+		return false;
 
+	//if(object[-2] != anotherObject[-2]) return false; Flags will be different
+
+	if (object[-1] != anotherObject[-1])
+		return false;
+
+	if (_isExtended(object) && _isExtended(anotherObject)) {
+		//if(object[-4] != anotherObject[-4]) return false; Flags will be different
+		if (object[-3] != anotherObject[-3])
+			return false;
+	}
+
+	for (int index = 0; index < sizeA; index++) {
+		if (object[index] != anotherObject[index])
+			return false;
+	}
+	return true;
+}
+
+bool checkMockArray2(unsigned long * object) {
+	unsigned long sizeA = _size(object);
+	if (sizeA != 5)
+		return false;
+
+	if (object[-1] != (unsigned long) 0x0A0792F0)
+		return false;
+
+	for (int index = 0; index < sizeA; index++) {
+		if (object[index] != (unsigned long) nil)
+			return false;
+	}
+
+	return true;
+}
 
 bool checkValueMockArray1024(unsigned long * localArray) {
 
 	for (int index = 0; index <= 1020; index++) {
-		if(!(localArray[index] == (unsigned long) ((4 + index) << 1))) return false;
+		if (!(localArray[index] == (unsigned long) ((4 + index) << 1)))
+			return false;
 	}
 	return true;
 }
@@ -296,7 +336,7 @@ void _decommit(ulong * limit, ulong * delta) {
 }
 
 void _free(ulong * limit, ulong * delta) {
-	VirtualFree((void *) limit, (ulong)delta, MEM_RELEASE);
+	VirtualFree((void *) limit, (ulong) delta, MEM_RELEASE);
 }
 
 ulong * _commit(ulong limit, ulong delta) {
@@ -353,7 +393,8 @@ bool _isActiveEphemeron(ulong *object) {
 }
 
 bool _isEphemeron(ulong *object) {
-	return testFlags(object, ObjectFlag_isExtended) && testExtFlags(object, ObjectFlag_isEphemeron);
+	return testFlags(object, ObjectFlag_isExtended)
+			&& testExtFlags(object, ObjectFlag_isEphemeron);
 }
 
 void _beSecondGeneration(ulong *object) {
@@ -424,7 +465,7 @@ ulong size(ulong *object) {
 }
 
 bool isArray(ulong *object) {
-	return object[-1] == (ulong)arrayBehavior;
+	return object[-1] == (ulong) arrayBehavior;
 }
 
 // should not use yet or never
@@ -448,7 +489,6 @@ ulong _asOop(ulong *object) {
 void _halt() {
 	cerr << "_halt" << endl;
 }
-
 
 // proxiing method
 bool _isProxy(ulong *object) {

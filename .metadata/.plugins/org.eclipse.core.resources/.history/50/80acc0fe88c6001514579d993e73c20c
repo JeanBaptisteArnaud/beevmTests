@@ -1,0 +1,497 @@
+/*
+ * VMMemory.cpp
+ *
+ *  Created on: 6 janv. 2016
+ *      Author: jbapt
+ */
+#include "VMMemory.h"
+#include "Memory.h"
+#include "Windows.h"
+#include <limits.h>
+#include <iostream>
+
+using namespace Bee;
+using namespace std;
+
+unsigned long * debugFrameMarker = (unsigned long *) 0x1001B633;
+unsigned long * MEM_anyCompiledMethodInFromSpace = (unsigned long *) 0x10041710;
+unsigned long * MEM_checkNewNativizedCompiledMethods =
+		(unsigned long *) 0x10041714;
+unsigned long *MEM_polymorphicMethodCacheReferesToNewCM =
+		(unsigned long *) 0x1003EC48;
+unsigned long ** MEM_JIT_globalMethodCache = (unsigned long **) 0x1002EC20;
+unsigned long * MEM_JIT_codeCachePointer = (unsigned long*) 0x1002E820;
+unsigned long * MEM_globalFramePointerToWalkStack = (unsigned long*) 0x100407C4;
+unsigned long * nil = (unsigned long*) 0x10026060;
+unsigned long * stTrue = (unsigned long*) 0x10026070;
+unsigned long * stFalse = (unsigned long*) 0x10026080;
+unsigned long * arrayBehavior = (unsigned long*) 0x0A0792F0; // only for testing
+
+
+unsigned char ObjectFlag_reserved1 = 1;
+unsigned char ObjectFlag_generation = 2;
+unsigned char ObjectFlag_isEphemeron = 4;
+unsigned char ObjectFlag_isInRememberSet = 8;
+unsigned char ObjectFlag_isBytes = 0x10;
+unsigned char ObjectFlag_zeroTermOrNamed = 0x20;
+unsigned char ObjectFlag_notIndexed = 0x40;
+unsigned char ObjectFlag_isExtended = 0x80;
+unsigned char ObjectFlagMaxValue = 0xFF;
+
+unsigned long ObjectExtendedShortSize = -15;
+unsigned long ObjectSize = -7;
+unsigned long ObjectExtendedFlags = -12;
+unsigned long ObjectExtendedHash = -15;
+unsigned long ObjectExtendedSize = -2;
+unsigned long ObjectHash = -7;
+unsigned long ObjectFlags = -4;
+unsigned long ObjectHeaderBits = -1;
+
+//SendInliner
+
+void mockVMValue() {
+	ulong * address = Memory::current()->VM();
+	if (address) {
+		*debugFrameMarker = 0; //54654
+		*MEM_anyCompiledMethodInFromSpace = 0;
+		*MEM_checkNewNativizedCompiledMethods = 1;
+		*MEM_polymorphicMethodCacheReferesToNewCM = 1;
+
+		*MEM_JIT_globalMethodCache; // array compiled method!behavior 2 by 2
+		*MEM_JIT_codeCachePointer = 0; // 6546849684654 data memory executable.
+		*MEM_globalFramePointerToWalkStack = 0; // top stack
+
+		nil[-2] = (unsigned long) 0x61344500;
+		nil[-1] = (unsigned long) 0x0a0ddc10;
+		nil[0] = (unsigned long) nil; // need it ? or not need it?
+
+		stTrue[-2] = (unsigned long) 0x61000000;
+		stTrue[-1] = (unsigned long) 0x0A0B6BA0;
+		stTrue[0] = (unsigned long) stTrue;
+
+		stFalse[-2] = (unsigned long) 0x61000000;
+		stFalse[-1] = (unsigned long) 0x0A0B6BA0; //0xA06B0B0A;
+		stFalse[0] = (unsigned long) stFalse;
+
+	} else
+		cerr << GetLastError() << endl;
+}
+
+unsigned long * mockNil() {
+	// 00 E3 63 61 94 DF 91 02
+	// nil 00 45 34 61 10 DC 0D 0A
+	//nil_hdr Object <0, 3445h, \             ; DATA XREF: GC_full+E3?o
+	// .data:10026058                                         ; sub_10010E40+33?w
+	// .data:10026058         ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,\
+	// .data:10026058         offset unk_A0DDC10>
+	return nil;
+}
+
+unsigned long * mockTrue() {
+	// true 00 00 00 61 A0 6B 0B 0A
+	//true_hdr Object <0, 0, ObjectFlag_reserved1 or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed,
+	// offset unk_A0B6BA0>
+	return stTrue;
+}
+
+unsigned long * mockArray() {
+	// 03 00 00 01  D8 71 85 02
+	// Array new: 3
+	// 03 F8 37 01 F0 92 07 0A
+	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
+	// 12:10has 3 slots
+
+	unsigned long * localArray =
+			(unsigned long *) (Memory::current())->currentSpace->allocate(3 * 8);
+	localArray[0] = (unsigned long) 0x0137F803;
+	localArray[1] = (unsigned long) 0x0A0792F0;
+	localArray[2] = (unsigned long) 0xFFFFFFFF;
+	return &localArray[2];
+}
+
+unsigned long * mockObjectFrom() {
+// TODO need to change to real object when pocho send me the header
+
+	unsigned long * localArray =
+			(unsigned long *) (Memory::current())->collector->fromSpace.allocate(
+					3 * 8);
+
+	localArray[0] = (unsigned long) 0x0137F803;
+	localArray[1] = (unsigned long) 0x0A0792F0;
+	localArray[2] = (unsigned long) 0xFFFFFFFF;
+	return &localArray[2];
+}
+
+unsigned long * mockEphemeronFrom(unsigned long * key, unsigned long * value) {
+// TODO need to change to real object when pocho send me the header
+
+//	Object <4, 0, ObjectFlag_unseenInSpace or ObjectFlag_isEphemeron or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed or ObjectFlag_isExtended, 3>
+//	Object <4, 0, ObjectFlag_unseenInSpace or ObjectFlag_isEphemeron or ObjectFlag_zeroTermOrNamed or ObjectFlag_notIndexed or ObjectFlag_isExtended, offset Ephemeron_behavior>
+//	field1 dd offset nilg021:009F2D8C dd offset nil
+//	last line should be
+//	field1 dd offset nil
+//	filed2 dd offset nil
+
+//	header_ext: 04 00 00 E5 03 00 00 00 , header_basic: 04 00 00 E5 60 1F 0A 0A
+//	field1: 60 60 02 10 field2: 60 60 02 10
+//	i didn't see the field3
+//	which was the registry
+
+	unsigned long * ephemeron =
+			(unsigned long *) (Memory::current())->collector->fromSpace.allocate(
+					7 * 8);
+	ephemeron[0] = (unsigned long) 0xE5000004;
+	ephemeron[1] = (unsigned long) 0x00000003;
+	ephemeron[2] = (unsigned long) 0xE5000004;
+	ephemeron[3] = (unsigned long) 0x0A0A1F60;
+	ephemeron[4] = (unsigned long) key;
+	ephemeron[5] = (unsigned long) value;
+	ephemeron[6] = (unsigned long) 0xFFFFFFFF; // registry
+	return &ephemeron[4];
+}
+
+unsigned long * mockArray2() {
+
+	// 03 00 00 01  D8 71 85 02
+	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
+	// 12:10has 3 slots
+	//
+
+	unsigned long * stArray =
+			(unsigned long *) (Memory::current())->currentSpace->allocate(7 * 8);
+	stArray[0] = (unsigned long) 0x01000005;
+	stArray[1] = (unsigned long) 0x0A0792F0;
+	stArray[2] = (unsigned long) nil;
+	stArray[3] = (unsigned long) nil;
+	stArray[4] = (unsigned long) nil;
+	stArray[5] = (unsigned long) nil;
+	stArray[6] = (unsigned long) nil;
+	return &stArray[2];
+}
+
+unsigned long * mockArray1024() {
+
+	// 03 00 00 01  D8 71 85 02
+	unsigned long * localArray =
+			(unsigned long *) (Memory::current())->currentSpace->allocate(
+					16 + (4 * 1024));
+
+	// Array new: 3
+	// 03 F8 37 01 F0 92 07 0A
+	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
+	// 12:10has 3 slots
+	localArray[0] = (unsigned long) 0x8137f804;
+	localArray[1] = (unsigned long) 0x00000400;
+	localArray[2] = (unsigned long) 0x8137f804;
+	localArray[3] = (unsigned long) 0x0A0792F0;
+
+	for (int index = 4; index <= 1024; index++) {
+		localArray[index] = (unsigned long) (index << 1);
+	}
+	return &localArray[4];
+}
+
+unsigned long * mockWeakArray() {
+
+	// 03 00 00 01  D8 71 85 02
+	unsigned long * localArray =
+			(unsigned long *) (Memory::current())->currentSpace->allocate(
+					16 + (4 * 1024));
+
+	// Array new: 3
+	// 03 F8 37 01 F0 92 07 0A
+	// 12:10means Object <3, 37F8h, ObjectFlag_reserved1, offset off_A0792F0>
+	// 12:10has 3 slots
+	localArray[0] = (unsigned long) 0x8137f804;
+	localArray[1] = (unsigned long) 0x00000400;
+	localArray[2] = (unsigned long) 0x8137f804;
+	localArray[3] = (unsigned long) 0x0A0792F0;
+
+	for (int index = 4; index <= 1024; index++) {
+		localArray[index] = (unsigned long) (index << 1);
+	}
+	setFlags(&localArray[4],ObjectFlag_isEphemeron);
+	return &localArray[4];
+}
+
+bool isSameArray(unsigned long * object, unsigned long * anotherObject){
+	unsigned long sizeA = _size(object);
+	unsigned long sizeB = _size(anotherObject);
+	cerr << sizeA == sizeB << endl;
+	if(sizeA != sizeB) return false;
+
+	if(object[-2] != anotherObject[-2]) return false;
+	if(object[-1] != anotherObject[-1]) return false;
+
+	if(_isExtended(object) && _isExtended(anotherObject)) {
+		if(object[-4] != anotherObject[-4]) return false;
+		if(object[-3] != anotherObject[-3]) return false;
+	}
+
+	for (int index = 0; index < sizeA; index++) {
+		if(object[index] != anotherObject[index]) return false;
+	}
+	return true;
+}
+
+
+bool checkValueMockArray1024(unsigned long * localArray) {
+
+	for (int index = 0; index <= 1020; index++) {
+		if(!(localArray[index] == (unsigned long) ((4 + index) << 1))) return false;
+	}
+	return true;
+}
+
+void freeSimpleObject(unsigned char * object) {
+	free(&object[-8]);
+}
+
+void freeComplexObject(unsigned char * object) {
+	free(&object[-16]);
+}
+
+//ulong _basicAt(ulong * object, int index) {
+//	return object[index - 1];
+//}
+
+//void _basicAtPut(ulong * object, int index, ulong value) {
+//	object[index - 1] = value;
+//}
+
+void _basicSetSize(ulong *object, ulong size) {
+	header_t * h = HEADER_OF(*object);
+	h->size = size;
+}
+
+ulong _basicGetSize(ulong *object) {
+	header_t * h = HEADER_OF(*object);
+	return (ulong) h->size;
+}
+
+ulong _strongPointersSize(ulong *object) {
+	if (_isBytes(object) | _hasWeaks(object))
+		return 1;
+	else
+		return (1 + _size(object));
+}
+
+void _setExtendedSize(ulong * object, ulong size) {
+	big_header_t * h = BIG_HEADER_OF(*object);
+	h->size = size;
+}
+
+ulong _getExtendedSize(ulong *object) {
+	big_header_t * h = BIG_HEADER_OF(*object);
+	return (ulong) h->size;
+}
+
+ulong _size(ulong *object) {
+	if (_isExtended(object))
+		return _getExtendedSize(object);
+	else
+		return _basicGetSize(object);
+
+}
+
+// something go wrong
+ulong _asObject(ulong * object) {
+	cerr << "_asObject ask yourself";
+	return (ulong) object >> 1;
+}
+
+ulong * _asPointer(ulong object) {
+	cerr << "_asPointer ask yourself";
+	if (object & 1) {
+		return (ulong *) (object >> 1 | 1);
+	} else {
+		return (ulong *) (object | 1);
+	}
+}
+
+//memory
+void _decommit(ulong * limit, ulong * delta) {
+	VirtualFree((void *) limit, (ulong) delta, MEM_DECOMMIT);
+}
+
+void _free(ulong * limit, ulong * delta) {
+	VirtualFree((void *) limit, (ulong)delta, MEM_RELEASE);
+}
+
+ulong * _commit(ulong limit, ulong delta) {
+	return (ulong *) VirtualAlloc((ulong *) limit, delta, MEM_COMMIT,
+	PAGE_READWRITE);
+}
+
+// flags manipulation
+
+bool testFlags(ulong *object, unsigned char flag) {
+	header_t * h = HEADER_OF(*object);
+	return (h->flags & (flag)) == flag;
+}
+
+void setFlags(ulong *object, unsigned char flag) {
+	header_t * h = HEADER_OF(*object);
+	h->flags = (unsigned char) (h->flags | flag);
+}
+
+void unsetFlags(ulong *object, unsigned char flag) {
+	header_t * h = HEADER_OF(*object);
+	h->flags = (h->flags & ((flag) ^ ObjectFlagMaxValue));
+}
+
+bool testExtFlags(ulong *object, unsigned char flag) {
+	big_header_t * h = BIG_HEADER_OF(*object);
+	return (h->flagsBis & (flag)) == flag;
+}
+
+void setExtFlags(ulong *object, unsigned char flag) {
+	big_header_t * h = BIG_HEADER_OF(*object);
+	h->flagsBis = (unsigned char) (h->flagsBis | flag);
+}
+
+void unsetExtFlags(ulong *object, unsigned char flag) {
+	big_header_t * h = BIG_HEADER_OF(*object);
+	h->flagsBis = (h->flagsBis & ((flag) ^ ObjectFlagMaxValue));
+}
+
+void _beExtended(ulong *object) {
+	setFlags(object, ObjectFlag_isExtended);
+}
+
+bool _hasWeaks(ulong *object) {
+	return testFlags(object, ObjectFlag_isEphemeron);
+}
+
+bool _haveNoWeaks(ulong *object) {
+	return !testFlags(object, ObjectFlag_isEphemeron);
+}
+
+bool _isActiveEphemeron(ulong *object) {
+	return _hasWeaks(object) && _isEphemeron(object);
+}
+
+bool _isEphemeron(ulong *object) {
+	return testFlags(object, ObjectFlag_isExtended) && testExtFlags(object, ObjectFlag_isEphemeron);
+}
+
+void _beSecondGeneration(ulong *object) {
+	setFlags(object, ObjectFlag_generation);
+}
+
+bool _isSecondGeneration(ulong *object) {
+	return testFlags(object, ObjectFlag_generation);
+}
+
+bool _isBytes(ulong *object) {
+	return testFlags(object, ObjectFlag_isBytes);
+}
+
+bool _isExtended(ulong *object) {
+	return testFlags(object, ObjectFlag_isExtended);
+}
+
+bool _isZeroTerminated(ulong *object) {
+	return testFlags(object, ObjectFlag_zeroTermOrNamed);
+}
+
+bool _isInRememberedSet(ulong *object) {
+	return testFlags(object, ObjectFlag_isInRememberSet);
+}
+
+void _beNotInRememberedSet(ulong *object) {
+	unsetFlags(object, ObjectFlag_isInRememberSet);
+}
+
+void _beInRememberedSet(ulong *object) {
+	setFlags(object, ObjectFlag_isInRememberSet);
+}
+
+// size
+
+ulong _sizeInBytes(ulong *object) {
+	if (_isBytes(object)) {
+		int zero;
+		if (_isZeroTerminated(object))
+			zero = 1;
+		else
+			zero = 0;
+		return ((_size(object) + 3 + zero) & -4);
+
+	} else
+		return _size(object) * 4;
+}
+
+ulong _headerSizeInBytes(ulong *object) {
+	if (_isExtended(object)) {
+		return _basicGetSize(object) * 4;
+	} else {
+		return 8;
+	}
+}
+
+ulong size(ulong *object) {
+	int total;
+	if (_isExtended(object))
+		total = _getExtendedSize(object);
+	else
+		total = _basicGetSize(object);
+	if (_isBytes(object) && _isZeroTerminated(object))
+		return total - 1;
+	else
+		return total;
+}
+
+bool isArray(ulong *object) {
+	return object[-1] == (ulong)arrayBehavior;
+}
+
+// should not use yet or never
+
+unsigned long memoryAt(unsigned long pointer) {
+	cerr << "memoryAt is empty [] guy" << endl;
+}
+
+void memoryAtPut(unsigned long * pointer, unsigned long value) {
+	cerr << "memoryAtPut is empty [] = guy" << endl;
+}
+
+ulong _oop(ulong *object) {
+	cerr << " Noooo" << endl;
+}
+
+ulong _asOop(ulong *object) {
+	cerr << "_asOop Noooo" << endl;
+}
+
+void _halt() {
+	cerr << "_halt" << endl;
+}
+
+
+// proxiing method
+bool _isProxy(ulong *object) {
+	return !testFlags(object, ObjectFlag_reserved1);
+}
+
+void _setProxee(ulong *object, ulong value) {
+	object[-2] = rotateRight(value, 8);
+}
+
+ulong _getProxee(ulong *object) {
+	return rotateLeft(object[-2], 8);
+}
+
+// tool
+unsigned long rotateLeft(unsigned long n, unsigned int c) {
+	const unsigned int mask = (CHAR_BIT * sizeof(n) - 1);
+	c &= mask;
+	return (n << c) | (n >> ((-c) & mask));
+}
+
+unsigned long rotateRight(unsigned long n, unsigned int c) {
+	const unsigned int mask = (CHAR_BIT * sizeof(n) - 1);
+	c &= mask;
+	return (n >> c) | (n << ((-c) & mask));
+}
+

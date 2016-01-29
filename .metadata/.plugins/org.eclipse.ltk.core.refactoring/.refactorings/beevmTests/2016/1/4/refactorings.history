@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;beevmTests/Tests/GCTests.h&apos; to &apos;GCTest.h&apos;" description="Rename resource &apos;GCTests.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Tests/GCTests.h" name="GCTest.h" stamp="1454071319091" updateReferences="true"/>
+</session>

@@ -229,10 +229,12 @@ ulong * GCSpace::shallowCopy(ulong * object) {
 	ulong total = headerSize + _sizeInBytes(object);
 	ulong * buffer = this->allocate(total);
 	ulong * copy = (ulong *) ((ulong) buffer + 16);
+
 	for (int index = (0 - (headerSize / 4)); index < (int) _size(object);
 			index++) {
 		copy[index] = object[index];
 	}
+
 	_beNotInRememberedSet(copy);
 	return copy;
 }

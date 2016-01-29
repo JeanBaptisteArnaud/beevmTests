@@ -75,13 +75,14 @@ unsigned long * mockArray2();
 unsigned long * mockArray1024();
 unsigned long * mockWeakArray();
 bool checkValueMockArray1024(unsigned long * localArray);
-
 void mockVMValue();
 void freeSimpleObject(unsigned char * object);
 void freeComplexObject(unsigned char * object);
-
 unsigned long * mockEphemeronFrom(unsigned long * key, unsigned long * value);
 unsigned long * mockObjectFrom();
+bool isSameArray(unsigned long * object, unsigned long * anotherObject);
+bool checkMockArray2(unsigned long * object);
+
 
 //done
 ulong _basicAt(ulong *object, int index);

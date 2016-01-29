@@ -36,6 +36,7 @@ public:
 	void rememberIfWeak (unsigned long *);
 	VMArray stack;
 
+	ReferencedVMArray literalsReferences;
 	ReferencedVMArray rescuedEphemerons;
 
 	void fixWeakContainers();
@@ -44,7 +45,6 @@ protected:
 	GCSpace auxSpace;
 	VMArray ephemerons;
 	VMArray weakContainers;
-	ReferencedVMArray literalsReferences;
 	ReferencedVMArray nativizedMethods;
 	ReferencedVMArray classCheckReferences;
 
@@ -61,7 +61,7 @@ protected:
 	void followStack();
 
 	void rescueEphemeron(unsigned long *ephemeron);
-	void someEphemeronsRescued();
+
 	void makeRescuedEphemeronsNonWeak();
 	void forgetNativeObjects();
 	void saveSpaces();
@@ -72,6 +72,7 @@ protected:
 	virtual void followCountStartingAt(unsigned long * pointer, int count, long start) = 0;
 	virtual unsigned long* framePointerToStartWalkingTheStack() = 0;
 	virtual bool checkReachablePropertyOf(unsigned long * ephemeron) = 0;
+	virtual void someEphemeronsRescued() = 0;
 	virtual void fixReferencesOrSetTombstone(unsigned long *weakArray) = 0;
 };
 

@@ -1,0 +1,29 @@
+<testsuites>
+	<testsuite name="GCTest" tests="13">
+		<testcase classname="GCTest" name="Bee::GCTest::testGCCollect"/>
+		<testcase classname="GCTest" name="Bee::GCTest::testCopyToFlip"/>
+		<testcase classname="GCTest" name="Bee::GCTest::testCopyToOld"/>
+		<testcase classname="GCTest" name="Bee::GCTest::testCopyToOldBee"/>
+		<testcase classname="GCTest" name="Bee::GCTest::testEphemeron"/>
+		<testcase classname="GCTest" name="Bee::GCTest::testFollowObject"/>
+		<testcase classname="GCTest" name="Bee::GCTest::testGCReferencesAfterCollect"/>
+		<testcase classname="GCTest" name="Bee::GCTest::testTombstone"/>
+		<testcase classname="GCTest" name="Bee::GCTest::testEphemeronOnce">
+			<failure message="..\Tests\GCTest.cpp:119 testEphemeronOnce: rescued ephemeron is empty">
+testEphemeronOnce: rescued ephemeron is empty
+			</failure>
+		</testcase>
+		<testcase classname="GCTest" name="Bee::GCTest::testFollowObjectAndCheckGraph">
+			<failure message="..\Tests\GCTest.cpp:237 testFollowObjectAndCheckGraph: root 2 mockArray 2 change">
+testFollowObjectAndCheckGraph: root 2 mockArray 2 change
+			</failure>
+		</testcase>
+		<testcase classname="GCTest" name="Bee::GCTest::testFollowObjectCheckGraphAndOop">
+			<failure message="..\Tests\GCTest.cpp:280 testFollowObjectCheckGraphAndOop: root 2 mockArray 2 change">
+testFollowObjectCheckGraphAndOop: root 2 mockArray 2 change
+			</failure>
+		</testcase>
+		<testcase classname="GCTest" name="Bee::GCTest::testPurgeLiteralsWithNewObject"/>
+		<testcase classname="GCTest" name="Bee::GCTest::testGCReferencesAfterCollect"/>
+	</testsuite>
+</testsuites>

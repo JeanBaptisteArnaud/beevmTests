@@ -14,7 +14,6 @@ namespace Bee {
 
 class VMArray {
 
-
 public:
 	GCSpace * space;
 	int maxSize = 10;
@@ -27,7 +26,7 @@ public:
 	long nextFree();
 	long nextFree(unsigned long newSize);
 	void add(unsigned long);
-	void addAll(unsigned long * array , unsigned long size);
+	void addAll(unsigned long * array, unsigned long size);
 	bool includes(unsigned long *);
 	long size();
 	long size(unsigned long newSize);
@@ -38,8 +37,8 @@ public:
 	unsigned long*& operator[](int i);
 	void emptyWith(unsigned long *);
 
-private:
-	unsigned long *contents;
+	unsigned long * contents;
+
 };
 
 }

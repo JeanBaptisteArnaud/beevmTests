@@ -1,10 +1,11 @@
 #include "../DataStructures/GCSpaceInfo.h"
+#include "../DataStructures/ReferencedVMArray.h"
 #include "../DataStructures/Memory.h"
-#include "../GarbageCollector/GenerationalGC.h"
+//#include "../GarbageCollector/GenerationalGC.h"
+#include "GCTest.h"
 
 #include "cute.h"
 #include "cute_suite.h"
-
 #include <iostream>
 
 extern cute::suite make_suite_GCTest();
@@ -14,51 +15,25 @@ using namespace std;
 
 // File myclassTest.h
 
-using namespace Bee;
-
-void gcCollect() {
-	mockVMValue();
-	GenerationalGC * flipper = new GenerationalGC();
-	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
-	flipper->localSpace = local;
+void GCTest::testGCCollect() {
 	flipper->collect();
-	Memory::current()->releaseEverything();
 }
 
-void copyToFlip() {
-	mockVMValue();
+void GCTest::testCopyToFlip() {
 	unsigned long * array = mockArray();
-	GenerationalGC * flipper = new GenerationalGC();
-
-	// this is done in the initialized of the VM
-	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
-	flipper->localSpace = local;
-	flipper->initLocals();
-	flipper->initNonLocals();
-
 	unsigned long * copy = flipper->fromSpace.shallowCopy(array);
 	copy = flipper->moveToOldOrTo(copy);
 	ASSERTM("copy is not an array", isArray(copy));
 	ASSERTM("size is different", size(copy) == size(array));
 	ASSERTM("First Element is different", array[0] == copy[0]);
-	//assert: array = copy;
+	ASSERTM("array are different", isSameArray(array, copy));
 	ASSERTM("oopy is not in toSpace", flipper->toSpace.includes(copy));
 	ASSERTM("remmenber set do not include copy",
 			!(flipper->rememberSet.includes(copy)));
-
-	Memory::current()->releaseEverything();
 }
 
-void testCopyToOld() {
-	mockVMValue();
-	GenerationalGC * flipper = new GenerationalGC();
-
-	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
-
+void GCTest::testCopyToOld() {
 	unsigned long * array = mockArray();
-	flipper->localSpace = local;
-	flipper->initLocals();
-	flipper->initNonLocals();
 	array[0] = 1;
 	unsigned long * copy = flipper->fromSpace.shallowCopy(array);
 	copy[0] = 3;
@@ -70,25 +45,15 @@ void testCopyToOld() {
 	ASSERTM("copy is not an array", isArray(copy));
 	ASSERTM("size is different", size(copy) == size(array));
 	ASSERTM("First Element is different", array[0] == copy[0]);
-	//assert: array = copy;
+	ASSERTM("array are different", isSameArray(array, copy));
 	ASSERTM("oopy is not in toSpace", flipper->oldSpace.includes(copy));
 	ASSERTM("remmenber set do not include copy",
 			!(flipper->rememberSet.includes(copy)));
-
-	Memory::current()->releaseEverything();
 }
 
-void testCopyToOldBee() {
-
-	mockVMValue();
-	GenerationalGC * flipper = new GenerationalGC();
-
-	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+void GCTest::testCopyToOldBee() {
 
 	unsigned long * array = mockArray();
-	flipper->localSpace = local;
-	flipper->initLocals();
-	flipper->initNonLocals();
 	array[0] = 1;
 	unsigned long * copy = flipper->fromSpace.shallowCopy(array);
 	copy[0] = 3;
@@ -100,30 +65,21 @@ void testCopyToOldBee() {
 	ASSERTM("copy is not an array", isArray(copy));
 	ASSERTM("size is different", size(copy) == size(array));
 	ASSERTM("First Element is different", array[0] == copy[0]);
-	//assert: array = copy;
+	ASSERTM("array are different", isSameArray(array, copy));
 	ASSERTM("oopy is not in toSpace", flipper->oldSpace.includes(copy));
 	ASSERTM("remmenber set do not include copy",
 			!(flipper->rememberSet.includes(copy)));
 
-	Memory::current()->releaseEverything();
 }
 
-void testEphemeron() {
-	mockVMValue();
-	GenerationalGC * flipper = new GenerationalGC();
-	Memory::current()->setGC(flipper);
-	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
-
+void GCTest::testEphemeron() {
 	unsigned long * key = mockObjectFrom();
 	unsigned long * value = mockObjectFrom();
 	unsigned long * ephemeron = mockEphemeronFrom(key, value);
 	unsigned long * tombstone = mockObjectFrom();
 	unsigned long * root = mockArray1024();
 	root[0] = (ulong) ephemeron;
-	flipper->localSpace = local;
-	flipper->initLocals();
-	flipper->initNonLocals();
-
+	root[1] = (ulong) key;
 	ASSERTM("key change", ephemeron[0] == (ulong ) key);
 	ASSERTM("value change", ephemeron[1] == (ulong ) value);
 
@@ -139,22 +95,38 @@ void testEphemeron() {
 	ASSERTM("To space do not include ephemeron",
 			(flipper->toSpace.includes(ephemeron)));
 //	ASSERTM("Key is not in to space" ,(flipper->toSpace.includes(key)));
-//	ASSERTM("key change" , ephemeron[1] == key;));
+//	ASSERTM("key change" , ephemeron[1] == (ulong) key);
 //	ASSERTM("value not set" ,(flipper->toSpace.includes((unsigned long *) ephemeron[2])));
-
-	Memory::current()->releaseEverything();
 }
 
+void GCTest::testEphemeronOnce() {
+	unsigned long * key = mockObjectFrom();
+	unsigned long * ephemeron = mockEphemeronFrom(key, (ulong *)2);
+	unsigned long * tombstone = mockObjectFrom();
+	unsigned long * root = mockArray1024();
+	root[0] = (ulong) ephemeron;
+	root[1] = (ulong) ephemeron;
 
-void testFollowObject() {
-	mockVMValue();
-	GenerationalGC * flipper = new GenerationalGC();
-	Memory::current()->setGC(flipper);
-	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
-	flipper->localSpace = local;
-	flipper->initLocals();
-	flipper->initNonLocals();
+	ASSERTM("key change", ephemeron[0] == (ulong ) key);
+	ASSERTM("value change", ephemeron[1] == 2);
 
+	flipper->addRoot(root);
+	flipper->tombstone(tombstone);
+	flipper->followRoots();
+	flipper->rescueEphemerons();
+
+	ASSERTM("rescued ephemeron is empty",
+			!(flipper->rescuedEphemerons.isEmpty()));
+
+	ephemeron = (ulong *) flipper->rescuedEphemerons.pop();
+	ASSERTM("rescued ephemeron is not empty",
+			flipper->rescuedEphemerons.isEmpty());
+	ASSERTM("??", ephemeron[1] == 2);
+	//	ASSERTM("Ephemeron is not in to space" ,(flipper->toSpace.includes(ephemeron)));
+	//	ASSERTM("Key is not in to space" ,(flipper->toSpace.includes(key)));
+}
+
+void GCTest::testFollowObject() {
 	unsigned long * array = flipper->fromSpace.shallowCopy(mockArray2());
 	unsigned long * string = flipper->fromSpace.shallowCopy(mockArray2());
 	flipper->fromSpace.shallowCopy(mockArray1024());
@@ -182,10 +154,9 @@ void testFollowObject() {
 	ASSERTM("flipSize >= current size", flipSize < currentSize);
 	// check the number
 	ASSERTM("calculation of pointer", (currentSize - flipSize) == (1035));
-	Memory::current()->releaseEverything();
 }
 
-void testGCReferencesAfterCollect() {
+void GCTest::testGCReferencesAfterCollect() {
 // cannot test that.
 //	mockVMValue();
 //	GenerationalGC * flipper = new GenerationalGC();
@@ -206,14 +177,8 @@ void testGCReferencesAfterCollect() {
 //				conform: [:var | self checkValid: var using: local])
 }
 
-void testTombstone() {
-	mockVMValue();
-	GenerationalGC * flipper = new GenerationalGC();
-	Memory::current()->setGC(flipper);
-	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
-	flipper->localSpace = local;
-	flipper->initLocals();
-	flipper->initNonLocals();
+void GCTest::testTombstone() {
+
 	unsigned long * weakArray = flipper->fromSpace.shallowCopy(mockWeakArray());
 	unsigned long * toGarbage = flipper->fromSpace.shallowCopy(mockArray2());
 	weakArray[1] = (ulong) toGarbage;
@@ -231,20 +196,144 @@ void testTombstone() {
 	ASSERTM("tombstone fail", weak[1] == (ulong )tombstone);
 	ASSERTM("tombstone fail", weak[0] == (ulong )tombstone);
 
+}
+
+void GCTest::testFollowObjectAndCheckGraph() {
+
+	unsigned long * array = flipper->fromSpace.shallowCopy(mockArray2());
+	unsigned long * string = flipper->fromSpace.shallowCopy(mockArray2());
+	flipper->fromSpace.shallowCopy(mockArray1024());
+	unsigned long * byteArray = flipper->fromSpace.shallowCopy(mockArray2());
+	unsigned long * root = flipper->fromSpace.shallowCopy(mockArray2());
+	long flipSize = flipper->toSpace.getNextFree() - flipper->toSpace.getBase();
+	long currentSize = flipper->fromSpace.getNextFree()
+			- flipper->fromSpace.getBase();
+
+	ASSERTM("ToSpace not empty 0", flipSize == 0);
+	ASSERTM("ToSpace not correctly allocated ", currentSize == (1024 + 32));
+
+	root[0] = 1;
+	root[1] = (ulong) string;
+	root[2] = (ulong) byteArray;
+	//string = byteArray = array = nil;
+	flipper->addRoot(root);
+	flipper->followRoots();
+
+	flipSize = flipper->toSpace.getNextFree() - flipper->toSpace.getBase();
+	currentSize = flipper->fromSpace.getNextFree()
+			- flipper->fromSpace.getBase();
+//	self
+//		assert: toSize < fromSize;
+//		assert: fromSize - toSize = (8 + ('leaked' size roundTo: 4)) _asPointer;
+//		assert: root first first = 1;
+//		assert: root first second = 'a String';
+//		assert: root first third = #[1 2 3]
+	ASSERTM("flipSize is not empty", flipSize);
+	ASSERTM("flipSize >= current size", flipSize < currentSize);
+	// check the number
+//	ASSERTM("calculation of pointer", (currentSize - flipSize) == (1035));
+//	ASSERTM("array ", (currentSize - flipSize) == (1035));
+	ASSERTM("root 1 change", root[0] == 1);
+	ASSERTM("root 2 mockArray 2 change", checkMockArray2((ulong *) root[1]));
+	ASSERTM("root 3 mockArray 3 change", checkMockArray2((ulong *) root[2]));
+
+}
+
+
+
+void GCTest::testFollowObjectCheckGraphAndOop() {
+	// no need it
+	unsigned long * array = flipper->fromSpace.shallowCopy(mockArray2());
+	unsigned long * string = flipper->fromSpace.shallowCopy(mockArray2());
+	flipper->fromSpace.shallowCopy(mockArray1024());
+	unsigned long * byteArray = flipper->fromSpace.shallowCopy(mockArray2());
+	unsigned long * root = flipper->fromSpace.shallowCopy(mockArray2());
+	long flipSize = flipper->toSpace.getNextFree() - flipper->toSpace.getBase();
+	long currentSize = flipper->fromSpace.getNextFree()
+			- flipper->fromSpace.getBase();
+
+	ASSERTM("ToSpace not empty 0", flipSize == 0);
+	ASSERTM("ToSpace not correctly allocated ", currentSize == (1024 + 32));
+
+	root[0] = 1;
+	root[1] = (ulong) string;
+	root[2] = (ulong) byteArray;
+	//string = byteArray = array = nil;
+	flipper->addRoot(root);
+	flipper->followRoots();
+
+	flipSize = flipper->toSpace.getNextFree() - flipper->toSpace.getBase();
+	currentSize = flipper->fromSpace.getNextFree()
+			- flipper->fromSpace.getBase();
+//	self
+//		assert: toSize < fromSize;
+//		assert: fromSize - toSize = (8 + ('leaked' size roundTo: 4)) _asPointer;
+//		assert: root first first = 1;
+//		assert: root first second = 'a String';
+//		assert: root first third = #[1 2 3]
+	ASSERTM("flipSize is not empty", flipSize);
+	ASSERTM("flipSize >= current size", flipSize < currentSize);
+	// check the number
+//	ASSERTM("calculation of pointer", (currentSize - flipSize) == (1035));
+//	ASSERTM("array ", (currentSize - flipSize) == (1035));
+	ASSERTM("root 1 change", root[0] == 1);
+	ASSERTM("root 2 mockArray 2 change", checkMockArray2((ulong *) root[1]));
+	ASSERTM("root 3 mockArray 3 change", checkMockArray2((ulong *) root[2]));
+
+}
+
+
+void GCTest::testPurgeLiteralsWithNewObject() {
+	unsigned long * array = flipper->fromSpace.shallowCopy(mockArray2());
+	ReferencedVMArray * rememberSet = &(flipper->rememberSet);
+	//rememberSet->add(Object); //??
+	ReferencedVMArray * literals = &(flipper->literalsReferences);
+	literals->add((ulong)array);
+	literals->add(2);
+	flipper->purgeRoots();
+	ASSERTM("literals size ", literals->size() == 2);
+	ASSERTM("rememberSet isEmpty", rememberSet->isEmpty());
+
+}
+
+
+void GCTest::setUp() {
+	mockVMValue();
+	flipper = new GenerationalGC();
+	Memory::current()->setGC(flipper);
+	GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+	flipper->localSpace = local;
+	flipper->initLocals();
+	flipper->initNonLocals();
+}
+
+void GCTest::tearDown() {
 	Memory::current()->releaseEverything();
 }
 
 cute::suite make_suite_GCTest() {
 	cute::suite s;
-	//Long time so just test it one by one
-	s.push_back(CUTE(gcCollect));
-	s.push_back(CUTE(copyToFlip));
-	s.push_back(CUTE(testCopyToOld));
-	s.push_back(CUTE(testCopyToOldBee));
-	s.push_back(CUTE(testEphemeron));
-	s.push_back(CUTE(testFollowObject));
-	s.push_back(CUTE(testGCReferencesAfterCollect));
-	s.push_back(CUTE(testTombstone));
+
+	s.push_back(CUTE_SMEMFUN(GCTest, testGCCollect));
+	s.push_back(CUTE_SMEMFUN(GCTest, testCopyToFlip));
+	s.push_back(CUTE_SMEMFUN(GCTest, testCopyToOld));
+	s.push_back(CUTE_SMEMFUN(GCTest, testCopyToOldBee));
+	s.push_back(CUTE_SMEMFUN(GCTest, testEphemeron));
+	s.push_back(CUTE_SMEMFUN(GCTest, testFollowObject));
+	s.push_back(CUTE_SMEMFUN(GCTest, testGCReferencesAfterCollect));
+	s.push_back(CUTE_SMEMFUN(GCTest, testTombstone));
+
+	// ==> to make it work need to do VMArrayReferenced
+	s.push_back(CUTE_SMEMFUN(GCTest, testEphemeronOnce));
+
+	// bug in the Follow not all array is copied
+	s.push_back(CUTE_SMEMFUN(GCTest, testFollowObjectAndCheckGraph));
+	s.push_back(CUTE_SMEMFUN(GCTest, testFollowObjectCheckGraphAndOop));
+	s.push_back(CUTE_SMEMFUN(GCTest, testPurgeLiteralsWithNewObject));
+	s.push_back(CUTE_SMEMFUN(GCTest, testGCReferencesAfterCollect));
+
+
+
 
 	//s.push_back(CUTE(softLimitTests));
 	//s.push_back(CUTE(reservedLimitTests));

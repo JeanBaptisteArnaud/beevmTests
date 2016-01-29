@@ -40,10 +40,6 @@ void GarbageCollector::rescueEphemeron(unsigned long *ephemeron) {
 	return;
 }
 
-void GarbageCollector::someEphemeronsRescued() {
-	//Todo self holdReferenceTo: rescuedEphemerons contents
-}
-
 bool GarbageCollector::followEphemeronsCollectingUnknowns() {
 	bool rescan = false;
 	while (!ephemerons.isEmpty()) {

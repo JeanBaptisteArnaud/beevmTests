@@ -1,0 +1,33 @@
+/*
+ * GCTests.h
+ *
+ *  Created on: 29 janv. 2016
+ *      Author: jbapt
+ */
+
+#ifndef GCTESTS_H_
+#define GCTESTS_H_
+
+#include "GCSpaceInfo.h"
+#include "VMMemory.h"
+
+namespace Bee {
+
+class GCTtest {
+protected:
+
+public:
+	void testGCCollect();
+	void testCopyToFlip();
+	void testCopyToOld();
+	void testCopyToOldBee();
+	void testEphemeron();
+	void testFollowObject();
+	void testGCReferencesAfterCollect();
+	void testTombstone();
+
+};
+
+}
+
+#endif /* GCTESTS_H_ */

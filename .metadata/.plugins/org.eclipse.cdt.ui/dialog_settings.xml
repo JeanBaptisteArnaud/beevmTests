@@ -30,5 +30,7 @@
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
 	</section>
 	<section name="completion_proposal_size">
+		<item value="255" key="size.y"/>
+		<item value="358" key="size.x"/>
 	</section>
 </section>

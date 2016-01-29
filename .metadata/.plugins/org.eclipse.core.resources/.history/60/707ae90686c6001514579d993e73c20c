@@ -1,0 +1,37 @@
+/*
+ * GCTests.h
+ *
+ *  Created on: 29 janv. 2016
+ *      Author: jbapt
+ */
+
+#ifndef GCTEST_H_
+#define GCTEST_H_
+
+#include "../GarbageCollector/GenerationalGC.h"
+
+namespace Bee {
+
+class GCTest {
+
+
+protected:
+	GenerationalGC flipper;
+	void setUp();
+	void tearDown();
+
+public:
+	void testGCCollect();
+	void testCopyToFlip();
+	void testCopyToOld();
+	void testCopyToOldBee();
+	void testEphemeron();
+	void testFollowObject();
+	void testGCReferencesAfterCollect();
+	void testTombstone();
+
+};
+
+}
+
+#endif /* GCTEST_H_ */
