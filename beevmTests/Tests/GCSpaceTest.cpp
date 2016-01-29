@@ -1,5 +1,6 @@
 #include "../DataStructures/GCSpace.h"
 #include "../DataStructures/Memory.h"
+#include "GCSpaceTest.h"
 #include "cute.h"
 #include "cute_suite.h"
 #include "Windows.h"
@@ -12,9 +13,7 @@ using namespace std;
 
 // File myclassTest.h
 
-void allocate() {
-
-	GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
+void GCSpaceTest::testAllocate() {
 	ASSERTM("init wrong", localSpace.getNextFree() == localSpace.getBase());
 	ulong * address = localSpace.allocate(1024);
 	address = localSpace.allocate(1024);
@@ -26,15 +25,11 @@ void allocate() {
 			((ulong )localSpace.getNextFree())
 					== ((ulong )localSpace.getBase() + (1024 * 40)));
 	address = localSpace.allocate(1024 * 30);
-	Memory::current()->releaseEverything();
 }
 
-void extendedGrowingTo() {
-
-	mockVMValue();
+void GCSpaceTest::testExtendedGrowingTo() {
 	unsigned long * array = mockArray1024();
 	unsigned long * stTrue = mockTrue();
-	GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
 	ulong * copy = localSpace.shallowCopyGrowingTo( array, 2048);
 	ulong * object = localSpace.shallowCopy(stTrue);
 	ASSERTM("copy is not a Array", isArray(copy));
@@ -51,39 +46,34 @@ void extendedGrowingTo() {
 //			_oop(object) + 8 == (_oop(copy) + (size(copy) * 4) + 16));
 	//free(array);
 
-	Memory::current()->releaseEverything();
 }
 
 
 
 
-void gcspace() {
-	GCSpace space = GCSpace::currentFrom();
-	space.load();
-	ASSERTM("base < nextfree", space.getBase() < space.getNextFree());
-	ASSERTM("base < commitedLimit", space.getBase() < space.getCommitedLimit());
+void GCSpaceTest::testGCSpace() {
+	ASSERTM("base < nextfree", localSpace.getBase() < localSpace.getNextFree());
+	ASSERTM("base < commitedLimit", localSpace.getBase() < localSpace.getCommitedLimit());
 	ASSERTM("commitedLimit <= reservedLimit",
-			space.getCommitedLimit() <= space.getReservedLimit());
-	ASSERTM("base < commitedLimit", space.getBase() < space.getCommitedLimit());
+			localSpace.getCommitedLimit() <= localSpace.getReservedLimit());
+	ASSERTM("base < commitedLimit", localSpace.getBase() < localSpace.getCommitedLimit());
 	ASSERTM("commitedLimit < reservedLimit",
-			space.getCommitedLimit() < space.getReservedLimit());
+			localSpace.getCommitedLimit() < localSpace.getReservedLimit());
 	ASSERTM("softLimit between base and reservedLimit",
-			(space.getSoftLimit() <= space.getBase())
-					&& (space.getSoftLimit() >= space.getReservedLimit()));
+			(localSpace.getSoftLimit() <= localSpace.getBase())
+					&& (localSpace.getSoftLimit() >= localSpace.getReservedLimit()));
 	ASSERTM("nextFree between base and commitedLimit",
-			(space.getNextFree() <= space.getBase())
-					&& (space.getNextFree() >= space.getCommitedLimit()));
-	ulong * oldNextFree = space.getNextFree();
+			(localSpace.getNextFree() <= localSpace.getBase())
+					&& (localSpace.getNextFree() >= localSpace.getCommitedLimit()));
+	ulong * oldNextFree = localSpace.getNextFree();
 	//mockArray();
 	ASSERTM("Maybe should be test only from Image",
-			oldNextFree == space.getNextFree());
-	Memory::current()->releaseEverything();
+			oldNextFree == localSpace.getNextFree());
 }
 
-void grow() {
+void GCSpaceTest::testGrow() {
 	unsigned long * array;
 	array = (ulong *) malloc(100);
-	GCSpace local = GCSpace();
 	unsigned long reservedSize = 4 * 1024 * 100;
 	unsigned long maxValueQuery = 28;
 	PMEMORY_BASIC_INFORMATION queryAnswer = (PMEMORY_BASIC_INFORMATION) malloc(
@@ -92,44 +82,42 @@ void grow() {
 			reservedSize, MEM_RESERVE, PAGE_READWRITE);
 	ASSERTM("Virtual Alloc Fail", base != 0);
 	// TODO change small Pointer
-	local.setBase(base);
-	local.setRegionBase(base);
-	local.setReservedLimit(((ulong) base) + _asPointer(reservedSize));
-	local.setCommitedLimit(base);
-	local.setNextFree((ulong) base + _asPointer(1024 * 4));
+	localSpace.setBase(base);
+	localSpace.setRegionBase(base);
+	localSpace.setReservedLimit(((ulong) base) + _asPointer(reservedSize));
+	localSpace.setCommitedLimit(base);
+	localSpace.setNextFree((ulong) base + _asPointer(1024 * 4));
 
 	VirtualQuery((void *) _asOop(base), queryAnswer, maxValueQuery);
 	ASSERTM("memory not reserve",
 			queryAnswer->State && MEM_RESERVE == MEM_RESERVE);
 
-	local.grow();
+	localSpace.grow();
 	VirtualQuery((void *) _asOop(base), queryAnswer, maxValueQuery);
 	ASSERTM("Memory not commit",
 			queryAnswer->State && MEM_COMMIT == MEM_COMMIT);
 //	ASSERTM("next free <= commited limit",
 //			local.getNextFree() <= local.getCommitedLimit());
-	local.setNextFree((ulong) local.getNextFree() + _asPointer(4 * 100 + 1024));
-	local.shallowCopy(array);
+	localSpace.setNextFree((ulong) localSpace.getNextFree() + _asPointer(4 * 100 + 1024));
+	localSpace.shallowCopy(array);
 // need to simulate that, somehow
 //		self
 //			assert: (local includes: array);
 //			assert: array first = 1;
 //			assert: array last = 1.
-	local.setNextFree(base);
-	local.decommitSlack();
+	localSpace.setNextFree(base);
+	localSpace.decommitSlack();
 	VirtualQuery((void *) _asOop(base), queryAnswer, maxValueQuery);
 	ASSERTM("Memory not commit",
 			queryAnswer->State && MEM_RESERVE == MEM_RESERVE);
 	VirtualFree((void *) _asOop(base), 0, MEM_RELEASE);
 	VirtualQuery((void *) _asOop(base), queryAnswer, maxValueQuery);
 	ASSERTM("Memory not commit", queryAnswer->State && MEM_FREE == MEM_FREE);
-	free(array);
 	free(queryAnswer);
 }
 
-void growingTo() {
+void GCSpaceTest::testGrowingTo() {
 	unsigned long * array = mockArray();
-	GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
 	ulong * copy = localSpace.shallowCopyGrowingTo((unsigned long *) array,
 			2048);
 	ulong * object = localSpace.shallowCopy(stFalse);
@@ -147,10 +135,9 @@ void growingTo() {
 	Memory::current()->releaseEverything();
 }
 
-void newGCSpaceShallowCopy() {
+void GCSpaceTest::testNewGCSpaceShallowCopy() {
 	ulong * array = (ulong *) mockArray1024();
-	GCSpace space = GCSpace::dynamicNew(1024 * 4 * 10);
-	ulong * copy = space.shallowCopy(array);
+	ulong * copy = localSpace.shallowCopy(array);
 	ASSERTM("copy is not a Array", isArray(copy));
 	ASSERTM("size of copy is wrong", size(copy) == size(array));
 	ASSERTM("first element diverge", array[0] == copy[0]);
@@ -159,16 +146,15 @@ void newGCSpaceShallowCopy() {
 //			_oop(copy) == _asOop(space.getBase() + 8));
 }
 
-void shallowCopy() {
+void GCSpaceTest::testShallowCopy() {
 	ulong * array = (ulong *) mockArray();
-	GCSpace space = GCSpace::dynamicNew(1024 * 4 * 10);
-	ulong * copy = space.shallowCopy(array);
+	ulong * copy = localSpace.shallowCopy(array);
 	ASSERTM("the copy not array", isArray(copy));
 	ASSERTM("size", size(copy) == size(array));
 	ASSERTM("first element", array[0] == copy[0]);
 }
 
-void shallowCopyBytes() {
+void GCSpaceTest::testShallowCopyBytes() {
 
 // thinks about that. shallow copy is actual. Check later.
 //	testShallowCopyBytes
@@ -182,7 +168,7 @@ void shallowCopyBytes() {
 //			assert: copy = string
 }
 
-void shallowCopyBytes2() {
+void GCSpaceTest::testShallowCopyBytes2() {
 
 	// thinks about that. shallow copy is actual. Check later.
 //	testShallowCopyBytes2
@@ -196,7 +182,7 @@ void shallowCopyBytes2() {
 //			assert: copy = string
 }
 
-void shallowCopyBytes3() {
+void GCSpaceTest::testShallowCopyBytes3() {
 
 	// thinks about that. shallow copy is actual. Check later.
 //	testShallowCopyBytes3
@@ -210,7 +196,7 @@ void shallowCopyBytes3() {
 //			assert: copy = string
 }
 
-void shallowCopyBytesExtended() {
+void GCSpaceTest::testShallowCopyBytesExtended() {
 
 	// thinks about that. shallow copy is actual. Check later.
 //	testShallowCopyBytesExtended
@@ -224,7 +210,7 @@ void shallowCopyBytesExtended() {
 //			assert: copy = string
 }
 
-void shallowCopyExtended() {
+void GCSpaceTest::testShallowCopyExtended() {
 
 // thinks about that. shallow copy is actual. Check later.
 //	testShallowCopyExtended
@@ -238,7 +224,7 @@ void shallowCopyExtended() {
 //			assert: array = copy
 }
 
-void synchronousGCSpace() {
+void GCSpaceTest::testSynchronousGCSpace() {
 
 	// thinks about that. shallow copy is actual. Check later.
 //	testSynchronousGCSpace
@@ -255,21 +241,40 @@ void synchronousGCSpace() {
 //		self deny: oldNextFree = space nextFree
 }
 
+
+void GCSpaceTest::setUp() {
+	mockVMValue();
+	flipper = new GenerationalGC();
+	Memory::current()->setGC(flipper);
+	localSpace = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+	flipper->localSpace = localSpace;
+	flipper->initLocals();
+	flipper->initNonLocals();
+}
+
+void GCSpaceTest::tearDown() {
+	Memory::current()->releaseEverything();
+}
+
+
 cute::suite make_suite_GCSpaceTest() {
 	cute::suite s;
-	s.push_back(CUTE(allocate));
-	s.push_back(CUTE(gcspace));
-	s.push_back(CUTE(extendedGrowingTo));
-//	s.push_back(CUTE(grow));
-//	s.push_back(CUTE(growingTo));
-//	s.push_back(CUTE(newGCSpaceShallowCopy));
-//	s.push_back(CUTE(shallowCopy));
-	//s.push_back(CUTE(shallowCopyBytes));
-	//s.push_back(CUTE(shallowCopyBytes2));
-	//s.push_back(CUTE(shallowCopyBytes3));
-	//s.push_back(CUTE(shallowCopyBytesExtended));
-	//s.push_back(CUTE(shallowCopyExtended));
-	//s.push_back(CUTE(synchronousGCSpace));
+
+	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testAllocate));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testAllocate));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testGCSpace));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testExtendedGrowingTo));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testGrow));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testGrowingTo));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testNewGCSpaceShallowCopy));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopy));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyBytes));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyBytes2));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyBytes3));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyBytesExtended));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyExtended));
+//	s.push_back(CUTE_SMEMFUN(GCSpaceTest, testSynchronousGCSpace));
+
 	return s;
 }
 

@@ -2,22 +2,25 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="checkReachablePropertyOf" key="selection"/>
+		<item value="();" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="));"/>
+			<item value="s.push_back(CUTE_SMEMFUN(GCSpaceTest, "/>
+			<item value="framePointerToStartWalkingTheStack"/>
 			<item value="checkReachablePropertyOf"/>
 			<item value="checkReachablePropertyOf:"/>
 			<item value="purgeLiteralsReference"/>
 			<item value="void GenerationalGC::holdReferenceTo"/>
 			<item value="fixReferencesOrSetTombstone"/>
-			<item value="referenceOrThombstone"/>
-			<item value="cerr"/>
-			<item value="_rotate"/>
 		</list>
 		<list key="replacehistory">
+			<item value="();"/>
+			<item value="void "/>
+			<item value=" "/>
 			<item value="ulong"/>
 		</list>
 	</section>

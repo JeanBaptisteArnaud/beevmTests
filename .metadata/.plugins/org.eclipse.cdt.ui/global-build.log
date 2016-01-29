@@ -31567,3 +31567,1013 @@ In file included from ..\DataStructures\ReferencedVMArray.h:11:0,
   int maxSize = 10;
                 ^
 g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+16:17:58 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "GarbageCollector\\GenerationalGC.o" "..\\GarbageCollector\\GenerationalGC.cpp" 
+In file included from ..\GarbageCollector\../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\GarbageCollector\GarbageCollector.h:12,
+                 from ..\GarbageCollector\GenerationalGC.h:11,
+                 from ..\GarbageCollector\GenerationalGC.cpp:8:
+..\GarbageCollector\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeLiteralsReference()':
+..\GarbageCollector\GenerationalGC.cpp:46:56: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < literalsReferences.size();
+                                                        ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'virtual void Bee::GenerationalGC::fixReferencesOrSetTombstone(ulong*)':
+..\GarbageCollector\GenerationalGC.cpp:59:18: warning: unused variable 'referenceOrThombstone' [-Wunused-variable]
+  unsigned long * referenceOrThombstone;
+                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeRememberSet()':
+..\GarbageCollector\GenerationalGC.cpp:74:50: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rememberSet.size(); index++) {
+                                                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::followRememberSet()':
+..\GarbageCollector\GenerationalGC.cpp:92:50: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rememberSet.size(); index++) {
+                                                  ^
+..\GarbageCollector\GenerationalGC.cpp: At global scope:
+..\GarbageCollector\GenerationalGC.cpp:97:17: error: redefinition of 'long unsigned int* Bee::GenerationalGC::framePointerToStartWalkingTheStack()'
+ unsigned long * GenerationalGC::framePointerToStartWalkingTheStack() {
+                 ^
+..\GarbageCollector\GenerationalGC.cpp:22:17: error: 'virtual long unsigned int* Bee::GenerationalGC::framePointerToStartWalkingTheStack()' previously defined here
+ unsigned long * GenerationalGC::framePointerToStartWalkingTheStack() {
+                 ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveClassCheckReferences()':
+..\GarbageCollector\GenerationalGC.cpp:107:58: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < classCheckReferences.size(); index++) {
+                                                          ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveToOldAll(Bee::ReferencedVMArray&)':
+..\GarbageCollector\GenerationalGC.cpp:126:46: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= objects.size(); index++) {
+                                              ^
+16:18:16 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "GarbageCollector\\GenerationalGC.o" "..\\GarbageCollector\\GenerationalGC.cpp" 
+In file included from ..\GarbageCollector\../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\GarbageCollector\GarbageCollector.h:12,
+                 from ..\GarbageCollector\GenerationalGC.h:11,
+                 from ..\GarbageCollector\GenerationalGC.cpp:8:
+..\GarbageCollector\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeLiteralsReference()':
+..\GarbageCollector\GenerationalGC.cpp:42:56: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < literalsReferences.size();
+                                                        ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'virtual void Bee::GenerationalGC::fixReferencesOrSetTombstone(ulong*)':
+..\GarbageCollector\GenerationalGC.cpp:55:18: warning: unused variable 'referenceOrThombstone' [-Wunused-variable]
+  unsigned long * referenceOrThombstone;
+                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeRememberSet()':
+..\GarbageCollector\GenerationalGC.cpp:70:50: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rememberSet.size(); index++) {
+                                                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::followRememberSet()':
+..\GarbageCollector\GenerationalGC.cpp:88:50: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rememberSet.size(); index++) {
+                                                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveClassCheckReferences()':
+..\GarbageCollector\GenerationalGC.cpp:103:58: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < classCheckReferences.size(); index++) {
+                                                          ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveToOldAll(Bee::ReferencedVMArray&)':
+..\GarbageCollector\GenerationalGC.cpp:122:46: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= objects.size(); index++) {
+                                              ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+16:22:14 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "GarbageCollector\\GenerationalGC.o" "..\\GarbageCollector\\GenerationalGC.cpp" 
+In file included from ..\GarbageCollector\../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\GarbageCollector\GarbageCollector.h:12,
+                 from ..\GarbageCollector\GenerationalGC.h:11,
+                 from ..\GarbageCollector\GenerationalGC.cpp:8:
+..\GarbageCollector\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeLiteralsReference()':
+..\GarbageCollector\GenerationalGC.cpp:42:56: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < literalsReferences.size();
+                                                        ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::purgeRememberSet()':
+..\GarbageCollector\GenerationalGC.cpp:69:50: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rememberSet.size(); index++) {
+                                                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::followRememberSet()':
+..\GarbageCollector\GenerationalGC.cpp:87:50: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= rememberSet.size(); index++) {
+                                                  ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveClassCheckReferences()':
+..\GarbageCollector\GenerationalGC.cpp:102:58: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index < classCheckReferences.size(); index++) {
+                                                          ^
+..\GarbageCollector\GenerationalGC.cpp: In member function 'void Bee::GenerationalGC::moveToOldAll(Bee::ReferencedVMArray&)':
+..\GarbageCollector\GenerationalGC.cpp:121:46: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+  for (ulong index = 1; index <= objects.size(); index++) {
+                                              ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCTest.o" "..\\Tests\\GCTest.cpp" 
+In file included from ..\Tests\../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\GCTest.cpp:2:
+..\Tests\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCTest.cpp:7:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+16:24:05 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCTest.o" "..\\Tests\\GCTest.cpp" 
+In file included from ..\Tests\../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\GCTest.cpp:2:
+..\Tests\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCTest.cpp:7:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+16:33:29 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:3:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: At global scope:
+..\Tests\GCSpaceTest.cpp:15:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testAllocate() {
+      ^
+..\Tests\GCSpaceTest.cpp:32:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testExtendedGrowingTo() {
+      ^
+..\Tests\GCSpaceTest.cpp: In function 'void testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:39:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: At global scope:
+..\Tests\GCSpaceTest.cpp:60:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testGCSpace() {
+      ^
+..\Tests\GCSpaceTest.cpp:83:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testGrow() {
+      ^
+..\Tests\GCSpaceTest.cpp:130:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testGrowingTo() {
+      ^
+..\Tests\GCSpaceTest.cpp: In function 'void testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:135:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+..\Tests\GCSpaceTest.cpp: At global scope:
+..\Tests\GCSpaceTest.cpp:150:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testNewGCSpaceShallowCopy() {
+      ^
+..\Tests\GCSpaceTest.cpp:162:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testShallowCopy() {
+      ^
+..\Tests\GCSpaceTest.cpp:171:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testShallowCopyBytes() {
+      ^
+..\Tests\GCSpaceTest.cpp:185:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testShallowCopyBytes2() {
+      ^
+..\Tests\GCSpaceTest.cpp:199:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testShallowCopyBytes3() {
+      ^
+..\Tests\GCSpaceTest.cpp:213:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testShallowCopyBytesExtended() {
+      ^
+..\Tests\GCSpaceTest.cpp:227:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testShallowCopyExtended() {
+      ^
+..\Tests\GCSpaceTest.cpp:241:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::testSynchronousGCSpace() {
+      ^
+..\Tests\GCSpaceTest.cpp:259:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::setUp() {
+      ^
+..\Tests\GCSpaceTest.cpp: In function 'void setUp()':
+..\Tests\GCSpaceTest.cpp:261:2: error: 'flipper' was not declared in this scope
+  flipper = new GenerationalGC();
+  ^
+..\Tests\GCSpaceTest.cpp:261:16: error: expected type-specifier before 'GenerationalGC'
+  flipper = new GenerationalGC();
+                ^
+..\Tests\GCSpaceTest.cpp:261:16: error: expected ';' before 'GenerationalGC'
+..\Tests\GCSpaceTest.cpp: At global scope:
+..\Tests\GCSpaceTest.cpp:269:6: error: 'GCSpaceTest' has not been declared
+ void GCSpaceTest::tearDown() {
+      ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:34:0,
+                 from ..\Tests\GCSpaceTest.cpp:3:
+..\Tests\GCSpaceTest.cpp: In function 'cute::suite make_suite_GCSpaceTest()':
+..\Tests\GCSpaceTest.cpp:277:27: error: 'GCSpaceTest' was not declared in this scope
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testAllocate));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:70:37: note: in definition of macro 'CUTE_SMEMFUN'
+  cute::makeSimpleMemberFunctionTest<TestClass>(\
+                                     ^
+..\Tests\GCSpaceTest.cpp:277:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testAllocate));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:278:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testGCSpace));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:279:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testExtendedGrowingTo));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:280:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testGrow));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:281:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testGrowingTo));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:282:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testNewGCSpaceShallowCopy));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:283:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopy));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:284:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyBytes));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:285:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyBytes2));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:286:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyBytes3));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:287:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyBytesExtended));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:288:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testShallowCopyExtended));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+..\Tests\GCSpaceTest.cpp:289:27: error: 'GCSpaceTest' is not a class or namespace
+  s.push_back(CUTE_SMEMFUN(GCSpaceTest, testSynchronousGCSpace));
+                           ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_testmember.h:71:4: note: in definition of macro 'CUTE_SMEMFUN'
+   &TestClass::MemberFunctionName,\
+    ^
+16:34:02 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCTest.o" "..\\Tests\\GCTest.cpp" 
+In file included from ..\Tests\../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\GCTest.cpp:2:
+..\Tests\../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCTest.cpp:7:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from ..\Tests\GCSpaceTest.cpp:3:0:
+..\Tests\GCSpaceTest.h:40:10: error: ISO C++ forbids declaration of 'GCSpace' with no type [-fpermissive]
+  GCSpace() {
+          ^
+..\Tests\GCSpaceTest.h:42:2: error: declaration of 'int Bee::GCSpaceTest::GCSpace()' [-fpermissive]
+  }
+  ^
+In file included from ..\Tests\GCSpaceTest.cpp:1:0:
+..\Tests\../DataStructures/GCSpace.h:15:7: error: changes meaning of 'GCSpace' from 'class Bee::GCSpace' [-fpermissive]
+ class GCSpace {
+       ^
+In file included from ..\Tests\GCSpaceTest.cpp:3:0:
+..\Tests\GCSpaceTest.h:43:11: error: declaration of '~Bee::GCSpace' as member of 'Bee::GCSpaceTest'
+  ~GCSpace() {
+           ^
+..\Tests\GCSpaceTest.h: In member function 'int Bee::GCSpaceTest::GCSpace()':
+..\Tests\GCSpaceTest.h:42:2: warning: no return statement in function returning non-void [-Wreturn-type]
+  }
+  ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:18:10: error: expected ';' before 'localSpace'
+  GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
+          ^
+..\Tests\GCSpaceTest.cpp:18:57: error: statement cannot resolve address of overloaded function
+  GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
+                                                         ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:38:10: error: expected ';' before 'localSpace'
+  GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
+          ^
+..\Tests\GCSpaceTest.cpp:38:57: error: statement cannot resolve address of overloaded function
+  GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
+                                                         ^
+..\Tests\GCSpaceTest.cpp:40:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGCSpace()':
+..\Tests\GCSpaceTest.cpp:62:10: error: expected ';' before 'space'
+  GCSpace space = GCSpace::currentFrom();
+          ^
+..\Tests\GCSpaceTest.cpp:62:40: error: statement cannot resolve address of overloaded function
+  GCSpace space = GCSpace::currentFrom();
+                                        ^
+..\Tests\GCSpaceTest.cpp:63:2: error: 'space' was not declared in this scope
+  space.load();
+  ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrow()':
+..\Tests\GCSpaceTest.cpp:87:10: error: expected ';' before 'local'
+  GCSpace local = GCSpace();
+          ^
+..\Tests\GCSpaceTest.cpp:87:27: error: statement cannot resolve address of overloaded function
+  GCSpace local = GCSpace();
+                           ^
+..\Tests\GCSpaceTest.cpp:96:2: error: 'local' was not declared in this scope
+  local.setBase(base);
+  ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:133:10: error: expected ';' before 'localSpace'
+  GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
+          ^
+..\Tests\GCSpaceTest.cpp:133:57: error: statement cannot resolve address of overloaded function
+  GCSpace localSpace = GCSpace::dynamicNew(1024 * 4 * 10);
+                                                         ^
+..\Tests\GCSpaceTest.cpp:136:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testNewGCSpaceShallowCopy()':
+..\Tests\GCSpaceTest.cpp:153:10: error: expected ';' before 'space'
+  GCSpace space = GCSpace::dynamicNew(1024 * 4 * 10);
+          ^
+..\Tests\GCSpaceTest.cpp:153:52: error: statement cannot resolve address of overloaded function
+  GCSpace space = GCSpace::dynamicNew(1024 * 4 * 10);
+                                                    ^
+..\Tests\GCSpaceTest.cpp:154:17: error: 'space' was not declared in this scope
+  ulong * copy = space.shallowCopy(array);
+                 ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testShallowCopy()':
+..\Tests\GCSpaceTest.cpp:165:10: error: expected ';' before 'space'
+  GCSpace space = GCSpace::dynamicNew(1024 * 4 * 10);
+          ^
+..\Tests\GCSpaceTest.cpp:165:52: error: statement cannot resolve address of overloaded function
+  GCSpace space = GCSpace::dynamicNew(1024 * 4 * 10);
+                                                    ^
+..\Tests\GCSpaceTest.cpp:166:17: error: 'space' was not declared in this scope
+  ulong * copy = space.shallowCopy(array);
+                 ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::setUp()':
+..\Tests\GCSpaceTest.cpp:264:10: error: expected ';' before 'local'
+  GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+          ^
+..\Tests\GCSpaceTest.cpp:264:58: error: statement cannot resolve address of overloaded function
+  GCSpace local = GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+                                                          ^
+..\Tests\GCSpaceTest.cpp:265:24: error: 'local' was not declared in this scope
+  flipper->localSpace = local;
+                        ^
+16:36:54 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:28:1: error: expected primary-expression before '}' token
+ }
+ ^
+..\Tests\GCSpaceTest.cpp:28:1: error: expected ';' before '}' token
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:34:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:123:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+16:37:06 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:18:10: warning: variable 'address' set but not used [-Wunused-but-set-variable]
+  ulong * address = localSpace.allocate(1024);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:34:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:123:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+Info: Nothing to build for beevmTests
+16:37:24 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Test.o" "..\\src\\Test.cpp" 
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\src\Test.cpp:1:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+Info: Nothing to build for beevmTests
+16:37:44 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:18:10: warning: variable 'address' set but not used [-Wunused-but-set-variable]
+  ulong * address = localSpace.allocate(1024);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:34:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:123:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+Info: Nothing to build for beevmTests
+16:37:55 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:18:10: warning: variable 'address' set but not used [-Wunused-but-set-variable]
+  ulong * address = localSpace.allocate(1024);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:34:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:123:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+Info: Nothing to build for beevmTests
+16:38:07 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:18:10: warning: variable 'address' set but not used [-Wunused-but-set-variable]
+  ulong * address = localSpace.allocate(1024);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:34:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:123:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+Info: Nothing to build for beevmTests
+16:39:11 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:24:0,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:17:35: error: request for member 'getNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ASSERTM("init wrong", localSpace.getNextFree() == localSpace.getBase());
+                                   ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:17:63: error: request for member 'getBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ASSERTM("init wrong", localSpace.getNextFree() == localSpace.getBase());
+                                                               ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:18:31: error: request for member 'allocate' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ulong * address = localSpace.allocate(1024);
+                               ^
+..\Tests\GCSpaceTest.cpp:19:23: error: request for member 'allocate' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  address = localSpace.allocate(1024);
+                       ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:24:0,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+..\Tests\GCSpaceTest.cpp:21:24: error: request for member 'getNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    ((ulong )localSpace.getNextFree())
+                        ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:22:29: error: request for member 'getBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+      == ((ulong )localSpace.getBase() + 1024 + 1024));
+                             ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:23:23: error: request for member 'allocate' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  address = localSpace.allocate(1024 * 38);
+                       ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:24:0,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+..\Tests\GCSpaceTest.cpp:25:24: error: request for member 'getNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    ((ulong )localSpace.getNextFree())
+                        ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:26:29: error: request for member 'getBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+      == ((ulong )localSpace.getBase() + (1024 * 40)));
+                             ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:27:23: error: request for member 'allocate' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  address = localSpace.allocate(1024 * 30);
+                       ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:33:28: error: request for member 'shallowCopyGrowingTo' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ulong * copy = localSpace.shallowCopyGrowingTo( array, 2048);
+                            ^
+..\Tests\GCSpaceTest.cpp:34:30: error: request for member 'shallowCopy' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ulong * object = localSpace.shallowCopy(stTrue);
+                              ^
+..\Tests\GCSpaceTest.cpp:34:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:24:0,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGCSpace()':
+..\Tests\GCSpaceTest.cpp:55:40: error: request for member 'getBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ASSERTM("base < nextfree", localSpace.getBase() < localSpace.getNextFree());
+                                        ^
+..\Tests\GCSpaceTest.cpp:55:2: note: in expansion of macro 'ASSERTM'
+  ASSERTM("base < nextfree", localSpace.getBase() < localSpace.getNextFree());
+  ^
+..\Tests\GCSpaceTest.cpp:55:63: error: request for member 'getNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ASSERTM("base < nextfree", localSpace.getBase() < localSpace.getNextFree());
+                                                               ^
+..\Tests\GCSpaceTest.cpp:55:2: note: in expansion of macro 'ASSERTM'
+  ASSERTM("base < nextfree", localSpace.getBase() < localSpace.getNextFree());
+  ^
+..\Tests\GCSpaceTest.cpp:56:45: error: request for member 'getBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ASSERTM("base < commitedLimit", localSpace.getBase() < localSpace.getCommitedLimit());
+                                             ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:56:68: error: request for member 'getCommitedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ASSERTM("base < commitedLimit", localSpace.getBase() < localSpace.getCommitedLimit());
+                                                                    ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:58:15: error: request for member 'getCommitedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    localSpace.getCommitedLimit() <= localSpace.getReservedLimit());
+               ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:58:48: error: request for member 'getReservedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    localSpace.getCommitedLimit() <= localSpace.getReservedLimit());
+                                                ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:59:45: error: request for member 'getBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ASSERTM("base < commitedLimit", localSpace.getBase() < localSpace.getCommitedLimit());
+                                             ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:59:68: error: request for member 'getCommitedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ASSERTM("base < commitedLimit", localSpace.getBase() < localSpace.getCommitedLimit());
+                                                                    ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:61:15: error: request for member 'getCommitedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    localSpace.getCommitedLimit() < localSpace.getReservedLimit());
+               ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:61:47: error: request for member 'getReservedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    localSpace.getCommitedLimit() < localSpace.getReservedLimit());
+                                               ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:63:16: error: request for member 'getSoftLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    (localSpace.getSoftLimit() <= localSpace.getBase())
+                ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:63:45: error: request for member 'getBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    (localSpace.getSoftLimit() <= localSpace.getBase())
+                                             ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:64:21: error: request for member 'getSoftLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+      && (localSpace.getSoftLimit() >= localSpace.getReservedLimit()));
+                     ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:64:50: error: request for member 'getReservedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+      && (localSpace.getSoftLimit() >= localSpace.getReservedLimit()));
+                                                  ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:66:16: error: request for member 'getNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    (localSpace.getNextFree() <= localSpace.getBase())
+                ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:66:44: error: request for member 'getBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    (localSpace.getNextFree() <= localSpace.getBase())
+                                            ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:67:21: error: request for member 'getNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+      && (localSpace.getNextFree() >= localSpace.getCommitedLimit()));
+                     ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:67:49: error: request for member 'getCommitedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+      && (localSpace.getNextFree() >= localSpace.getCommitedLimit()));
+                                                 ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp:68:35: error: request for member 'getNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ulong * oldNextFree = localSpace.getNextFree();
+                                   ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:24:0,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+..\Tests\GCSpaceTest.cpp:71:30: error: request for member 'getNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+    oldNextFree == localSpace.getNextFree());
+                              ^
+D:\CPPEnv\beevmTests\beevmTests\cute/cute_base.h:55:38: note: in definition of macro 'ASSERTM'
+ #define ASSERTM(msg,cond) do { if (!(cond)) throw cute::test_failure(CUTE_FUNCNAME_PREFIX+cute::cute_to_string::backslashQuoteTabNewline(msg),__FILE__,__LINE__);} while(false)
+                                      ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrow()':
+..\Tests\GCSpaceTest.cpp:85:13: error: request for member 'setBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.setBase(base);
+             ^
+..\Tests\GCSpaceTest.cpp:86:13: error: request for member 'setRegionBase' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.setRegionBase(base);
+             ^
+..\Tests\GCSpaceTest.cpp:87:13: error: request for member 'setReservedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.setReservedLimit(((ulong) base) + _asPointer(reservedSize));
+             ^
+..\Tests\GCSpaceTest.cpp:88:13: error: request for member 'setCommitedLimit' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.setCommitedLimit(base);
+             ^
+..\Tests\GCSpaceTest.cpp:89:13: error: request for member 'setNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.setNextFree((ulong) base + _asPointer(1024 * 4));
+             ^
+..\Tests\GCSpaceTest.cpp:95:13: error: request for member 'grow' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.grow();
+             ^
+..\Tests\GCSpaceTest.cpp:101:13: error: request for member 'setNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.setNextFree((ulong) localSpace.getNextFree() + _asPointer(4 * 100 + 1024));
+             ^
+..\Tests\GCSpaceTest.cpp:101:44: error: request for member 'getNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.setNextFree((ulong) localSpace.getNextFree() + _asPointer(4 * 100 + 1024));
+                                            ^
+..\Tests\GCSpaceTest.cpp:102:13: error: request for member 'shallowCopy' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.shallowCopy(array);
+             ^
+..\Tests\GCSpaceTest.cpp:108:13: error: request for member 'setNextFree' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.setNextFree(base);
+             ^
+..\Tests\GCSpaceTest.cpp:109:13: error: request for member 'decommitSlack' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  localSpace.decommitSlack();
+             ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:121:28: error: request for member 'shallowCopyGrowingTo' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ulong * copy = localSpace.shallowCopyGrowingTo((unsigned long *) array,
+                            ^
+..\Tests\GCSpaceTest.cpp:123:30: error: request for member 'shallowCopy' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ulong * object = localSpace.shallowCopy(stFalse);
+                              ^
+..\Tests\GCSpaceTest.cpp:123:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testNewGCSpaceShallowCopy()':
+..\Tests\GCSpaceTest.cpp:140:28: error: request for member 'shallowCopy' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ulong * copy = localSpace.shallowCopy(array);
+                            ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testShallowCopy()':
+..\Tests\GCSpaceTest.cpp:151:28: error: request for member 'shallowCopy' in '((Bee::GCSpaceTest*)this)->Bee::GCSpaceTest::localSpace', which is of pointer type 'Bee::GCSpace*' (maybe you meant to use '->' ?)
+  ulong * copy = localSpace.shallowCopy(array);
+                            ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::setUp()':
+..\Tests\GCSpaceTest.cpp:249:55: error: taking address of temporary [-fpermissive]
+  localSpace = &GCSpace::dynamicNew(1024 * 1024 * 4 * 6);
+                                                       ^
+16:40:06 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:18:10: warning: variable 'address' set but not used [-Wunused-but-set-variable]
+  ulong * address = localSpace.allocate(1024);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:34:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:123:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+16:40:17 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:18:10: warning: variable 'address' set but not used [-Wunused-but-set-variable]
+  ulong * address = localSpace.allocate(1024);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:34:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:123:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+Info: Nothing to build for beevmTests
+16:40:34 **** Incremental Build of configuration Debug for project beevmTests ****
+Info: Internal Builder is used for build
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "Tests\\GCSpaceTest.o" "..\\Tests\\GCSpaceTest.cpp" 
+In file included from ..\Tests\../DataStructures/../GarbageCollector/../DataStructures/ReferencedVMArray.h:11:0,
+                 from ..\Tests\../DataStructures/../GarbageCollector/GarbageCollector.h:12,
+                 from ..\Tests\../DataStructures/Memory.h:11,
+                 from ..\Tests\GCSpaceTest.cpp:2:
+..\Tests\../DataStructures/../GarbageCollector/../DataStructures/VMArray.h:20:16: warning: non-static data member initializers only available with -std=c++11 or -std=gnu++11 [enabled by default]
+  int maxSize = 10;
+                ^
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\Tests\GCSpaceTest.cpp:4:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testAllocate()':
+..\Tests\GCSpaceTest.cpp:18:10: warning: variable 'address' set but not used [-Wunused-but-set-variable]
+  ulong * address = localSpace.allocate(1024);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testExtendedGrowingTo()':
+..\Tests\GCSpaceTest.cpp:34:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stTrue);
+          ^
+..\Tests\GCSpaceTest.cpp: In member function 'void Bee::GCSpaceTest::testGrowingTo()':
+..\Tests\GCSpaceTest.cpp:123:10: warning: unused variable 'object' [-Wunused-variable]
+  ulong * object = localSpace.shallowCopy(stFalse);
+          ^
+g++ "-ID:\\CPPEnv\\beevmTests\\beevmTests\\cute" "-ID:\\CPPEnv\\beevmTests\\beevmTests\\boost" -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Test.o" "..\\src\\Test.cpp" 
+In file included from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/bind.hpp:29:0,
+                 from D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind.hpp:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_determine_library.h:37,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_test.h:23,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute_suite.h:22,
+                 from D:\CPPEnv\beevmTests\beevmTests\cute/cute.h:29,
+                 from ..\src\Test.cpp:1:
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp: In constructor 'boost::arg<I>::arg(const T&)':
+D:\CPPEnv\beevmTests\beevmTests\boost/boost/bind/arg.hpp:37:22: warning: typedef 'T_must_be_placeholder' locally defined but not used [-Wunused-local-typedefs]
+         typedef char T_must_be_placeholder[ I == is_placeholder<T>::value? 1: -1 ];
+                      ^
+g++ -static-libgcc -static-libstdc++ -o beevmTests.exe "DataStructures\\GCSpace.o" "DataStructures\\GCSpaceInfo.o" "DataStructures\\Memory.o" "DataStructures\\ReferencedVMArray.o" "DataStructures\\VMArray.o" "DataStructures\\VMMemory.o" "GarbageCollector\\GarbageCollector.o" "GarbageCollector\\GenerationalGC.o" "Tests\\GCSpaceTest.o" "Tests\\GCSpaceTestInfo.o" "Tests\\GCTest.o" "Tests\\MemoryTest.o" "Tests\\VMArrayTest.o" "Tests\\VMMemoryTest.o" "src\\Test.o" 
+Info: Nothing to build for beevmTests

@@ -21,6 +21,7 @@ protected:
 	void tearDown();
 
 public:
+
 	GenerationalGC * flipper;
 	void testGCCollect();
 	void testCopyToFlip();

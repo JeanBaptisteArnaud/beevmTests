@@ -19,10 +19,6 @@ GenerationalGC::GenerationalGC() {
 GenerationalGC::~GenerationalGC() {
 }
 
-unsigned long * GenerationalGC::framePointerToStartWalkingTheStack() {
-	return (ulong *) 0;
-}
-
 bool GenerationalGC::hasToPurge(unsigned long *pointer) {
 	cerr << "hasToPurge" << endl;
 	return false;
@@ -56,7 +52,6 @@ void GenerationalGC::purgeLiteralsReference() {
 }
 
 void GenerationalGC::fixReferencesOrSetTombstone(ulong * weakContainer) {
-	unsigned long * referenceOrThombstone;
 	for (ulong index = 0; index < _size(weakContainer); index++) {
 		ulong *instance = (ulong*) weakContainer[index];
 		if (this->arenaIncludes(instance)) {
@@ -94,9 +89,9 @@ void GenerationalGC::followRememberSet() {
 	}
 }
 
-//unsigned long * GenerationalGC::framePointerToStartWalkingTheStack() {
-//	return MEM_globalFramePointerToWalkStack;
-//}
+unsigned long * GenerationalGC::framePointerToStartWalkingTheStack() {
+	return MEM_globalFramePointerToWalkStack;
+}
 
 unsigned long* GenerationalGC::codeCacheAtOffset(unsigned long offset) {
 	return (ulong*) (*MEM_JIT_codeCachePointer + offset);

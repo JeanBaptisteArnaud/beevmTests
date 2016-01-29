@@ -1,0 +1,52 @@
+/*
+ * GCSpaceTest.h
+ *
+ *  Created on: 29 janv. 2016
+ *      Author: jbapt
+ */
+
+#ifndef GCSPACETEST_H_
+#define GCSPACETEST_H_
+
+#include "../GarbageCollector/GenerationalGC.h"
+#include "../DataStructures/GCSpace.h"
+
+
+namespace Bee {
+class GCSpaceTest {
+
+
+protected:
+
+	void setUp();
+	void tearDown();
+
+public:
+	GenerationalGC * flipper;
+	GCSpace localSpace;
+	void allocate() ;
+	void extendedGrowingTo();
+	void gcspace() ;
+	void grow();
+	void growingTo();
+	void newGCSpaceShallowCopy();
+	void shallowCopy();
+	void shallowCopyBytes();
+	void shallowCopyBytes2() ;
+	void shallowCopyBytes3() ;
+	void shallowCopyBytesExtended() ;
+	void shallowCopyExtended() ;
+	void synchronousGCSpace();
+
+	GCSpace() {
+		this->setUp();
+	}
+	;
+	~GCSpace() {
+		this->tearDown();
+	}
+};
+}
+
+
+#endif /* GCSPACETEST_H_ */
